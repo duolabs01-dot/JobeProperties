@@ -1,6 +1,11 @@
 "use client";
 
-import { startTransition, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { startTransition, useMemo, useState } from "react";
+import { revealItemVariants } from "@/components/reveal-section";
+import { MotionButton } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
+import { useInView } from "@/hooks/use-in-view";
 
 type ContactType =
   | "Looking for an apartment"
@@ -27,17 +32,72 @@ const contactOptions: ContactType[] = [
   "Business enquiry",
 ];
 
+type FieldName = "email" | "message" | "name" | "phone";
+type ErrorState = Partial<Record<FieldName, string>>;
+type TouchedState = Record<FieldName, boolean>;
+
+const initialTouched: TouchedState = {
+  email: false,
+  message: false,
+  name: false,
+  phone: false,
+};
+
+function validateField(field: FieldName, value: string) {
+  switch (field) {
+    case "name":
+      return value.trim().length >= 2 ? "" : "Please enter at least 2 characters.";
+    case "phone":
+      return /^0[0-9]{9}$/.test(value.replace(/\s+/g, "")) ? "" : "Use a valid South African number.";
+    case "email":
+      return !value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? "" : "Enter a valid email address.";
+    case "message":
+      return value.trim().length >= 10 ? "" : "Please add at least 10 characters.";
+    default:
+      return "";
+  }
+}
+
 export function ContactForm() {
+  const { toast } = useToast();
+  const { ref, inView } = useInView<HTMLFormElement>();
   const [form, setForm] = useState(initialState);
   const [isPending, setIsPending] = useState(false);
-  const [status, setStatus] = useState<null | { tone: "success" | "error"; message: string }>(null);
+  const [touched, setTouched] = useState<TouchedState>(initialTouched);
+
+  const errors = useMemo<ErrorState>(
+    () => ({
+      email: validateField("email", form.email),
+      message: validateField("message", form.message),
+      name: validateField("name", form.name),
+      phone: validateField("phone", form.phone),
+    }),
+    [form],
+  );
+
+  const hasErrors = Object.values(errors).some(Boolean);
 
   return (
-    <form
+    <motion.form
+      ref={ref}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={{ visible: { transition: { delayChildren: 0.1, staggerChildren: 0.08 } } }}
       className="space-y-6 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_24px_80px_rgba(17,24,15,0.08)] sm:p-8"
       onSubmit={(event) => {
         event.preventDefault();
-        setStatus(null);
+        const nextTouched = {
+          email: true,
+          message: true,
+          name: true,
+          phone: true,
+        };
+        setTouched(nextTouched);
+
+        if (hasErrors) {
+          return;
+        }
+
         setIsPending(true);
 
         startTransition(async () => {
@@ -54,12 +114,18 @@ export function ContactForm() {
               throw new Error("Couldn't send your message. Try again.");
             }
 
-            setStatus({ tone: "success", message: "Thanks. We've got your message and we'll be in touch." });
+            toast({
+              variant: "success",
+              title: "Message sent",
+              description: "We'll be in touch within a few hours.",
+            });
             setForm(initialState);
+            setTouched(initialTouched);
           } catch (error) {
-            setStatus({
-              tone: "error",
-              message: error instanceof Error ? error.message : "Couldn't send your message. Try again.",
+            toast({
+              variant: "error",
+              title: "Something went wrong",
+              description: error instanceof Error ? error.message : "Couldn't send your message. Try again.",
             });
           } finally {
             setIsPending(false);
@@ -67,62 +133,114 @@ export function ContactForm() {
         });
       }}
     >
-      <div className="space-y-3">
+      <motion.div variants={revealItemVariants} className="space-y-3">
         <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Send us a message</p>
         <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
           Tell us what you need.
         </h2>
-      </div>
+      </motion.div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+      <motion.div variants={revealItemVariants} className="grid gap-4 sm:grid-cols-2">
+        <div className="block space-y-2 text-sm text-[color:var(--ink)]">
           <span>Name</span>
           <input
             required
             value={form.name}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
+            onBlur={() => setTouched((current) => ({ ...current, name: true }))}
             className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
             placeholder="Full name"
           />
-        </label>
+          <AnimatePresence initial={false}>
+            {touched.name && errors.name ? (
+              <motion.p
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="text-xs text-red-600"
+              >
+                {errors.name}
+              </motion.p>
+            ) : null}
+          </AnimatePresence>
+        </div>
 
-        <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+        <div className="block space-y-2 text-sm text-[color:var(--ink)]">
           <span>Phone number</span>
           <input
             required
             type="tel"
             value={form.phone}
             onChange={(event) => setForm({ ...form, phone: event.target.value })}
+            onBlur={() => setTouched((current) => ({ ...current, phone: true }))}
             className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
             placeholder="071 234 5678"
           />
-        </label>
-      </div>
+          <AnimatePresence initial={false}>
+            {touched.phone && errors.phone ? (
+              <motion.p
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="text-xs text-red-600"
+              >
+                {errors.phone}
+              </motion.p>
+            ) : null}
+          </AnimatePresence>
+        </div>
+      </motion.div>
 
-      <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+      <motion.div variants={revealItemVariants} className="block space-y-2 text-sm text-[color:var(--ink)]">
         <span>Email</span>
         <input
           type="email"
           value={form.email}
           onChange={(event) => setForm({ ...form, email: event.target.value })}
+          onBlur={() => setTouched((current) => ({ ...current, email: true }))}
           className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
           placeholder="Optional"
         />
-      </label>
+        <AnimatePresence initial={false}>
+          {touched.email && errors.email ? (
+            <motion.p
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              className="text-xs text-red-600"
+            >
+              {errors.email}
+            </motion.p>
+          ) : null}
+        </AnimatePresence>
+      </motion.div>
 
-      <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+      <motion.div variants={revealItemVariants} className="block space-y-2 text-sm text-[color:var(--ink)]">
         <span>Message</span>
         <textarea
           required
           rows={5}
           value={form.message}
           onChange={(event) => setForm({ ...form, message: event.target.value })}
+          onBlur={() => setTouched((current) => ({ ...current, message: true }))}
           className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
           placeholder="Tell us how we can help"
         />
-      </label>
+        <AnimatePresence initial={false}>
+          {touched.message && errors.message ? (
+            <motion.p
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              className="text-xs text-red-600"
+            >
+              {errors.message}
+            </motion.p>
+          ) : null}
+        </AnimatePresence>
+      </motion.div>
 
-      <fieldset className="space-y-3">
+      <motion.fieldset variants={revealItemVariants} className="space-y-3">
         <legend className="text-sm text-[color:var(--ink)]">Which are you?</legend>
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           {contactOptions.map((option) => {
@@ -149,21 +267,17 @@ export function ContactForm() {
             );
           })}
         </div>
-      </fieldset>
+      </motion.fieldset>
 
-      <button
-        type="submit"
-        disabled={isPending}
-        className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {isPending ? "Sending..." : "Send message"}
-      </button>
-
-      {status ? (
-        <p className={`text-sm leading-7 ${status.tone === "success" ? "text-[color:var(--olive)]" : "text-red-600"}`}>
-          {status.message}
-        </p>
-      ) : null}
-    </form>
+      <motion.div variants={revealItemVariants}>
+        <MotionButton
+          type="submit"
+          disabled={isPending}
+          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isPending ? "Sending..." : "Send message"}
+        </MotionButton>
+      </motion.div>
+    </motion.form>
   );
 }

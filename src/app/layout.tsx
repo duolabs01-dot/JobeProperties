@@ -4,6 +4,8 @@ import "./globals.css";
 import { FloatingWhatsAppButton } from "@/components/floating-whatsapp-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { StickyMobileCta } from "@/components/sticky-mobile-cta";
+import { Toaster } from "@/components/ui/toast";
 
 const display = Bodoni_Moda({
   variable: "--font-display",
@@ -34,7 +36,9 @@ export default function RootLayout({
         <SiteHeader />
         <main className="min-h-screen pt-18">{children}</main>
         <SiteFooter />
+        <StickyMobileCta />
         <FloatingWhatsAppButton />
+        <Toaster />
       </body>
     </html>
   );

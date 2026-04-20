@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
 import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
+import { RevealItem, RevealSection } from "@/components/reveal-section";
+import { ButtonLink } from "@/components/ui/button-link";
+import { ShimmerImage } from "@/components/ui/shimmer-image";
 import {
   guesthouseGalleryGroups,
   guesthouseHeroImage,
@@ -35,20 +39,21 @@ export default function GuesthousePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24">
-        <div className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-4 shadow-[0_20px_70px_rgba(17,24,15,0.08)] sm:p-6">
-          <div className="relative mx-auto max-w-xl">
-            <Image
+      <RevealSection className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24" stagger>
+        <RevealItem className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-4 shadow-[0_20px_70px_rgba(17,24,15,0.08)] sm:p-6">
+          <div className="mx-auto max-w-xl">
+            <ShimmerImage
               src={guesthousePricingImage}
               alt="Jobe Towers Guesthouse pricing sheet"
               width={724}
               height={1024}
+              wrapperClassName="rounded-[1.5rem]"
               className="h-auto w-full rounded-[1.5rem]"
             />
           </div>
-        </div>
+        </RevealItem>
 
-        <div className="flex flex-col justify-center space-y-5">
+        <RevealItem className="flex flex-col justify-center space-y-5">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Pricing</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             See the rates, then book straight away.
@@ -57,47 +62,47 @@ export default function GuesthousePage() {
             If the dates work for you, WhatsApp is the fastest way to lock in your stay.
           </p>
           <div>
-            <Link
+            <ButtonLink
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--olive)]"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--olive)]"
             >
               Book Now
-            </Link>
+            </ButtonLink>
           </div>
-        </div>
-      </section>
+        </RevealItem>
+      </RevealSection>
 
-      <section className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-8 lg:px-12 lg:pb-24">
-        <div className="max-w-3xl space-y-4">
+      <RevealSection className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-8 lg:px-12 lg:pb-24" stagger>
+        <RevealItem className="max-w-3xl space-y-4">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Photo gallery</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Rooms, bathrooms, and shared spaces before you arrive.
           </h2>
-        </div>
+        </RevealItem>
 
-        <div className="mt-10">
+        <RevealItem className="mt-10">
           <ImageLightboxGallery groups={guesthouseGalleryGroups} />
-        </div>
-      </section>
+        </RevealItem>
+      </RevealSection>
 
-      <section className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
+      <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-16 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <h2 className="font-display text-4xl leading-none text-white sm:text-5xl">
             Book your stay.
           </h2>
 
-          <Link
+          <ButtonLink
             href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] transition duration-300 hover:bg-white"
+            className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-white"
           >
             WhatsApp to book → {whatsappNumber}
-          </Link>
+          </ButtonLink>
         </div>
-      </section>
+      </RevealSection>
     </div>
   );
 }

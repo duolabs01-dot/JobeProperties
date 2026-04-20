@@ -1,7 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { MotionButton } from "@/components/ui/button";
 import type { GalleryGroup } from "@/lib/property-data";
 
 type ImageLightboxGalleryProps = {
@@ -11,10 +13,30 @@ type ImageLightboxGalleryProps = {
 export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
   const [activeGroupId, setActiveGroupId] = useState(groups[0]?.id ?? "");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState(1);
+  const touchStartX = useRef<number | null>(null);
 
   const activeGroup = groups.find((group) => group.id === activeGroupId) ?? groups[0];
   const items = activeGroup?.items ?? [];
   const activeItem = activeIndex === null ? null : items[activeIndex];
+
+  const goToNext = useCallback(() => {
+    if (items.length <= 1) {
+      return;
+    }
+
+    setDirection(1);
+    setActiveIndex((current) => (current === null ? 0 : (current + 1) % items.length));
+  }, [items.length]);
+
+  const goToPrevious = useCallback(() => {
+    if (items.length <= 1) {
+      return;
+    }
+
+    setDirection(-1);
+    setActiveIndex((current) => (current === null ? 0 : (current - 1 + items.length) % items.length));
+  }, [items.length]);
 
   useEffect(() => {
     if (activeItem === null) return;
@@ -25,17 +47,29 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
       }
 
       if (event.key === "ArrowRight" && items.length > 1) {
-        setActiveIndex((current) => (current === null ? 0 : (current + 1) % items.length));
+        goToNext();
       }
 
       if (event.key === "ArrowLeft" && items.length > 1) {
-        setActiveIndex((current) => (current === null ? 0 : (current - 1 + items.length) % items.length));
+        goToPrevious();
       }
     };
 
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
-  }, [activeItem, items.length]);
+  }, [activeItem, goToNext, goToPrevious, items.length]);
+
+  const imageMotionVariants = {
+    center: { x: 0, opacity: 1 },
+    enter: (customDirection: number) => ({
+      x: customDirection > 0 ? 60 : -60,
+      opacity: 0,
+    }),
+    exit: (customDirection: number) => ({
+      x: customDirection > 0 ? -60 : 60,
+      opacity: 0,
+    }),
+  };
 
   return (
     <div className="space-y-8">
@@ -45,7 +79,7 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
             const isActive = group.id === activeGroup.id;
 
             return (
-              <button
+              <MotionButton
                 key={group.id}
                 type="button"
                 onClick={() => {
@@ -59,7 +93,7 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
                 }`}
               >
                 {group.label}
-              </button>
+              </MotionButton>
             );
           })}
         </div>
@@ -83,57 +117,105 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
         ))}
       </div>
 
-      {activeItem ? (
-        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(17,24,15,0.92)] px-4 py-8">
-          <button
-            type="button"
-            aria-label="Close gallery"
-            onClick={() => setActiveIndex(null)}
-            className="absolute inset-0 cursor-default"
-          />
+      <AnimatePresence>
+        {activeItem ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(17,24,15,0.92)] px-4 py-8"
+          >
+            <button
+              type="button"
+              aria-label="Close gallery"
+              onClick={() => setActiveIndex(null)}
+              className="absolute inset-0 cursor-default"
+            />
 
-          <div className="relative z-10 flex w-full max-w-6xl items-center justify-center gap-3">
-            {items.length > 1 ? (
-              <button
-                type="button"
-                aria-label="Previous image"
-                onClick={() => setActiveIndex((current) => (current === null ? 0 : (current - 1 + items.length) % items.length))}
-                className="hidden rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/18 md:inline-flex"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 flex w-full max-w-6xl items-center justify-center gap-3"
+            >
+              {items.length > 1 ? (
+                <MotionButton
+                  type="button"
+                  aria-label="Previous image"
+                  onClick={goToPrevious}
+                  className="hidden rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/18 md:inline-flex"
+                >
+                  Prev
+                </MotionButton>
+              ) : null}
+
+              <div
+                className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[color:var(--ink)] p-3 shadow-[0_30px_100px_rgba(0,0,0,0.35)] sm:p-5"
+                onTouchStart={(event) => {
+                  touchStartX.current = event.changedTouches[0]?.clientX ?? null;
+                }}
+                onTouchEnd={(event) => {
+                  const startX = touchStartX.current;
+                  const endX = event.changedTouches[0]?.clientX;
+
+                  if (startX === null || typeof endX !== "number") {
+                    return;
+                  }
+
+                  const deltaX = endX - startX;
+
+                  if (deltaX < -50) {
+                    goToNext();
+                  }
+
+                  if (deltaX > 50) {
+                    goToPrevious();
+                  }
+
+                  touchStartX.current = null;
+                }}
               >
-                Prev
-              </button>
-            ) : null}
+                <MotionButton
+                  type="button"
+                  onClick={() => setActiveIndex(null)}
+                  className="absolute right-4 top-4 z-10 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm hover:bg-white/18"
+                >
+                  Close
+                </MotionButton>
 
-            <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/10 bg-[color:var(--ink)] p-3 shadow-[0_30px_100px_rgba(0,0,0,0.35)] sm:p-5">
-              <button
-                type="button"
-                onClick={() => setActiveIndex(null)}
-                className="absolute right-4 top-4 z-10 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm transition hover:bg-white/18"
-              >
-                Close
-              </button>
+                <AnimatePresence custom={direction} initial={false} mode="wait">
+                  <motion.img
+                    key={activeItem.src}
+                    custom={direction}
+                    variants={imageMotionVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    src={activeItem.src}
+                    alt={activeItem.alt}
+                    className="max-h-[82vh] w-full rounded-[1.4rem] object-contain"
+                  />
+                </AnimatePresence>
+                <p className="mt-4 px-2 text-sm leading-7 text-white/76">{activeItem.alt}</p>
+              </div>
 
-              <img
-                src={activeItem.src}
-                alt={activeItem.alt}
-                className="max-h-[82vh] w-full rounded-[1.4rem] object-contain"
-              />
-              <p className="mt-4 px-2 text-sm leading-7 text-white/76">{activeItem.alt}</p>
-            </div>
-
-            {items.length > 1 ? (
-              <button
-                type="button"
-                aria-label="Next image"
-                onClick={() => setActiveIndex((current) => (current === null ? 0 : (current + 1) % items.length))}
-                className="hidden rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/18 md:inline-flex"
-              >
-                Next
-              </button>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+              {items.length > 1 ? (
+                <MotionButton
+                  type="button"
+                  aria-label="Next image"
+                  onClick={goToNext}
+                  className="hidden rounded-full border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/18 md:inline-flex"
+                >
+                  Next
+                </MotionButton>
+              ) : null}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

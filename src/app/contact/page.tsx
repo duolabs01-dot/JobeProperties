@@ -1,12 +1,15 @@
-import Link from "next/link";
+"use client";
+
 import { ContactForm } from "@/components/contact-form";
+import { RevealItem, RevealSection } from "@/components/reveal-section";
+import { ButtonLink } from "@/components/ui/button-link";
 import { whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
 export default function ContactPage() {
   return (
     <div className="bg-white">
-      <section className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24">
-        <div className="max-w-3xl space-y-5">
+      <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
+        <RevealItem className="max-w-3xl space-y-5">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Contact</p>
           <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl">
             Get in touch.
@@ -15,23 +18,23 @@ export default function ContactPage() {
             WhatsApp is the fastest way to reach us. We typically respond within a few hours.
           </p>
           <div>
-            <Link
+            <ButtonLink
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--olive)]"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--olive)]"
             >
               WhatsApp {whatsappNumber}
-            </Link>
+            </ButtonLink>
           </div>
-        </div>
+        </RevealItem>
 
-        <div className="mt-10">
+        <RevealItem className="mt-10">
           <ContactForm />
-        </div>
-      </section>
+        </RevealItem>
+      </RevealSection>
 
-      <section className="border-y border-[color:var(--line)] bg-[color:var(--paper)]">
+      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--paper)]">
         <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
           <div className="overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_24px_70px_rgba(17,24,15,0.08)]">
             <iframe
@@ -44,9 +47,9 @@ export default function ContactPage() {
             />
           </div>
         </div>
-      </section>
+      </RevealSection>
 
-      <section className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
+      <RevealSection className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
         <div className="max-w-xl rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-6">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Address</p>
           <p className="mt-4 text-lg leading-8 text-[color:var(--ink)]">
@@ -54,7 +57,7 @@ export default function ContactPage() {
           </p>
           <p className="mt-2 text-base text-[color:var(--muted)]">WhatsApp: {whatsappNumber}</p>
         </div>
-      </section>
+      </RevealSection>
     </div>
   );
 }

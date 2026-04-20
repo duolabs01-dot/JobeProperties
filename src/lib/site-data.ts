@@ -71,6 +71,15 @@ export const gallery = [
   },
 ];
 
+export const socialProofPhrases = [
+  "6 phases across Far East Bank",
+  "Founded 2016 by Dr Nhlanhla Sithole",
+  "3km from Marlboro Gautrain",
+  "No lease agreement required",
+  "Students welcome",
+  "24/7 biometric security",
+];
+
 export const ownerSignals = [
   {
     title: "Clear communication",

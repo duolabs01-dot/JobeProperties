@@ -158,6 +158,27 @@ html:active-view-transition-type(nav-back) {
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.4);
+  }
+}
+
 .home-hero-headline {
   opacity: 0;
   animation: 0.6s ease-out 0s forwards hero-rise-fade;
@@ -170,4 +191,8 @@ html:active-view-transition-type(nav-back) {
 
 .home-whatsapp-pulse {
   animation: 2s ease-in-out infinite whatsapp-pulse;
+}
+
+.home-signal-pulse {
+  animation: 2s ease-in-out infinite signal-pulse;
 }

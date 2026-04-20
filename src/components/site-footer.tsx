@@ -1,15 +1,21 @@
 import Link from "next/link";
-import { whatsappNumber } from "@/lib/property-data";
+import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
-      <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[1.2fr_0.9fr_0.6fr] lg:px-12">
+      <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[1.2fr_0.75fr_0.75fr_0.7fr] lg:px-12">
         <div className="space-y-3">
           <p className="font-display text-2xl tracking-[0.18em] text-[color:var(--sand)]">JOBE</p>
-          <p className="max-w-xl text-sm leading-7 text-white/66">
-            1191 S Africa Loop, Far East Bank, Alexandra, 2014 · WhatsApp {whatsappNumber} · Studio apartments in Alexandra. 9km from Sandton. R4,200/month.
-          </p>
+          <p className="max-w-xl text-sm leading-7 text-white/66">Studio apartments in Alexandra. 9km from Sandton.</p>
+          <Link
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex text-sm text-white/76 transition-colors duration-300 hover:text-white"
+          >
+            WhatsApp {whatsappNumber}
+          </Link>
         </div>
         <div className="flex flex-col gap-2 text-sm text-white/70">
           <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">Explore</p>
@@ -25,17 +31,20 @@ export function SiteFooter() {
           <Link href="/faq" transitionTypes={["nav-forward"]}>
             FAQ
           </Link>
-          <Link href="/contact" transitionTypes={["nav-forward"]}>
-            Contact
-          </Link>
-          <Link href="/#availability">
-            See availability
-          </Link>
+        </div>
+        <div className="flex flex-col gap-2 text-sm text-white/70">
+          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">Tenants</p>
           <Link href="/portal" transitionTypes={["nav-forward"]}>
             Tenant portal
           </Link>
-          <Link href="/advertise" transitionTypes={["nav-forward"]}>
-            Advertise with us
+          <Link href="/#availability">
+            See Availability
+          </Link>
+          <Link href="/#availability">
+            Waiting List
+          </Link>
+          <Link href="/contact" transitionTypes={["nav-forward"]}>
+            Contact
           </Link>
         </div>
         <div className="flex flex-col gap-2 text-xs text-white/56">
@@ -43,7 +52,18 @@ export function SiteFooter() {
           <Link href="/admin" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
             Owner dashboard
           </Link>
+          <Link href="/advertise" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
+            Advertise with us
+          </Link>
+          <Link href={foundationUrl} target="_blank" rel="noreferrer" className="text-sm text-white/70">
+            Dr Sithole Foundation
+          </Link>
         </div>
+
+      </div>
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 border-t border-white/7 px-5 py-6 text-[11px] text-white/30 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+        <p>© 2026 Jobe Propco</p>
+        <p>Built to make dignified housing accessible in Alexandra.</p>
       </div>
     </footer>
   );
