@@ -1,85 +1,209 @@
-import { ViewTransition } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { EnquiryForm } from "@/components/enquiry-form";
+import { redirect } from "next/navigation";
+import { LogoutButton } from "@/components/portal/logout-button";
+import { MaintenanceRequestsPanel } from "@/components/portal/maintenance-requests-panel";
+import { PayNowButton } from "@/components/portal/pay-now-button";
+import { PaymentHistoryTable } from "@/components/portal/payment-history-table";
+import { PortalStatusBadge } from "@/components/portal/portal-status-badge";
+import { Badge } from "@/components/ui/badge";
+import {
+  createServerClient,
+  type LeaseRow,
+  type MaintenanceRequestRow,
+  type PaymentRow,
+  type TenantRow,
+  type UnitRow,
+} from "@/lib/supabase";
 
-export default function PortalPage() {
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("en-ZA", {
+    style: "currency",
+    currency: "ZAR",
+    maximumFractionDigits: 2,
+  }).format(amount);
+}
+
+function formatDate(value: string | null) {
+  if (!value) {
+    return "Month to month";
+  }
+
+  return new Intl.DateTimeFormat("en-ZA", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(value));
+}
+
+function formatUnitType(value: string) {
+  return value.replace(/-/g, " ");
+}
+
+type PortalPageProps = {
+  searchParams: Promise<{
+    paid?: string;
+  }>;
+};
+
+export default async function PortalPage({ searchParams }: PortalPageProps) {
+  const params = await searchParams;
+  const supabase = await createServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/portal/login");
+  }
+
+  const { data: tenantData } = await supabase
+    .from("tenants")
+    .select("*")
+    .eq("auth_user_id", user.id)
+    .maybeSingle();
+  const tenant = tenantData as TenantRow | null;
+
+  if (!tenant) {
+    return (
+      <div className="bg-[color:var(--paper)]">
+        <section className="mx-auto min-h-screen w-full max-w-4xl px-5 pb-20 pt-28 sm:px-8 lg:px-12">
+          <div className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-8 shadow-[0_24px_80px_rgba(17,24,15,0.08)]">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Setup required</p>
+            <h1 className="mt-4 font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
+              Your account is being set up.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-[color:var(--muted)]">
+              Your account is being set up. WhatsApp us on 072 229 3229 with your name and unit number to link your account.
+            </p>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  const [{ data: unitData }, { data: leaseData }, { data: paymentsData }, { data: maintenanceData }] = await Promise.all([
+    tenant.unit_id ? supabase.from("units").select("*").eq("id", tenant.unit_id).maybeSingle() : Promise.resolve({ data: null }),
+    supabase
+      .from("leases")
+      .select("*")
+      .eq("tenant_id", tenant.id)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    supabase
+      .from("payments")
+      .select("*")
+      .eq("tenant_id", tenant.id)
+      .order("due_date", { ascending: false })
+      .limit(12),
+    supabase
+      .from("maintenance_requests")
+      .select("*")
+      .eq("tenant_id", tenant.id)
+      .order("created_at", { ascending: false })
+      .limit(5),
+  ]);
+  const unit = unitData as UnitRow | null;
+  const lease = leaseData as LeaseRow | null;
+  const payments = (paymentsData ?? []) as PaymentRow[];
+  const maintenanceRequests = (maintenanceData ?? []) as MaintenanceRequestRow[];
+
+  const paymentList = payments;
+  const nextPayment =
+    paymentList
+      .filter((payment) => payment.status === "pending" || payment.status === "overdue")
+      .sort((left, right) => new Date(left.due_date).getTime() - new Date(right.due_date).getTime())[0] ??
+    paymentList[0] ??
+    null;
+
   return (
-    <div className="bg-white">
-      <section className="relative isolate overflow-hidden bg-[color:var(--ink)] text-white">
-        <ViewTransition name="hero-image" share="morph">
-          <Image
-            src="https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-1-scaled-e1748731339120-1024x638.jpg"
-            alt="Jobe Propco apartment interior"
-            fill
-            priority
-            className="object-cover opacity-35"
-          />
-        </ViewTransition>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,24,15,0.94)_0%,rgba(17,24,15,0.85)_55%,rgba(17,24,15,0.55)_100%)]" />
-        <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-16 pt-32 sm:px-8 lg:px-12 lg:pb-20">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Tenant portal</p>
-          <h1 className="max-w-4xl font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
-            Everything you need to sort, sorted from your phone.
-          </h1>
-          <p className="max-w-2xl text-base leading-8 text-white/72">
-            Pay rent, report a repair, and find your lease without leaving voice notes or making a trip to the bank.
-          </p>
-          <Link
-            href="/"
-            transitionTypes={["nav-back"]}
-            className="inline-flex w-fit items-center justify-center rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:border-white hover:bg-white/10"
-          >
-            Back home
-          </Link>
-        </div>
-      </section>
-
-      <section className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_0.9fr] lg:px-12 lg:py-24">
-        <div className="space-y-8">
-          <div className="space-y-3 border-b border-[color:var(--line)] pb-6">
-            <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Your unit</p>
-            <h2 className="text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Studio B08 · Phase 5</h2>
-            <p className="text-sm leading-7 text-[color:var(--muted)]">
-              Rent due 1 May · Move-in done · Next inspection window opens 20 May.
-            </p>
-          </div>
-          <div className="space-y-3 border-b border-[color:var(--line)] pb-6">
-            <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Documents</p>
-            <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Your lease, welcome pack, and receipts stay in one place.</h3>
-            <p className="text-sm leading-7 text-[color:var(--muted)]">
-              Need a copy quickly? Open it here instead of asking around.
-            </p>
-          </div>
-          <div className="space-y-3 border-b border-[color:var(--line)] pb-6">
-            <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Move dates</p>
-            <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Move-in, move-out, and handover details when you need them.</h3>
-            <p className="text-sm leading-7 text-[color:var(--muted)]">
-              Useful when plans shift and you want the dates in black and white.
-            </p>
-          </div>
+    <div className="bg-[color:var(--paper)]">
+      <section className="mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 lg:px-12">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Rent</p>
-            <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Pay from your phone and keep every receipt together.</h3>
-            <p className="text-sm leading-7 text-[color:var(--muted)]">
-              No trip to the bank. No scrambling for proof later.
-            </p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Tenant portal</p>
+            <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
+              Hi {tenant.full_name}
+            </h1>
           </div>
+
+          <LogoutButton />
         </div>
 
-        <EnquiryForm
-          endpoint="/api/maintenance"
-          eyebrow="Maintenance"
-          title="Tell us what's wrong, any time."
-          description="Log the issue clearly, add your unit, and we can pick it up faster. No awkward late-night phone call needed."
-          submitLabel="Send request"
-          fields={[
-            { name: "name", label: "Your name", placeholder: "Full name" },
-            { name: "unit", label: "Unit number", placeholder: "e.g. Studio B08" },
-            { name: "phone", label: "Phone number", placeholder: "071 234 5678", type: "tel" },
-            { name: "issue", label: "What needs fixing?", placeholder: "Tap, light, door, leak... tell us what happened" },
-          ]}
-        />
+        {params.paid === "true" ? (
+          <div className="mt-6 rounded-[1.5rem] border border-[color:var(--olive)]/20 bg-[color:#eaf2e7] px-5 py-4 text-sm text-[color:var(--olive)]">
+            Payment received by PayFast. Your portal will reflect it as soon as the confirmation comes through.
+          </div>
+        ) : null}
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Unit</p>
+            <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
+              {unit?.unit_number ?? "Not linked"}
+            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              {unit?.phase ? <Badge variant="phase">{unit.phase}</Badge> : null}
+              {unit?.unit_type ? <Badge variant="unit">{formatUnitType(unit.unit_type)}</Badge> : null}
+            </div>
+          </article>
+
+          <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Next payment</p>
+            {nextPayment ? (
+              <>
+                <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
+                  {formatDate(nextPayment.due_date)}
+                </p>
+                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)]">
+                  {formatCurrency(Number(nextPayment.amount))}
+                </p>
+                <div className="mt-4">
+                  <PortalStatusBadge kind="payment" value={nextPayment.status} />
+                </div>
+              </>
+            ) : (
+              <p className="mt-4 text-sm leading-7 text-[color:var(--muted)]">No payment record yet.</p>
+            )}
+          </article>
+
+          <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Lease</p>
+            <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
+              {lease ? `${formatDate(lease.start_date)} to ${lease.end_date ? formatDate(lease.end_date) : "Month to month"}` : "Month to month"}
+            </p>
+            {lease?.signed_document_url ? (
+              <a
+                href={lease.signed_document_url}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-flex text-sm text-[color:var(--olive)] underline-offset-4 hover:underline"
+              >
+                Open signed lease
+              </a>
+            ) : null}
+          </article>
+        </div>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-[0.6fr_0.4fr]">
+          <div className="space-y-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Payments</p>
+                <h2 className="text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Payment history</h2>
+              </div>
+
+              {nextPayment && (nextPayment.status === "pending" || nextPayment.status === "overdue") ? <PayNowButton /> : null}
+            </div>
+
+            <PaymentHistoryTable payments={paymentList} />
+          </div>
+
+          <MaintenanceRequestsPanel
+            requests={maintenanceRequests ?? []}
+            tenantId={tenant.id}
+            unitId={tenant.unit_id}
+          />
+        </div>
       </section>
     </div>
   );
