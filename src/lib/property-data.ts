@@ -355,7 +355,7 @@ export const moveInFaqs: FaqItem[] = [
   {
     question: "What do I need to move in?",
     answer:
-      "WhatsApp us to confirm availability and we will walk you through the rest. See the payment options image below for the deposit and rental arrangement.",
+      "WhatsApp us to confirm availability and we will walk you through the rest. See the payment options below for the deposit and rental arrangement.",
   },
   {
     question: "How do I pay my rent?",

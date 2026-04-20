@@ -1,13 +1,60 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { navItems } from "@/lib/site-data";
+
+const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? null;
+
+function TextLogo() {
+  return (
+    <>
+      <span className="font-display text-xl tracking-[0.18em] text-[color:var(--sand)] sm:text-2xl">
+        JOBE
+      </span>
+      <span className="text-[10px] uppercase tracking-[0.36em] text-white/56 sm:text-xs">
+        Propco
+      </span>
+    </>
+  );
+}
+
+function LogoMark() {
+  const logoCandidates = useMemo(
+    () => [LOGO_URL, "/logo.svg", "/logo.png"].filter((value): value is string => Boolean(value)),
+    [],
+  );
+  const [logoIndex, setLogoIndex] = useState(0);
+  const currentLogo = logoCandidates[logoIndex] ?? null;
+
+  if (!currentLogo) {
+    return <TextLogo />;
+  }
+
+  return (
+    <Image
+      src={currentLogo}
+      alt="Jobe Propco"
+      width={120}
+      height={40}
+      className="h-9 w-auto object-contain"
+      priority
+      onError={() => {
+        if (logoIndex < logoCandidates.length - 1) {
+          setLogoIndex((current) => current + 1);
+        } else {
+          setLogoIndex(logoCandidates.length);
+        }
+      }}
+    />
+  );
+}
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -23,13 +70,8 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[color:var(--surface-veil)] backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-        <Link href="/" className="group flex items-baseline gap-3" transitionTypes={["nav-back"]}>
-          <span className="font-display text-xl tracking-[0.18em] text-[color:var(--sand)] sm:text-2xl">
-            JOBE
-          </span>
-          <span className="text-[10px] uppercase tracking-[0.36em] text-white/56 sm:text-xs">
-            Propco
-          </span>
+        <Link href="/" className="group flex items-center gap-3" transitionTypes={["nav-back"]}>
+          <LogoMark />
         </Link>
 
         <nav className="hidden items-center gap-4 text-[11px] uppercase tracking-[0.24em] text-white/62 xl:gap-6 xl:text-xs xl:tracking-[0.28em] lg:flex">
@@ -76,15 +118,10 @@ export function SiteHeader() {
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
-                className="group flex items-baseline gap-3"
+                className="group flex items-center gap-3"
                 transitionTypes={["nav-back"]}
               >
-                <span className="font-display text-xl tracking-[0.18em] text-[color:var(--sand)] sm:text-2xl">
-                  JOBE
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.36em] text-white/56 sm:text-xs">
-                  Propco
-                </span>
+                <LogoMark />
               </Link>
 
               <MotionButton
