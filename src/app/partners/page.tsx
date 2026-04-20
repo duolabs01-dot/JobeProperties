@@ -54,20 +54,20 @@ const opportunityCards = [
 export default function PartnersPage() {
   return (
     <div className="bg-[color:var(--paper)]">
-      <section className="bg-[color:var(--ink)] text-white">
+      <section className="bg-[color:var(--paper)] text-[color:var(--ink)]">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">For businesses</p>
-            <h1 className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">For businesses</p>
+            <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
               The Alexandra community, available to your brand.
             </h1>
-            <p className="max-w-3xl text-base leading-8 text-white/72 sm:text-lg">
+            <p className="max-w-3xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
               Jobe Propco and Jobe Lifestyle Corner give your business direct access to hundreds of residents, tenants, and daily visitors across Far East Bank.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
               <ButtonLink
                 href="/contact?type=business"
-                className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-white"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
               >
                 Send a partnership enquiry
               </ButtonLink>
@@ -75,7 +75,7 @@ export default function PartnersPage() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-white"
               >
                 WhatsApp us directly
               </ButtonLink>

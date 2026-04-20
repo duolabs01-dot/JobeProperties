@@ -11,6 +11,14 @@
   --line: rgba(17, 24, 15, 0.12);
   --line-strong: rgba(17, 24, 15, 0.2);
   --surface-veil: rgba(17, 24, 15, 0.5);
+  --nav-bg: rgba(250, 248, 243, 0.92);
+  --nav-border: rgba(17, 24, 15, 0.08);
+  --nav-text: rgba(17, 24, 15, 0.72);
+  --nav-text-hover: #11180f;
+  --nav-cta-border: rgba(64, 82, 56, 0.5);
+  --nav-cta-text: #405238;
+  --nav-cta-hover-bg: #405238;
+  --section-alt: #ffffff;
 }
 
 @theme inline {

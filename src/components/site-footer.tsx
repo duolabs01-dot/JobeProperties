@@ -7,7 +7,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
       <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
-        <div className="mb-6 flex flex-col gap-4 border-b border-white/7 pb-6 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mb-6 flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-center lg:justify-between">
           <p className="text-[11px] uppercase tracking-[0.32em] text-white/30">Part of the Jobe Enterprise group</p>
           <div className="flex flex-wrap items-center gap-2">
             <Link
@@ -93,7 +93,7 @@ export function SiteFooter() {
         </div>
         </div>
       </div>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 border-t border-white/7 px-5 py-6 text-[11px] text-white/30 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 border-t border-white/10 px-5 py-6 text-[11px] text-white/40 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
         <p>© 2026 Jobe Propco</p>
         <p>Built to make dignified housing accessible in Alexandra.</p>
       </div>

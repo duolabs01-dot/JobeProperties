@@ -73,7 +73,7 @@ export default function Home() {
             />
           </motion.div>
         </ViewTransition>
-        <div className="absolute inset-0 bg-[rgba(0,0,0,0.45)]" />
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.32)]" />
 
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-24 pt-40 sm:px-8 lg:px-12">
           <div className="max-w-3xl space-y-7">
@@ -205,20 +205,20 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="bg-[color:var(--ink)] text-white" stagger>
+      <RevealSection className="bg-[color:var(--section-alt)] text-[color:var(--ink)]" stagger>
         <div className="mx-auto w-full max-w-7xl px-5 py-12 text-center sm:px-8 lg:px-12">
           <RevealItem className="space-y-3">
             <p className="font-display text-6xl leading-none text-[color:var(--sand)] sm:text-7xl">
               <AnimatedCounter from={270} to={300} suffix="+" />
             </p>
-            <p className="text-sm text-white/60 sm:text-base">residents across Far East Bank</p>
+            <p className="text-sm text-[color:var(--muted)] sm:text-base">residents across Far East Bank</p>
           </RevealItem>
 
-          <RevealItem className="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.28em] text-white/54 sm:gap-5">
+          <RevealItem className="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.28em] text-[color:var(--muted)] sm:gap-5">
             <span>6 phases</span>
-            <span className="h-1 w-1 rounded-full bg-white/20" />
+            <span className="h-1 w-1 rounded-full bg-[color:var(--line-strong)]" />
             <span>Est. 2016</span>
-            <span className="h-1 w-1 rounded-full bg-white/20" />
+            <span className="h-1 w-1 rounded-full bg-[color:var(--line-strong)]" />
             <span>9km to Sandton</span>
           </RevealItem>
         </div>
@@ -257,20 +257,20 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="bg-[color:var(--ink)] text-white" stagger>
+      <RevealSection className="bg-[color:var(--paper)] text-[color:var(--ink)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-28">
           <RevealItem className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Professionally managed</p>
-            <h2 className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Professionally managed</p>
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
               Professionally managed. Every unit, every month.
             </h2>
-            <p className="max-w-xl text-base leading-8 text-white/70">
+            <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
               Rent is tracked, maintenance is followed up, and empty units do not sit for long.
             </p>
             <ButtonLink
               href="/admin"
               transitionTypes={["nav-forward"]}
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-white"
+              className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
             >
               See how it&apos;s managed
             </ButtonLink>
@@ -278,12 +278,16 @@ export default function Home() {
 
           <div className="grid gap-8 sm:grid-cols-3">
             {adminMetrics.map((metric) => (
-              <motion.div key={metric.label} variants={revealItemVariants} className="space-y-3 border-t border-white/16 pt-5">
-                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">{metric.label}</p>
-                <p className="font-display text-5xl leading-none text-white">
+              <motion.div
+                key={metric.label}
+                variants={revealItemVariants}
+                className="space-y-3 border-t border-[color:var(--line-strong)] pt-5"
+              >
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{metric.label}</p>
+                <p className="font-display text-5xl leading-none text-[color:var(--ink)]">
                   <AnimatedStatValue value={metric.value} />
                 </p>
-                <p className="text-sm leading-7 text-white/66">{metric.detail}</p>
+                <p className="text-sm leading-7 text-[color:var(--muted)]">{metric.detail}</p>
               </motion.div>
             ))}
           </div>

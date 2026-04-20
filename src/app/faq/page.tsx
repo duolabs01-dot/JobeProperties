@@ -70,14 +70,14 @@ export default function FaqPage() {
 
   return (
     <div className="bg-[color:var(--paper)]">
-      <section className="bg-[color:var(--ink)] text-white">
+      <section className="bg-[color:var(--paper)] text-[color:var(--ink)]">
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">FAQ</p>
-            <h1 className="font-display text-5xl leading-none text-white sm:text-6xl lg:text-7xl">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">FAQ</p>
+            <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl lg:text-7xl">
               Everything you need to know before you move in.
             </h1>
-            <p className="max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
+            <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
               Simple answers to the questions we hear most.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
