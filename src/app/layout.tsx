@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description:
     "Studio apartments in Alexandra. 9km from Sandton. From R4,300/month. No lease required. 24/7 security.",
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/favicon.png", type: "image/png" }],
   },
   openGraph: {
     title: "Jobe Propco | Studio apartments near Sandton",

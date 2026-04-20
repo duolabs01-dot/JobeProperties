@@ -27,7 +27,7 @@ function TextLogo() {
 
 function LogoMark() {
   const logoCandidates = useMemo(
-    () => [LOGO_URL, "/logo.svg", "/logo.png"].filter((value): value is string => Boolean(value)),
+    () => [LOGO_URL, "/logo.png"].filter((value): value is string => Boolean(value)),
     [],
   );
   const [logoIndex, setLogoIndex] = useState(0);
