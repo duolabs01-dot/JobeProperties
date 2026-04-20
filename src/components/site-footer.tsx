@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data";
 

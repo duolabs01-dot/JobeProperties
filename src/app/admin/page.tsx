@@ -36,11 +36,11 @@ export default function AdminPage() {
             Quicker answers, clearer records, and less back-and-forth make the whole place feel easier to live in.
           </p>
           <Link
-            href="/advertise"
+            href="/partners"
             transitionTypes={["nav-forward"]}
             className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--ink)] hover:text-white"
           >
-            Advertise with us
+            For businesses
           </Link>
         </div>
 

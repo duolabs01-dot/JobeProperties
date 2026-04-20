@@ -7,7 +7,7 @@ import { whatsappUrl } from "@/lib/property-data";
 export function FloatingWhatsAppButton() {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/portal") || pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/portal") || pathname.startsWith("/admin") || pathname === "/studio") {
     return null;
   }
 

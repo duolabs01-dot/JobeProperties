@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "jobepropco.co.za",
       },
+      {
+        protocol: "https",
+        hostname: "jobelifestyle.co.za",
+      },
     ],
   },
 };

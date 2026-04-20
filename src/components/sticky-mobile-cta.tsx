@@ -34,7 +34,7 @@ export function StickyMobileCta() {
     };
   }, []);
 
-  if (pathname.startsWith("/portal") || pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/portal") || pathname.startsWith("/admin") || pathname === "/studio") {
     return null;
   }
 
