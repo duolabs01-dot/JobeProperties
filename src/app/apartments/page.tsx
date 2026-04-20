@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
+import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import { useInView } from "@/hooks/use-in-view";
@@ -136,9 +137,9 @@ export default function ApartmentsPage() {
                     className="object-cover"
                   />
                 </motion.div>
-                <span className="absolute left-4 top-4 inline-flex rounded-full bg-[color:var(--sand)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)]">
+                <Badge variant="unit" className="absolute left-4 top-4">
                   {unitType.name}
-                </span>
+                </Badge>
               </div>
 
               <div className="space-y-4 bg-white p-6">
@@ -223,9 +224,9 @@ export default function ApartmentsPage() {
               </motion.div>
               <div className="space-y-4 p-6">
                 <div className="space-y-3">
-                  <span className="inline-flex rounded-full bg-[color:var(--sand)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)]">
+                  <Badge variant="phase">
                     {phase.badge}
-                  </span>
+                  </Badge>
                   <div>
                     <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
                       {phase.name}

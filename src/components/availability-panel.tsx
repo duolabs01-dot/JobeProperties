@@ -1,13 +1,25 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { startTransition, useDeferredValue, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useDeferredValue, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { MotionButton } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/toast";
 import { phases, units } from "@/lib/site-data";
 
-const initialState = {
+const waitingListSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  phone: z.string().regex(/^0[0-9]{9}$/, "Enter a valid SA number (e.g. 071 234 5678)"),
+  preferredPhase: z.string(),
+});
+
+type WaitingListValues = z.infer<typeof waitingListSchema>;
+
+const initialState: WaitingListValues = {
   name: "",
   phone: "",
   preferredPhase: "Any phase",
@@ -27,8 +39,6 @@ export function AvailabilityPanel() {
   const deferredPhase = useDeferredValue(preferredPhase);
   const [preferredUnitType, setPreferredUnitType] = useState<(typeof unitTypeOptions)[number]>("Any type");
   const deferredUnitType = useDeferredValue(preferredUnitType);
-  const [form, setForm] = useState(initialState);
-  const [isPending, setIsPending] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const waitingListRef = useRef<HTMLFormElement>(null);
   const isMounted = useSyncExternalStore(
@@ -36,6 +46,18 @@ export function AvailabilityPanel() {
     () => true,
     () => false,
   );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting, submitCount, touchedFields },
+  } = useForm<WaitingListValues>({
+    resolver: zodResolver(waitingListSchema),
+    defaultValues: initialState,
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
 
   const filteredUnits = units.filter((unit) => {
     const matchesPhase = deferredPhase === "Any phase" || unit.phase === deferredPhase;
@@ -136,21 +158,21 @@ export function AvailabilityPanel() {
               <motion.div key="units" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
                 {filteredUnits.map((unit) => (
                   <article key={unit.id} className="grid gap-3 border-b border-[color:var(--line)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
-                    <div className="space-y-2">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{unit.phase}</p>
-                        <span className="rounded-full bg-[color:var(--sand)] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-[color:var(--ink)]">
-                          {unitTypeLabels[unit.unitType]} studio
-                        </span>
+                    <div className="space-y-3">
+                      <div className="space-y-2">
+                        <Badge variant="phase">{unit.phase}</Badge>
+                        <Badge variant="unit">{unitTypeLabels[unit.unitType]} studio</Badge>
                       </div>
                       <div>
                         <h4 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{unit.name}</h4>
                         <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--muted)]">{unit.summary}</p>
                       </div>
                     </div>
-                    <div className="space-y-1 sm:text-right">
+                    <div className="space-y-2 sm:text-right">
                       <p className="font-display text-3xl text-[color:var(--ink)]">{unit.price}</p>
-                      <p className="text-sm text-[color:var(--muted)]">{unit.availableFrom}</p>
+                      <Badge variant={unit.available ? "available" : "waiting"} className="sm:ml-auto">
+                        {unit.availableFrom}
+                      </Badge>
                       <Link
                         href={`https://wa.me/27722293229?text=${encodeURIComponent(`Hi, I'm interested in ${unit.name} in ${unit.phase}. Is it still available?`)}`}
                         target="_blank"
@@ -176,39 +198,34 @@ export function AvailabilityPanel() {
       <form
         ref={waitingListRef}
         className="space-y-5 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_32px_90px_rgba(17,24,15,0.08)] sm:p-8"
-        onSubmit={(event) => {
-          event.preventDefault();
-          setIsPending(true);
-          startTransition(async () => {
-            try {
-              const response = await fetch("/api/waiting-list", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
-              });
-              const payload = (await response.json()) as { message: string };
-              if (!response.ok) {
-                throw new Error(payload.message);
-              }
+        onSubmit={handleSubmit(async (values) => {
+          try {
+            const response = await fetch("/api/waiting-list", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(values),
+            });
+            const payload = (await response.json()) as { message: string };
 
-              toast({
-                variant: "success",
-                title: "You're on the list",
-                description: "We'll call you the moment a unit opens up.",
-              });
-              setForm({ ...initialState, preferredPhase });
-              setIsComplete(true);
-            } catch (error) {
-              toast({
-                variant: "error",
-                title: "Something went wrong",
-                description: error instanceof Error ? error.message : "Couldn't save your details. Try again.",
-              });
-            } finally {
-              setIsPending(false);
+            if (!response.ok) {
+              throw new Error(payload.message);
             }
-          });
-        }}
+
+            toast({
+              variant: "success",
+              title: "You're on the list",
+              description: "We'll call you the moment a unit opens up.",
+            });
+            reset({ ...initialState, preferredPhase });
+            setIsComplete(true);
+          } catch (error) {
+            toast({
+              variant: "error",
+              title: "Something went wrong",
+              description: error instanceof Error ? error.message : "Couldn't save your details. Try again.",
+            });
+          }
+        })}
       >
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Next opening</p>
@@ -236,47 +253,78 @@ export function AvailabilityPanel() {
               <label className="block space-y-2 text-sm text-[color:var(--ink)]">
                 <span>Name</span>
                 <input
-                  required
-                  value={form.name}
-                  onChange={(event) => setForm({ ...form, name: event.target.value })}
+                  {...register("name")}
                   className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
                   placeholder="Full name"
                 />
+                <AnimatePresence initial={false}>
+                  {(touchedFields.name || submitCount > 0) && errors.name ? (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-xs text-red-600"
+                    >
+                      {errors.name.message}
+                    </motion.p>
+                  ) : null}
+                </AnimatePresence>
               </label>
 
               <label className="block space-y-2 text-sm text-[color:var(--ink)]">
                 <span>Phone number</span>
                 <input
-                  required
-                  value={form.phone}
-                  onChange={(event) => setForm({ ...form, phone: event.target.value })}
+                  {...register("phone", {
+                    setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
+                  })}
+                  type="tel"
                   className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
                   placeholder="e.g. 071 234 5678"
                 />
+                <AnimatePresence initial={false}>
+                  {(touchedFields.phone || submitCount > 0) && errors.phone ? (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-xs text-red-600"
+                    >
+                      {errors.phone.message}
+                    </motion.p>
+                  ) : null}
+                </AnimatePresence>
               </label>
 
               <label className="block space-y-2 text-sm text-[color:var(--ink)]">
                 <span>Preferred phase</span>
                 <select
-                  value={form.preferredPhase}
-                  onChange={(event) => {
-                    setPreferredPhase(event.target.value);
-                    setForm({ ...form, preferredPhase: event.target.value });
-                  }}
+                  {...register("preferredPhase")}
                   className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
                 >
                   {phases.map((phase) => (
                     <option key={phase}>{phase}</option>
                   ))}
                 </select>
+                <AnimatePresence initial={false}>
+                  {(touchedFields.preferredPhase || submitCount > 0) && errors.preferredPhase ? (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-xs text-red-600"
+                    >
+                      {errors.preferredPhase.message}
+                    </motion.p>
+                  ) : null}
+                </AnimatePresence>
               </label>
 
               <MotionButton
                 type="submit"
-                disabled={isPending}
+                disabled={isSubmitting}
                 className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isPending ? "Sending..." : "Notify me"}
+                {isSubmitting ? "Sending..." : "Notify me"}
               </MotionButton>
             </motion.div>
           )}

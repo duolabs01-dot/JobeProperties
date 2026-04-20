@@ -48,7 +48,10 @@ export function StickyMobileCta() {
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-x-0 bottom-0 z-[60] lg:hidden"
         >
-          <div className="grid h-[72px] grid-cols-2 gap-3 border-t border-white/10 bg-[color:var(--ink)] px-4 pb-[env(safe-area-inset-bottom)] pt-3">
+          <div
+            className="grid min-h-[72px] grid-cols-2 gap-3 border-t border-white/10 bg-[color:var(--ink)] px-4 pt-4"
+            style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
+          >
             <ButtonLink
               href={stickyWhatsappUrl}
               target="_blank"

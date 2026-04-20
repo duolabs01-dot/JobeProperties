@@ -1,96 +1,58 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-import { startTransition, useMemo, useState } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { revealItemVariants } from "@/components/reveal-section";
 import { MotionButton } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { useInView } from "@/hooks/use-in-view";
 
-type InterestOption =
-  | "On-site advertising"
-  | "Conference / event venue"
-  | "Corporate accommodation"
-  | "Supplier partnership"
-  | "Other";
-
-type FormState = {
-  businessName: string;
-  contactName: string;
-  phone: string;
-  email: string;
-  interest: InterestOption;
-  details: string;
-};
-
-type FieldName = "businessName" | "contactName" | "details" | "email" | "interest" | "phone";
-type ErrorState = Partial<Record<FieldName, string>>;
-type TouchedState = Record<FieldName, boolean>;
-
-const interestOptions: InterestOption[] = [
+const interestOptions = [
   "On-site advertising",
   "Conference / event venue",
   "Corporate accommodation",
   "Supplier partnership",
   "Other",
-];
+] as const;
 
-const initialState: FormState = {
+const partnersSchema = z.object({
+  businessName: z.string().min(2, "Business name required"),
+  contactName: z.string().min(2, "Contact name required"),
+  phone: z.string().regex(/^0[0-9]{9}$/, "Enter a valid SA number"),
+  email: z.string().email("Enter a valid email"),
+  interest: z.enum(interestOptions),
+  message: z.string().min(20, "Please tell us a bit more (min 20 characters)"),
+});
+
+type PartnersValues = z.infer<typeof partnersSchema>;
+
+const initialState: PartnersValues = {
   businessName: "",
   contactName: "",
   phone: "",
   email: "",
   interest: "On-site advertising",
-  details: "",
+  message: "",
 };
-
-const initialTouched: TouchedState = {
-  businessName: false,
-  contactName: false,
-  details: false,
-  email: false,
-  interest: false,
-  phone: false,
-};
-
-function validateField(field: FieldName, value: string) {
-  switch (field) {
-    case "businessName":
-    case "contactName":
-      return value.trim().length >= 2 ? "" : "Please enter at least 2 characters.";
-    case "phone":
-      return /^0[0-9]{9}$/.test(value.replace(/\s+/g, "")) ? "" : "Use a valid South African number.";
-    case "email":
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? "" : "Enter a valid email address.";
-    case "interest":
-      return value.trim() ? "" : "Please choose an option.";
-    case "details":
-      return value.trim().length >= 20 ? "" : "Please add at least 20 characters.";
-    default:
-      return "";
-  }
-}
 
 export function PartnersEnquiryForm() {
   const { toast } = useToast();
   const { ref, inView } = useInView<HTMLFormElement>();
-  const [form, setForm] = useState<FormState>(initialState);
-  const [touched, setTouched] = useState<TouchedState>(initialTouched);
   const [isPending, setIsPending] = useState(false);
-
-  const errors = useMemo<ErrorState>(
-    () => ({
-      businessName: validateField("businessName", form.businessName),
-      contactName: validateField("contactName", form.contactName),
-      details: validateField("details", form.details),
-      email: validateField("email", form.email),
-      interest: validateField("interest", form.interest),
-      phone: validateField("phone", form.phone),
-    }),
-    [form],
-  );
-
-  const hasErrors = Object.values(errors).some(Boolean);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, submitCount, touchedFields },
+  } = useForm<PartnersValues>({
+    resolver: zodResolver(partnersSchema),
+    defaultValues: initialState,
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
 
   return (
     <motion.form
@@ -99,63 +61,46 @@ export function PartnersEnquiryForm() {
       animate={inView ? "visible" : "hidden"}
       variants={{ visible: { transition: { delayChildren: 0.1, staggerChildren: 0.08 } } }}
       className="space-y-6 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_24px_80px_rgba(17,24,15,0.08)] sm:p-8"
-      onSubmit={(event) => {
-        event.preventDefault();
-        setTouched({
-          businessName: true,
-          contactName: true,
-          details: true,
-          email: true,
-          interest: true,
-          phone: true,
-        });
-
-        if (hasErrors) {
-          return;
-        }
-
+      onSubmit={handleSubmit(async (values) => {
         setIsPending(true);
 
-        startTransition(async () => {
-          try {
-            const response = await fetch("/api/contact", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                type: "business",
-                businessName: form.businessName,
-                contactName: form.contactName,
-                phone: form.phone,
-                email: form.email,
-                interest: form.interest,
-                message: form.details,
-              }),
-            });
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: "business",
+              businessName: values.businessName,
+              contactName: values.contactName,
+              phone: values.phone,
+              email: values.email,
+              interest: values.interest,
+              message: values.message,
+            }),
+          });
 
-            const payload = (await response.json()) as { success?: boolean };
+          const payload = (await response.json()) as { success?: boolean };
 
-            if (!response.ok || !payload.success) {
-              throw new Error("Couldn't send your enquiry. Try again.");
-            }
-
-            toast({
-              variant: "success",
-              title: "Enquiry sent",
-              description: "We'll be in touch within 24 hours.",
-            });
-            setForm(initialState);
-            setTouched(initialTouched);
-          } catch (error) {
-            toast({
-              variant: "error",
-              title: "Something went wrong",
-              description: error instanceof Error ? error.message : "Couldn't send your enquiry. Try again.",
-            });
-          } finally {
-            setIsPending(false);
+          if (!response.ok || !payload.success) {
+            throw new Error("Couldn't send your enquiry. Try again.");
           }
-        });
-      }}
+
+          toast({
+            variant: "success",
+            title: "Enquiry sent",
+            description: "We'll be in touch within 24 hours.",
+          });
+          reset(initialState);
+        } catch (error) {
+          toast({
+            variant: "error",
+            title: "Something went wrong",
+            description: error instanceof Error ? error.message : "Couldn't send your enquiry. Try again.",
+          });
+        } finally {
+          setIsPending(false);
+        }
+      })}
     >
       <motion.div variants={revealItemVariants} className="space-y-3">
         <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Partnership enquiry</p>
@@ -169,22 +114,19 @@ export function PartnersEnquiryForm() {
         <div className="space-y-2 text-sm text-[color:var(--ink)]">
           <span>Business name</span>
           <input
-            required
-            value={form.businessName}
-            onChange={(event) => setForm({ ...form, businessName: event.target.value })}
-            onBlur={() => setTouched((current) => ({ ...current, businessName: true }))}
+            {...register("businessName")}
             className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
             placeholder="Your business name"
           />
           <AnimatePresence initial={false}>
-            {touched.businessName && errors.businessName ? (
+            {(touchedFields.businessName || submitCount > 0) && errors.businessName ? (
               <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 className="text-xs text-red-600"
               >
-                {errors.businessName}
+                {errors.businessName.message}
               </motion.p>
             ) : null}
           </AnimatePresence>
@@ -193,22 +135,19 @@ export function PartnersEnquiryForm() {
         <div className="space-y-2 text-sm text-[color:var(--ink)]">
           <span>Contact name</span>
           <input
-            required
-            value={form.contactName}
-            onChange={(event) => setForm({ ...form, contactName: event.target.value })}
-            onBlur={() => setTouched((current) => ({ ...current, contactName: true }))}
+            {...register("contactName")}
             className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
             placeholder="Full name"
           />
           <AnimatePresence initial={false}>
-            {touched.contactName && errors.contactName ? (
+            {(touchedFields.contactName || submitCount > 0) && errors.contactName ? (
               <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 className="text-xs text-red-600"
               >
-                {errors.contactName}
+                {errors.contactName.message}
               </motion.p>
             ) : null}
           </AnimatePresence>
@@ -219,23 +158,22 @@ export function PartnersEnquiryForm() {
         <div className="space-y-2 text-sm text-[color:var(--ink)]">
           <span>Phone</span>
           <input
-            required
+            {...register("phone", {
+              setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
+            })}
             type="tel"
-            value={form.phone}
-            onChange={(event) => setForm({ ...form, phone: event.target.value })}
-            onBlur={() => setTouched((current) => ({ ...current, phone: true }))}
             className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
             placeholder="071 234 5678"
           />
           <AnimatePresence initial={false}>
-            {touched.phone && errors.phone ? (
+            {(touchedFields.phone || submitCount > 0) && errors.phone ? (
               <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 className="text-xs text-red-600"
               >
-                {errors.phone}
+                {errors.phone.message}
               </motion.p>
             ) : null}
           </AnimatePresence>
@@ -244,23 +182,20 @@ export function PartnersEnquiryForm() {
         <div className="space-y-2 text-sm text-[color:var(--ink)]">
           <span>Email</span>
           <input
-            required
+            {...register("email")}
             type="email"
-            value={form.email}
-            onChange={(event) => setForm({ ...form, email: event.target.value })}
-            onBlur={() => setTouched((current) => ({ ...current, email: true }))}
             className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
             placeholder="hello@business.com"
           />
           <AnimatePresence initial={false}>
-            {touched.email && errors.email ? (
+            {(touchedFields.email || submitCount > 0) && errors.email ? (
               <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 className="text-xs text-red-600"
               >
-                {errors.email}
+                {errors.email.message}
               </motion.p>
             ) : null}
           </AnimatePresence>
@@ -270,10 +205,7 @@ export function PartnersEnquiryForm() {
       <motion.div variants={revealItemVariants} className="space-y-2 text-sm text-[color:var(--ink)]">
         <span>What are you interested in?</span>
         <select
-          required
-          value={form.interest}
-          onChange={(event) => setForm({ ...form, interest: event.target.value as InterestOption })}
-          onBlur={() => setTouched((current) => ({ ...current, interest: true }))}
+          {...register("interest")}
           className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
         >
           {interestOptions.map((option) => (
@@ -281,14 +213,14 @@ export function PartnersEnquiryForm() {
           ))}
         </select>
         <AnimatePresence initial={false}>
-          {touched.interest && errors.interest ? (
+          {(touchedFields.interest || submitCount > 0) && errors.interest ? (
             <motion.p
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="text-xs text-red-600"
             >
-              {errors.interest}
+              {errors.interest.message}
             </motion.p>
           ) : null}
         </AnimatePresence>
@@ -297,23 +229,20 @@ export function PartnersEnquiryForm() {
       <motion.div variants={revealItemVariants} className="space-y-2 text-sm text-[color:var(--ink)]">
         <span>Tell us more</span>
         <textarea
-          required
+          {...register("message")}
           rows={5}
-          value={form.details}
-          onChange={(event) => setForm({ ...form, details: event.target.value })}
-          onBlur={() => setTouched((current) => ({ ...current, details: true }))}
           className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
           placeholder="Tell us what you do, what you're interested in, and how you'd like to work with Jobe."
         />
         <AnimatePresence initial={false}>
-          {touched.details && errors.details ? (
+          {(touchedFields.message || submitCount > 0) && errors.message ? (
             <motion.p
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="text-xs text-red-600"
             >
-              {errors.details}
+              {errors.message.message}
             </motion.p>
           ) : null}
         </AnimatePresence>
