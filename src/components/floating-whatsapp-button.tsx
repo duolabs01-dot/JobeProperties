@@ -17,7 +17,7 @@ export function FloatingWhatsAppButton() {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="home-whatsapp-pulse fixed bottom-4 right-4 z-[70] inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_18px_45px_rgba(37,211,102,0.35)] transition duration-300 hover:scale-[1.03] md:bottom-6 md:right-6 md:h-14 md:w-14"
+      className="home-whatsapp-pulse fixed bottom-4 right-4 z-[70] hidden h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_18px_45px_rgba(37,211,102,0.35)] transition duration-300 hover:scale-[1.03] lg:inline-flex lg:h-14 lg:w-14"
     >
       <span className="sr-only">Chat on WhatsApp</span>
       <svg

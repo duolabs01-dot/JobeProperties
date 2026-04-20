@@ -181,7 +181,7 @@ export default function Home() {
         <RevealItem className="space-y-4">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Tenant portal</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-            Everything you need to sort, sorted from your phone.
+            Pay rent, log repairs, and pull up your lease without chasing anyone.
           </h2>
           <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
             Pay rent, report a repair, and pull up your lease without asking around or making a trip to the bank.
