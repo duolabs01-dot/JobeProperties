@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 104" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">Jobe Propco</title>
+  <desc id="logoDesc">Jobe Propco logo mark with geometric building forms and wordmark.</desc>
+  <g transform="translate(8 6)">
+    <g transform="translate(0 2)">
+      <polygon fill="#d8dadd" points="0,58 14,50 14,15 0,23" />
+      <polygon fill="#8b8f96" points="16,48 28,56 28,8 16,16" />
+      <polygon fill="#f0f1f2" points="30,56 40,50 40,18 30,24" />
+      <polygon fill="#5f646b" points="42,48 54,56 54,10 42,2" />
+      <polygon fill="#c3c6cb" points="56,56 68,48 68,20 56,28" />
+      <polygon fill="#8a8e94" points="70,50 84,58 84,14 70,6" />
+    </g>
+
+    <g transform="translate(102 18)">
+      <text
+        x="0"
+        y="38"
+        fill="#e6e6e3"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="30"
+        letter-spacing="3.6"
+      >
+        JOBE
+      </text>
+      <text
+        x="2"
+        y="60"
+        fill="#a6a9ae"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="11"
+        font-weight="600"
+        letter-spacing="5.2"
+      >
+        PROPCO
+      </text>
+    </g>
+  </g>
+</svg>
