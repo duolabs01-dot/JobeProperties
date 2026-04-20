@@ -2,7 +2,7 @@ import {
   createBrowserClient as createSupabaseBrowserClient,
   createServerClient as createSupabaseServerClient,
 } from "@supabase/ssr";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { NextRequest, NextResponse } from "next/server";
 
 export type UnitRow = {
@@ -129,6 +129,17 @@ function getSupabaseConfig() {
   return { url, anonKey };
 }
 
+function getServiceRoleConfig() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !serviceRoleKey) {
+    throw new Error("Missing Supabase service role environment variables.");
+  }
+
+  return { url, serviceRoleKey };
+}
+
 export function createBrowserClient(): SupabaseClient<AppDatabase> {
   const { url, anonKey } = getSupabaseConfig();
 
@@ -180,6 +191,17 @@ export function createProxyClient(
           response.cookies.set(name, value, options);
         });
       },
+    },
+  });
+}
+
+export function createServiceRoleClient(): SupabaseClient<AppDatabase> {
+  const { url, serviceRoleKey } = getServiceRoleConfig();
+
+  return createClient<AppDatabase>(url, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
     },
   });
 }

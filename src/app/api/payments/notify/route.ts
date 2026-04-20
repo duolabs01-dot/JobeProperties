@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { validatePayfastSignature } from "@/lib/payfast";
-import { createServerClient } from "@/lib/supabase";
+import { createServiceRoleClient } from "@/lib/supabase";
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     }
 
     if (params.payment_status === "COMPLETE" && params.custom_str1) {
-      const supabase = await createServerClient();
+      const supabase = createServiceRoleClient();
       const paidAt = new Date().toISOString();
       const { error } = await supabase
         .from("payments")
