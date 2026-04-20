@@ -247,7 +247,7 @@ export default function ApartmentsPage() {
                     href={phase.whatsappUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--olive)]"
+                    className="inline-flex items-center justify-center rounded-full border border-[#25D366] bg-[#25D366] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white shadow-[0_14px_30px_rgba(37,211,102,0.18)] hover:bg-[#1fb95a]"
                   >
                     WhatsApp us
                   </ButtonLink>

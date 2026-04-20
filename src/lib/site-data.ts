@@ -1,3 +1,5 @@
+import { apartmentPhases } from "@/lib/property-data";
+
 export type Unit = {
   id: string;
   name: string;
@@ -55,7 +57,7 @@ export const units: Unit[] = [
   },
 ];
 
-export const phases = ["Any phase", ...new Set(units.map((unit) => unit.phase))];
+export const phases = ["Any phase", ...apartmentPhases.map((phase) => phase.badge)];
 
 export const gallery = [
   {

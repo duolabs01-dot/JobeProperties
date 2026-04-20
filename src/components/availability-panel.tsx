@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { startTransition, useDeferredValue, useState, useSyncExternalStore } from "react";
 import { MotionButton } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
-import { units } from "@/lib/site-data";
+import { phases, units } from "@/lib/site-data";
 
 const initialState = {
   name: "",
@@ -49,10 +49,9 @@ export function AvailabilityPanel() {
               onChange={(event) => setPreferredPhase(event.target.value)}
               className="rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none"
             >
-              <option>Any phase</option>
-              <option>Phase 4</option>
-              <option>Phase 5</option>
-              <option>Phase 6</option>
+              {phases.map((phase) => (
+                <option key={phase}>{phase}</option>
+              ))}
             </select>
           </label>
         </div>
@@ -204,10 +203,9 @@ export function AvailabilityPanel() {
                   }}
                   className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
                 >
-                  <option>Any phase</option>
-                  <option>Phase 4</option>
-                  <option>Phase 5</option>
-                  <option>Phase 6</option>
+                  {phases.map((phase) => (
+                    <option key={phase}>{phase}</option>
+                  ))}
                 </select>
               </label>
 
