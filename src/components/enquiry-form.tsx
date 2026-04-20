@@ -54,7 +54,7 @@ export function EnquiryForm({
           } catch (error) {
             setStatus({
               tone: "error",
-              message: error instanceof Error ? error.message : "Something went wrong while submitting your enquiry.",
+              message: error instanceof Error ? error.message : "Couldn't send that. Try again.",
             });
           } finally {
             setIsPending(false);
@@ -89,7 +89,7 @@ export function EnquiryForm({
         disabled={isPending}
         className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isPending ? "Submitting" : submitLabel}
+        {isPending ? "Sending..." : submitLabel}
       </button>
 
       {status ? (

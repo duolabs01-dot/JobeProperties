@@ -17,9 +17,9 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Jobe Propco | Elegant living, structured operations",
+  title: "Jobe Propco | Studio apartments in Alexandra",
   description:
-    "A Figma-polished redesign for Jobe Propco with a high-converting marketing site, tenant portal, owner dashboard, and structured waiting list.",
+    "Studio apartments in Alexandra, 9km from Sandton, with current availability, WhatsApp enquiries, and tenant support from your phone.",
 };
 
 export default function RootLayout({

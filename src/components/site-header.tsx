@@ -31,7 +31,7 @@ export function SiteHeader() {
           href="/#availability"
           className="inline-flex items-center justify-center rounded-full border border-[color:var(--sand)]/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--sand)] transition duration-300 hover:border-[color:var(--sand)] hover:bg-[color:var(--sand)] hover:text-[color:var(--ink)] sm:px-5"
         >
-          Available now
+          See availability
         </Link>
       </div>
     </header>

@@ -7,18 +7,18 @@ export function SiteFooter() {
         <div className="space-y-3">
           <p className="font-display text-2xl tracking-[0.18em] text-[color:var(--sand)]">JOBE</p>
           <p className="max-w-xl text-sm leading-7 text-white/66">
-            Jobe Propco deserves a website that sells trust, simplifies operations, and gives a busy owner time back.
+            1191 S Africa Loop, Far East Bank, Alexandra, Sandton, 2014 · WhatsApp 072 229 3229 · Studio apartments in Alexandra. 9km from Sandton. R4,200/month.
           </p>
         </div>
         <div className="flex flex-col gap-2 text-sm text-white/70">
+          <Link href="/#availability">
+            See availability
+          </Link>
           <Link href="/portal" transitionTypes={["nav-forward"]}>
             Tenant portal
           </Link>
-          <Link href="/admin" transitionTypes={["nav-forward"]}>
-            Owner dashboard
-          </Link>
           <Link href="/advertise" transitionTypes={["nav-forward"]}>
-            Advertise on site
+            Advertise with us
           </Link>
         </div>
       </div>

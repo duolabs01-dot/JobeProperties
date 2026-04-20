@@ -13,22 +13,22 @@ export async function POST(request: Request) {
     const payload = waitingListSchema.parse(await request.json());
 
     await notifyOwner({
-      subject: `Waiting list enquiry · ${payload.preferredPhase}`,
-      headline: `New waiting list enquiry from ${payload.name}`,
+      subject: `Availability enquiry · ${payload.preferredPhase}`,
+      headline: `New availability enquiry from ${payload.name}`,
       lines: [
         `Phone: ${payload.phone}`,
         `Preferred phase: ${payload.preferredPhase}`,
-        "Source: marketing site waiting list form",
+        "Source: availability form",
       ],
     });
 
     return NextResponse.json({
-      message: "Thanks — the owner has your details and can follow up with the right phase match.",
+      message: "Thanks. We'll call when a unit opens in your preferred phase.",
     });
   } catch (error) {
     return NextResponse.json(
       {
-        message: error instanceof Error ? error.message : "Could not save your waiting-list enquiry.",
+        message: error instanceof Error ? error.message : "Couldn't save your details. Try again.",
       },
       { status: 400 },
     );

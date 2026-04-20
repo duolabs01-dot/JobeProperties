@@ -10,11 +10,10 @@ export type Unit = {
 };
 
 export const navItems = [
-  { href: "/#living", label: "Residences" },
+  { href: "/#living", label: "Life at Jobe" },
   { href: "/#availability", label: "Availability" },
   { href: "/portal", label: "Tenant portal" },
-  { href: "/admin", label: "Owner dashboard" },
-  { href: "/advertise", label: "Advertise" },
+  { href: "/advertise", label: "Advertise with us" },
 ];
 
 export const units: Unit[] = [
@@ -26,7 +25,7 @@ export const units: Unit[] = [
     price: "R4,200/mo",
     available: true,
     availableFrom: "Available now",
-    summary: "Ground-floor access, built-in cupboards, and a bright open-plan layout.",
+    summary: "Ground floor, bright, and easy to move into.",
   },
   {
     id: "phase-5-b08",
@@ -36,7 +35,7 @@ export const units: Unit[] = [
     price: "R4,350/mo",
     available: true,
     availableFrom: "Available now",
-    summary: "Quiet courtyard-facing unit close to parking and the Lifestyle Corner.",
+    summary: "Quiet side of the block, close to parking and daily essentials.",
   },
   {
     id: "phase-6-c03",
@@ -45,8 +44,8 @@ export const units: Unit[] = [
     beds: "1 bed studio",
     price: "R4,500/mo",
     available: false,
-    availableFrom: "Join the waiting list",
-    summary: "Top-floor outlook with strong natural light and easy Gautrain access.",
+    availableFrom: "Waiting list open",
+    summary: "Top floor, plenty of light, and an easy trip toward the Gautrain.",
   },
 ];
 
@@ -56,73 +55,81 @@ export const gallery = [
   {
     src: "https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page--1024x768.jpg",
     alt: "Exterior view of Jobe Propco apartments",
-    caption: "A branded address that already looks more premium than the listing portals.",
+    caption: "A quiet address in Alexandra, with Sandton nine kilometres up the road.",
   },
   {
     src: "https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-2-1-scaled-e1748731289337-1024x644.jpg",
     alt: "Open-plan apartment interior",
-    caption: "Studios designed for clean move-ins, modern finishes, and easy self-service upkeep.",
+    caption: "Built-in cupboards, fibre-ready walls, and natural light that makes the room feel bigger.",
   },
   {
     src: "https://jobepropco.co.za/wp-content/uploads/2025/05/Jobe-Lifestyle.jpg",
     alt: "Lifestyle Corner commercial area",
-    caption: "Lifestyle Corner creates a natural next revenue layer for site advertising and promotion.",
+    caption: "Food, essentials, and everyday stops close by, so late finishes do not mean long detours.",
   },
 ];
 
 export const ownerSignals = [
   {
-    title: "Structured waiting list",
-    body: "Capture every prospect with a proper pipeline instead of chasing voice notes and missed WhatsApps.",
+    title: "Clear communication",
+    body: "Availability, rent, and maintenance each have a clear place, so you are not left guessing who to contact.",
   },
   {
-    title: "Tenant self-service",
-    body: "Maintenance, documents, move dates, and payment nudges move into one portal that tenants can use from their phones.",
+    title: "Repairs get followed up",
+    body: "If something breaks, the details are logged properly and easier to act on fast.",
   },
   {
-    title: "Operational visibility",
-    body: "The owner dashboard shows occupancy, maintenance load, and payment status without spreadsheet hunting.",
+    title: "Your paperwork stays close",
+    body: "Lease copies, move dates, and payment records are easy to find when you need them.",
   },
 ];
 
 export const portalMoments = [
-  "Maintenance request submission with photo upload",
-  "Lease documents and move-in / move-out tracking",
-  "Payment reminders and proof-of-payment history",
+  "Pay rent from your phone and get your receipt straight away.",
+  "Report something broken any time, without awkward follow-ups.",
+  "Keep your lease and move details where you can find them.",
 ];
 
 export const adminMetrics = [
-  { label: "Occupancy", value: "94%", detail: "Live view across all phases." },
-  { label: "Collected this month", value: "R187k", detail: "Receipts, statuses, and overdue flags." },
-  { label: "Open maintenance", value: "07", detail: "Photo-backed issues sorted by urgency." },
+  { label: "Maintenance", value: "48 hrs", detail: "Most requests are picked up within two days." },
+  { label: "Payments", value: "Tracked", detail: "Rent, receipts, and overdue balances stay up to date." },
+  { label: "Move-ins", value: "On file", detail: "Documents, handovers, and vacancies are easy to follow." },
 ];
 
 export const adPlacements = [
   {
-    title: "Lifestyle Corner feature",
-    detail: "A premium homepage placement for the on-site restaurant, laundromat, or local shops.",
+    title: "Laundry, food, and daily essentials",
+    detail: "Reach tenants looking for the services they use every week.",
   },
   {
-    title: "Resident offer spotlight",
-    detail: "Monthly offers pushed to tenants and waiting-list prospects with owner approval.",
+    title: "Resident offers that people will notice",
+    detail: "Promote a special, a launch, or a discount close to home.",
   },
   {
-    title: "Future self-serve slots",
-    detail: "The foundation is ready for paid ad inventory when the owner wants to productize it.",
+    title: "A local audience, right on your doorstep",
+    detail: "Speak to people who live, eat, and spend within walking distance.",
   },
 ];
 
 export const faqs = [
   {
-    question: "Can tenants pay through the website?",
-    answer: "Yes. The product structure is ready for a tenant portal with rent collection, reminders, and owner-side payment visibility.",
+    question: "How do I pay my rent?",
+    answer: "Through the tenant portal. Pay by card or EFT and keep your receipt in one place.",
   },
   {
-    question: "How does the waiting list work?",
-    answer: "Prospects submit their name, phone number, and preferred phase. The owner receives a structured alert by email and can add SMS / WhatsApp notifications next.",
+    question: "How do I report something broken?",
+    answer: "Log a maintenance request in the tenant portal with the details of the issue. We aim to respond within 48 hours.",
   },
   {
-    question: "What makes this better than the current website?",
-    answer: "The redesign leads with the brand, uses stronger imagery, and turns the site into a working business tool instead of just a brochure.",
+    question: "Is there parking?",
+    answer: "Yes. Ask about parking availability for your phase when you enquire.",
+  },
+  {
+    question: "How do I secure a unit?",
+    answer: "WhatsApp us on 072 229 3229 or fill in the availability form. Units move quickly, so it helps to act fast.",
+  },
+  {
+    question: "How far is Jobe from Sandton?",
+    answer: "About 9km, with the Gautrain close when you need a quicker trip into the city.",
   },
 ];

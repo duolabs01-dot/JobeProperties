@@ -30,32 +30,33 @@ export default function Home() {
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-14 pt-32 sm:px-8 lg:px-12 lg:pb-18">
           <div className="max-w-3xl space-y-7">
             <p className="text-xs uppercase tracking-[0.42em] text-[color:var(--sand)]">
-              Jobe Propco · luxury-feel rentals near Sandton
+              Studio apartments in Alexandra · 9km to Sandton
             </p>
             <div className="space-y-5">
               <p className="font-display text-5xl leading-none tracking-[0.2em] text-[color:var(--sand)] sm:text-6xl lg:text-7xl">
                 JOBE PROPCO
               </p>
               <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl">
-                The property website a busy owner would actually want to run.
+                9km to Sandton. Alexandra still feels like home.
               </h1>
             </div>
             <p className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
-              A polished public site, a tenant portal, and an owner dashboard in one codebase — built to fill units faster, reduce admin, and make the current website feel instantly outdated.
+              Close to the Gautrain, easy on the work commute, and rooted in a neighbourhood that still feels familiar.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/#availability"
                 className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:translate-y-[-1px] hover:bg-white"
               >
-                View availability
+                See what's available
               </Link>
               <Link
-                href="/portal"
-                transitionTypes={["nav-forward"]}
+                href="https://wa.me/27722293229"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:border-white hover:bg-white/10"
               >
-                Open tenant portal
+                WhatsApp us
               </Link>
             </div>
           </div>
@@ -64,12 +65,12 @@ export default function Home() {
 
       <section id="living" className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Brand-led first impression</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Life at Jobe</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-            A first viewport that feels like a destination, not a brochure template.
+            Light, storage, and a place that feels easy to come back to.
           </h2>
           <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">
-            The composition stays disciplined: one brand, one story, one clear action. Then the rest of the site unfolds with imagery, proof, and structured product surfaces that convert interest into action.
+            Studios made for simple move-ins, long workdays, and daily life that still feels local. Sandton is close. Alexandra still feels like home.
           </p>
         </div>
 
@@ -97,17 +98,17 @@ export default function Home() {
         <div className="space-y-4">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Tenant portal</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-            Self-service that saves the owner hours every month.
+            Everything you need to sort, sorted from your phone.
           </h2>
           <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
-            Tenants stop asking for everything over chat. The portal becomes the place for maintenance requests, document access, move dates, and payment nudges.
+            Pay rent, report a repair, and pull up your lease without asking around or making a trip to the bank.
           </p>
           <Link
             href="/portal"
             transitionTypes={["nav-forward"]}
             className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--ink)] hover:text-white"
           >
-            Explore the portal
+            Open tenant portal
           </Link>
         </div>
 
@@ -123,19 +124,19 @@ export default function Home() {
       <section className="bg-[color:var(--ink)] text-white">
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-28">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Owner dashboard</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Professionally managed</p>
             <h2 className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
-              The full picture from a phone, not a spreadsheet chase.
+              Professionally managed. Every unit, every month.
             </h2>
             <p className="max-w-xl text-base leading-8 text-white/70">
-              Lead with the money story: tenants pay online, the owner sees receipts and overdue balances, and occupancy stays visible in one calm surface.
+              Rent is tracked, maintenance is followed up, and empty units do not sit for long.
             </p>
             <Link
               href="/admin"
               transitionTypes={["nav-forward"]}
               className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:bg-white"
             >
-              Open owner dashboard
+              See how it's managed
             </Link>
           </div>
 
@@ -153,19 +154,19 @@ export default function Home() {
 
       <section className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-28">
         <div className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Advertising revenue</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Advertise with us</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-            Turn the property website into a second income lane.
+            Your business, in front of every Jobe resident.
           </h2>
           <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
-            Lifestyle Corner is already there. A refined /advertise page lets local businesses enquire for placement, then grows into self-serve inventory later.
+            Reach tenants across 6 phases. People who live, eat, and spend within walking distance of your door.
           </p>
           <Link
             href="/advertise"
             transitionTypes={["nav-forward"]}
             className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:border-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
           >
-            See ad enquiries
+            Send an enquiry
           </Link>
         </div>
 
@@ -182,12 +183,12 @@ export default function Home() {
       <section className="border-y border-[color:var(--line)] bg-[color:var(--paper)]">
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-12 lg:py-24">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Operational wow</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Why it matters</p>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-              The product story is bigger than a prettier homepage.
+              The small things matter when you're renting.
             </h2>
             <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
-              The site can eventually trigger payment reminders and confirmations through WhatsApp Business tooling, email, and SMS — rare for this level of property operation in SA.
+              When rent, repairs, and paperwork are easy to deal with, everyday life runs better.
             </p>
           </div>
 
@@ -207,7 +208,7 @@ export default function Home() {
           <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">FAQ</p>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-              What this redesign is already proving.
+              What people usually ask first.
             </h2>
           </div>
 

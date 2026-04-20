@@ -26,13 +26,13 @@ export function AvailabilityPanel() {
       <div className="space-y-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Available now</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Availability</p>
             <h3 className="mt-3 font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-              Live unit visibility without enquiry chaos.
+              When a studio opens here, it goes quickly.
             </h3>
           </div>
           <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
-            Preferred phase
+            Choose a phase
             <select
               value={preferredPhase}
               onChange={(event) => setPreferredPhase(event.target.value)}
@@ -64,7 +64,7 @@ export function AvailabilityPanel() {
           ))}
           {!filteredUnits.length ? (
             <p className="text-sm leading-7 text-[color:var(--muted)]">
-              Nothing public in that phase right now. Join the waiting list and the owner gets a structured lead instead of a missed message.
+              Nothing open in that phase right now. Leave your number and we'll call when the next unit opens.
             </p>
           ) : null}
         </div>
@@ -92,7 +92,7 @@ export function AvailabilityPanel() {
             } catch (error) {
               setStatus({
                 tone: "error",
-                message: error instanceof Error ? error.message : "Something went wrong while joining the waiting list.",
+                message: error instanceof Error ? error.message : "Couldn't save your details. Try again.",
               });
             } finally {
               setIsPending(false);
@@ -101,12 +101,12 @@ export function AvailabilityPanel() {
         }}
       >
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Waiting list</p>
+          <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Next opening</p>
           <h3 className="font-display text-3xl leading-none text-[color:var(--ink)] sm:text-4xl">
-            Hold the next vacancy before somebody else does.
+            Miss this one. Don't miss the next.
           </h3>
           <p className="text-sm leading-7 text-[color:var(--muted)]">
-            Prospects leave their name, phone number, and preferred phase. The owner receives a clean lead alert by email now, with SMS / WhatsApp hooks ready next.
+            Leave your number and we'll call you the moment a unit opens up.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ export function AvailabilityPanel() {
         </label>
 
         <label className="block space-y-2 text-sm text-[color:var(--ink)]">
-          <span>Phone</span>
+          <span>Phone number</span>
           <input
             required
             value={form.phone}
@@ -154,7 +154,7 @@ export function AvailabilityPanel() {
           disabled={isPending}
           className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isPending ? "Saving enquiry" : "Join the waiting list"}
+          {isPending ? "Sending..." : "Notify me"}
         </button>
 
         {status ? (

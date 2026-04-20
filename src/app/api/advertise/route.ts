@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     await notifyOwner({
       subject: `Advertising enquiry · ${payload.businessName}`,
-      headline: `New advertiser lead from ${payload.businessName}`,
+      headline: `New advertiser enquiry from ${payload.businessName}`,
       lines: [
         `Contact: ${payload.contactName}`,
         `Phone: ${payload.phone}`,
@@ -26,12 +26,12 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      message: "Enquiry sent — the owner now has a structured advertising lead instead of an informal message.",
+      message: "Thanks. We've got your enquiry and we'll be in touch.",
     });
   } catch (error) {
     return NextResponse.json(
       {
-        message: error instanceof Error ? error.message : "Could not submit your advertising enquiry.",
+        message: error instanceof Error ? error.message : "Couldn't send your enquiry. Try again.",
       },
       { status: 400 },
     );
