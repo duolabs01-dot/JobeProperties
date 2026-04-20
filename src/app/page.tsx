@@ -2,6 +2,7 @@ import { ViewTransition } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AvailabilityPanel } from "@/components/availability-panel";
+import { AnimatedStatValue } from "@/components/animated-stat-value";
 import {
   adPlacements,
   adminMetrics,
@@ -12,9 +13,11 @@ import {
 } from "@/lib/site-data";
 
 export default function Home() {
+  const marqueeGallery = [...gallery, ...gallery];
+
   return (
     <div className="bg-[color:var(--paper)]">
-      <section className="relative isolate flex min-h-screen items-end overflow-hidden bg-[color:var(--ink)] text-white">
+      <section className="relative isolate -mt-18 flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] text-white">
         <ViewTransition name="hero-image" share="morph">
           <Image
             src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
@@ -24,10 +27,9 @@ export default function Home() {
             className="object-cover object-center"
           />
         </ViewTransition>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(215,196,149,0.25),transparent_32%),linear-gradient(90deg,rgba(17,24,15,0.9)_0%,rgba(17,24,15,0.74)_42%,rgba(17,24,15,0.28)_70%,rgba(17,24,15,0.1)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,24,15,0.16)_0%,rgba(17,24,15,0.72)_100%)]" />
+        <div className="absolute inset-0 bg-[rgba(0,0,0,0.45)]" />
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-14 pt-32 sm:px-8 lg:px-12 lg:pb-18">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-24 pt-40 sm:px-8 lg:px-12">
           <div className="max-w-3xl space-y-7">
             <p className="text-xs uppercase tracking-[0.42em] text-[color:var(--sand)]">
               Studio apartments in Alexandra · 9km to Sandton
@@ -36,19 +38,20 @@ export default function Home() {
               <p className="font-display text-5xl leading-none tracking-[0.2em] text-[color:var(--sand)] sm:text-6xl lg:text-7xl">
                 JOBE PROPCO
               </p>
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl">
+              <div className="h-[2px] w-[60px] bg-[color:var(--sand)]" />
+              <h1 className="home-hero-headline max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl">
                 9km to Sandton. Alexandra still feels like home.
               </h1>
             </div>
-            <p className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
+            <p className="home-hero-subhead max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
               Close to the Gautrain, easy on the work commute, and rooted in a neighbourhood that still feels familiar.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/#availability"
                 className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:translate-y-[-1px] hover:bg-white"
               >
-                See what's available
+                See what&apos;s available
               </Link>
               <Link
                 href="https://wa.me/27722293229"
@@ -74,7 +77,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-5 lg:hidden lg:grid-cols-3">
           {gallery.map((item, index) => (
             <ViewTransition key={item.src} name={`gallery-${index}`}>
               <figure className="space-y-4">
@@ -85,6 +88,32 @@ export default function Home() {
               </figure>
             </ViewTransition>
           ))}
+        </div>
+
+        <div className="hidden overflow-hidden lg:block">
+          <div className="group overflow-hidden">
+            <div className="flex w-max gap-4 [animation:home-gallery-marquee_24s_linear_infinite] group-hover:[animation-play-state:paused]">
+              {marqueeGallery.map((item, index) => (
+                <ViewTransition key={`${item.src}-${index}`} name={`gallery-marquee-${index}`}>
+                  <figure className="w-max shrink-0 space-y-4">
+                    <div className="overflow-hidden rounded-[2rem] bg-[color:var(--stone)]">
+                      <Image
+                        src={item.src}
+                        alt={item.alt}
+                        width={440}
+                        height={280}
+                        loading="lazy"
+                        className="h-[280px] w-auto object-cover"
+                      />
+                    </div>
+                    <figcaption className="max-w-[320px] text-sm leading-7 text-[color:var(--muted)]">
+                      {item.caption}
+                    </figcaption>
+                  </figure>
+                </ViewTransition>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -136,7 +165,7 @@ export default function Home() {
               transitionTypes={["nav-forward"]}
               className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:bg-white"
             >
-              See how it's managed
+              See how it&apos;s managed
             </Link>
           </div>
 
@@ -144,7 +173,9 @@ export default function Home() {
             {adminMetrics.map((metric) => (
               <div key={metric.label} className="space-y-3 border-t border-white/16 pt-5">
                 <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">{metric.label}</p>
-                <p className="font-display text-5xl leading-none text-white">{metric.value}</p>
+                <p className="font-display text-5xl leading-none text-white">
+                  <AnimatedStatValue value={metric.value} />
+                </p>
                 <p className="text-sm leading-7 text-white/66">{metric.detail}</p>
               </div>
             ))}
@@ -185,7 +216,7 @@ export default function Home() {
           <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Why it matters</p>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-              The small things matter when you're renting.
+              The small things matter when you&apos;re renting.
             </h2>
             <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
               When rent, repairs, and paperwork are easy to deal with, everyday life runs better.

@@ -64,7 +64,7 @@ export function AvailabilityPanel() {
           ))}
           {!filteredUnits.length ? (
             <p className="text-sm leading-7 text-[color:var(--muted)]">
-              Nothing open in that phase right now. Leave your number and we'll call when the next unit opens.
+              Nothing open in that phase right now. Leave your number and we&apos;ll call when the next unit opens.
             </p>
           ) : null}
         </div>
@@ -103,10 +103,10 @@ export function AvailabilityPanel() {
         <div className="space-y-3">
           <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Next opening</p>
           <h3 className="font-display text-3xl leading-none text-[color:var(--ink)] sm:text-4xl">
-            Miss this one. Don't miss the next.
+            Miss this one. Don&apos;t miss the next.
           </h3>
           <p className="text-sm leading-7 text-[color:var(--muted)]">
-            Leave your number and we'll call you the moment a unit opens up.
+            Leave your number and we&apos;ll call you the moment a unit opens up.
           </p>
         </div>
 

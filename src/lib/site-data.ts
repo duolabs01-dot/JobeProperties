@@ -10,10 +10,12 @@ export type Unit = {
 };
 
 export const navItems = [
-  { href: "/#living", label: "Life at Jobe" },
-  { href: "/#availability", label: "Availability" },
+  { href: "/apartments", label: "Apartments" },
+  { href: "/guesthouse", label: "Guesthouse" },
+  { href: "/about", label: "About" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
   { href: "/portal", label: "Tenant portal" },
-  { href: "/advertise", label: "Advertise with us" },
 ];
 
 export const units: Unit[] = [

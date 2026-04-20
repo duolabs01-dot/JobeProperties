@@ -14,7 +14,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 text-xs uppercase tracking-[0.28em] text-white/62 lg:flex">
+        <nav className="hidden items-center gap-4 text-[11px] uppercase tracking-[0.24em] text-white/62 xl:gap-6 xl:text-xs xl:tracking-[0.28em] lg:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}

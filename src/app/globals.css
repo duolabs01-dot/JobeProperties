@@ -127,3 +127,47 @@ html:active-view-transition-type(nav-back) {
     transform: translateX(0);
   }
 }
+
+@keyframes hero-rise-fade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-gallery-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
+@keyframes whatsapp-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+.home-hero-headline {
+  opacity: 0;
+  animation: 0.6s ease-out 0s forwards hero-rise-fade;
+}
+
+.home-hero-subhead {
+  opacity: 0;
+  animation: 0.6s ease-out 0.2s forwards hero-rise-fade;
+}
+
+.home-whatsapp-pulse {
+  animation: 2s ease-in-out infinite whatsapp-pulse;
+}

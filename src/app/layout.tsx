@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Manrope } from "next/font/google";
 import "./globals.css";
+import { FloatingWhatsAppButton } from "@/components/floating-whatsapp-button";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 
@@ -33,6 +34,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="min-h-screen pt-18">{children}</main>
         <SiteFooter />
+        <FloatingWhatsAppButton />
       </body>
     </html>
   );
