@@ -325,6 +325,16 @@ export const moveInFaqs: FaqItem[] = [
       "R4,300 per month. That covers your studio, all shared amenities, 24/7 security, and biometric access. No hidden charges.",
   },
   {
+    question: "What types of studio are available?",
+    answer:
+      "All Jobe studios come in one of three layouts: Standard (no balcony or sliding door), Balcony studio (private outdoor space), or Sliding door studio (full-height glass door for more light and an open feel). Same price, same finishes — just different ways the space opens up. WhatsApp us and we'll tell you what's available right now.",
+  },
+  {
+    question: "Can I choose my unit type?",
+    answer:
+      "Yes, when you enquire tell us which layout you prefer. We'll match you to an available unit in that type across any of the six phases.",
+  },
+  {
     question: "Do I need to sign a lease?",
     answer: "No lease agreement required. We keep it simple.",
   },

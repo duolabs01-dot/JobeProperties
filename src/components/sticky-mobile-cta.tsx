@@ -4,7 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ButtonLink } from "@/components/ui/button-link";
-import { whatsappUrl } from "@/lib/property-data";
+
+const stickyWhatsappUrl =
+  "https://wa.me/27722293229?text=Hi%2C+I%27m+looking+for+a+studio+apartment+near+Sandton.+Can+you+help%3F";
 
 export function StickyMobileCta() {
   const pathname = usePathname();
@@ -48,7 +50,7 @@ export function StickyMobileCta() {
         >
           <div className="grid h-[72px] grid-cols-2 gap-3 border-t border-white/10 bg-[color:var(--ink)] px-4 pb-[env(safe-area-inset-bottom)] pt-3">
             <ButtonLink
-              href={whatsappUrl}
+              href={stickyWhatsappUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex h-full items-center justify-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 text-xs font-semibold uppercase tracking-[0.2em] text-white"

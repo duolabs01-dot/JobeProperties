@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { startTransition, useDeferredValue, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
+import { startTransition, useDeferredValue, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { MotionButton } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { phases, units } from "@/lib/site-data";
@@ -12,13 +13,24 @@ const initialState = {
   preferredPhase: "Any phase",
 };
 
+const unitTypeOptions = ["Any type", "Standard", "Balcony", "Sliding door"] as const;
+
+const unitTypeLabels = {
+  standard: "Standard",
+  balcony: "Balcony",
+  "sliding-door": "Sliding door",
+} as const;
+
 export function AvailabilityPanel() {
   const { toast } = useToast();
   const [preferredPhase, setPreferredPhase] = useState("Any phase");
   const deferredPhase = useDeferredValue(preferredPhase);
+  const [preferredUnitType, setPreferredUnitType] = useState<(typeof unitTypeOptions)[number]>("Any type");
+  const deferredUnitType = useDeferredValue(preferredUnitType);
   const [form, setForm] = useState(initialState);
   const [isPending, setIsPending] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const waitingListRef = useRef<HTMLFormElement>(null);
   const isMounted = useSyncExternalStore(
     () => () => undefined,
     () => true,
@@ -26,11 +38,26 @@ export function AvailabilityPanel() {
   );
 
   const filteredUnits = units.filter((unit) => {
-    if (deferredPhase === "Any phase") return unit.available;
-    return unit.available && unit.phase === deferredPhase;
+    const matchesPhase = deferredPhase === "Any phase" || unit.phase === deferredPhase;
+    const matchesUnitType = deferredUnitType === "Any type" || unitTypeLabels[unit.unitType] === deferredUnitType;
+
+    return unit.available && matchesPhase && matchesUnitType;
   });
 
-  const availableLabel = `${filteredUnits.length} ${filteredUnits.length === 1 ? "unit" : "units"} available`;
+  useEffect(() => {
+    if (!isMounted || filteredUnits.length > 0) {
+      return;
+    }
+
+    waitingListRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [filteredUnits.length, isMounted]);
+
+  const availableLabel = filteredUnits.length
+    ? `${filteredUnits.length} ${filteredUnits.length === 1 ? "unit" : "units"} available · Updated today`
+    : "Nothing available in that filter right now — join the list";
 
   return (
     <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
@@ -42,26 +69,47 @@ export function AvailabilityPanel() {
               When a studio opens here, it goes quickly.
             </h3>
           </div>
-          <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
-            Choose a phase
-            <select
-              value={preferredPhase}
-              onChange={(event) => setPreferredPhase(event.target.value)}
-              className="rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none"
-            >
-              {phases.map((phase) => (
-                <option key={phase}>{phase}</option>
-              ))}
-            </select>
-          </label>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-end">
+            <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
+              Choose a phase
+              <select
+                value={preferredPhase}
+                onChange={(event) => setPreferredPhase(event.target.value)}
+                className="rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none"
+              >
+                {phases.map((phase) => (
+                  <option key={phase}>{phase}</option>
+                ))}
+              </select>
+            </label>
+
+            <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
+              Unit type
+              <select
+                value={preferredUnitType}
+                onChange={(event) => setPreferredUnitType(event.target.value as (typeof unitTypeOptions)[number])}
+                className="rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none"
+              >
+                {unitTypeOptions.map((unitType) => (
+                  <option key={unitType}>{unitType}</option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
 
         <div className="space-y-5 border-t border-[color:var(--line)] pt-6">
-          <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-[color:var(--olive)]">
-            <span className="home-signal-pulse h-1.5 w-1.5 rounded-full bg-[#22c55e]" />
-            <span>
-              {availableLabel} · Updated today
-            </span>
+          <div
+            className={`inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] ${
+              filteredUnits.length ? "text-[color:var(--olive)]" : "text-[#EF9F27]"
+            }`}
+          >
+            <span
+              className={`home-signal-pulse h-1.5 w-1.5 rounded-full ${
+                filteredUnits.length ? "bg-[#22c55e]" : "bg-[#EF9F27]"
+              }`}
+            />
+            <span>{availableLabel}</span>
           </div>
 
           <AnimatePresence mode="wait">
@@ -89,7 +137,12 @@ export function AvailabilityPanel() {
                 {filteredUnits.map((unit) => (
                   <article key={unit.id} className="grid gap-3 border-b border-[color:var(--line)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
                     <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{unit.phase}</p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{unit.phase}</p>
+                        <span className="rounded-full bg-[color:var(--sand)] px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-[color:var(--ink)]">
+                          {unitTypeLabels[unit.unitType]} studio
+                        </span>
+                      </div>
                       <div>
                         <h4 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{unit.name}</h4>
                         <p className="mt-2 max-w-2xl text-sm leading-7 text-[color:var(--muted)]">{unit.summary}</p>
@@ -98,6 +151,14 @@ export function AvailabilityPanel() {
                     <div className="space-y-1 sm:text-right">
                       <p className="font-display text-3xl text-[color:var(--ink)]">{unit.price}</p>
                       <p className="text-sm text-[color:var(--muted)]">{unit.availableFrom}</p>
+                      <Link
+                        href={`https://wa.me/27722293229?text=${encodeURIComponent(`Hi, I'm interested in ${unit.name} in ${unit.phase}. Is it still available?`)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex text-xs text-[color:var(--olive)] transition-colors duration-300 hover:underline sm:justify-end"
+                      >
+                        Enquire via WhatsApp →
+                      </Link>
                     </div>
                   </article>
                 ))}
@@ -113,6 +174,7 @@ export function AvailabilityPanel() {
       </div>
 
       <form
+        ref={waitingListRef}
         className="space-y-5 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_32px_90px_rgba(17,24,15,0.08)] sm:p-8"
         onSubmit={(event) => {
           event.preventDefault();
