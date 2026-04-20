@@ -23,6 +23,15 @@ export type FaqItem = {
   answer: string;
 };
 
+export type UnitType = {
+  id: "standard" | "balcony" | "sliding-door";
+  name: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  image: string;
+};
+
 const createMapsLink = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
@@ -132,6 +141,57 @@ export const apartmentSpecs = [
   "🚪 Built-in cupboards",
   "🔐 Biometric access",
   "👥 Up to 3 occupants",
+];
+
+export const unitTypes: UnitType[] = [
+  {
+    id: "standard",
+    name: "Standard Studio",
+    tagline: "Clean, private, everything you need.",
+    description:
+      "A self-contained studio with a private kitchenette, private bathroom, and built-in cupboards. No balcony, no sliding door — just a well-finished, practical space that is easy to move into and easy to live in.",
+    features: [
+      "Private kitchenette",
+      "Private bathroom",
+      "Built-in cupboards",
+      "Biometric access",
+      "15–20 sqm",
+    ],
+    image:
+      "https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-1-scaled-e1748731339120.jpg",
+  },
+  {
+    id: "balcony",
+    name: "Balcony Studio",
+    tagline: "Open air, natural light, room to breathe.",
+    description:
+      "Same well-finished studio layout, with the addition of a private balcony. Step outside in the morning, let the air in after a long day, or just have a space that feels bigger than it is.",
+    features: [
+      "Private balcony",
+      "Private kitchenette",
+      "Private bathroom",
+      "Built-in cupboards",
+      "Biometric access",
+    ],
+    image:
+      "https://jobepropco.co.za/wp-content/uploads/2025/06/QJ2A7347-scaled-e1748771472367.jpg",
+  },
+  {
+    id: "sliding-door",
+    name: "Sliding Door Studio",
+    tagline: "Indoor-outdoor feel. More natural light.",
+    description:
+      "The sliding glass door opens the studio up and floods the space with light. A different feel from a standard unit — airier, more open, with a connection to the outside without the full balcony.",
+    features: [
+      "Full-height sliding glass door",
+      "Private kitchenette",
+      "Private bathroom",
+      "Built-in cupboards",
+      "Biometric access",
+    ],
+    image:
+      "https://jobepropco.co.za/wp-content/uploads/2025/06/QJ2A7348-scaled-e1748771512324.jpg",
+  },
 ];
 
 export const apartmentPhases: ApartmentPhase[] = [

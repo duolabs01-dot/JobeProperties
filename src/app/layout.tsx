@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   title: "Jobe Propco | Studio apartments in Alexandra",
   description:
     "Studio apartments in Alexandra, 9km from Sandton, with current availability, WhatsApp enquiries, and tenant support from your phone.",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({

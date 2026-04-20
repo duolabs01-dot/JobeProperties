@@ -2,6 +2,7 @@ export type Unit = {
   id: string;
   name: string;
   phase: string;
+  unitType: "standard" | "balcony" | "sliding-door";
   beds: string;
   price: string;
   available: boolean;
@@ -23,6 +24,7 @@ export const units: Unit[] = [
     id: "phase-4-a12",
     name: "Studio A12",
     phase: "Phase 4",
+    unitType: "standard",
     beds: "1 bed studio",
     price: "R4,200/mo",
     available: true,
@@ -33,6 +35,7 @@ export const units: Unit[] = [
     id: "phase-5-b08",
     name: "Studio B08",
     phase: "Phase 5",
+    unitType: "balcony",
     beds: "1 bed studio",
     price: "R4,350/mo",
     available: true,
@@ -43,6 +46,7 @@ export const units: Unit[] = [
     id: "phase-6-c03",
     name: "Studio C03",
     phase: "Phase 6",
+    unitType: "sliding-door",
     beds: "1 bed studio",
     price: "R4,500/mo",
     available: false,
@@ -105,21 +109,6 @@ export const adminMetrics = [
   { label: "Maintenance", value: "48 hrs", detail: "Most requests are picked up within two days." },
   { label: "Payments", value: "Tracked", detail: "Rent, receipts, and overdue balances stay up to date." },
   { label: "Move-ins", value: "On file", detail: "Documents, handovers, and vacancies are easy to follow." },
-];
-
-export const adPlacements = [
-  {
-    title: "Laundry, food, and daily essentials",
-    detail: "Reach tenants looking for the services they use every week.",
-  },
-  {
-    title: "Resident offers that people will notice",
-    detail: "Promote a special, a launch, or a discount close to home.",
-  },
-  {
-    title: "A local audience, right on your doorstep",
-    detail: "Speak to people who live, eat, and spend within walking distance.",
-  },
 ];
 
 export const faqs = [

@@ -10,7 +10,6 @@ import { RevealItem, RevealSection, revealItemVariants } from "@/components/reve
 import { ButtonLink } from "@/components/ui/button-link";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import {
-  adPlacements,
   adminMetrics,
   faqs,
   gallery,
@@ -238,31 +237,50 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-28" stagger>
-        <RevealItem className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Advertise with us</p>
-          <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-            Your business, in front of every Jobe resident.
-          </h2>
-          <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
-            Reach tenants across 6 phases. People who live, eat, and spend within walking distance of your door.
-          </p>
-          <ButtonLink
-            href="/advertise"
-            transitionTypes={["nav-forward"]}
-            className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:border-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
-          >
-            Send an enquiry
-          </ButtonLink>
-        </RevealItem>
+      <RevealSection className="bg-[color:var(--paper)]">
+        <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
+          <div className="max-w-3xl space-y-4">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Life at Jobe Lifestyle Corner</p>
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
+              Your barber, your dinner, your internet — downstairs.
+            </h2>
+            <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">
+              Jobe Lifestyle Corner sits within the precinct. Tenants don&apos;t need to leave the neighbourhood for everyday needs.
+            </p>
+          </div>
 
-        <div className="space-y-8 border-t border-[color:var(--line)] pt-6 lg:border-t-0 lg:border-l lg:pl-10 lg:pt-0">
-          {adPlacements.map((placement) => (
-            <motion.div key={placement.title} variants={revealItemVariants} className="border-b border-[color:var(--line)] pb-6">
-              <p className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{placement.title}</p>
-              <p className="mt-3 max-w-xl text-sm leading-7 text-[color:var(--muted)]">{placement.detail}</p>
-            </motion.div>
-          ))}
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { emoji: "🍖", name: "Restaurant", description: "Kasi-style kitchen. Traditional braai, full menu." },
+              { emoji: "🍺", name: "Bar Lounge", description: "Drinks, sport, and somewhere to unwind." },
+              { emoji: "✂️", name: "Salon & Barber", description: "Hair salon and barbershop, no appointment needed." },
+              { emoji: "🚗", name: "Car Wash", description: "Drive in, come out clean. On-site." },
+              { emoji: "💻", name: "Internet Café", description: "Fast internet, printing, and scanning." },
+              { emoji: "👗", name: "Fashion", description: "Local designer fashion and apparel." },
+              { emoji: "🏧", name: "ATM", description: "Cash on-site. No trip to the mall." },
+              { emoji: "🎉", name: "Events", description: "Private functions and 80-delegate conference venue." },
+            ].map((amenity) => (
+              <div
+                key={amenity.name}
+                className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-white px-5 py-5 shadow-[0_16px_40px_rgba(17,24,15,0.05)]"
+              >
+                <p className="text-[28px] leading-none">{amenity.emoji}</p>
+                <p className="mt-4 text-[13px] font-medium text-[color:var(--ink)]">{amenity.name}</p>
+                <p className="mt-2 text-[11px] leading-6 text-[color:var(--muted)]">{amenity.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <ButtonLink
+              href="https://jobelifestyle.co.za"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center text-sm text-[color:var(--olive)] hover:underline"
+            >
+              Explore Jobe Lifestyle Corner →
+            </ButtonLink>
+          </div>
         </div>
       </RevealSection>
 
