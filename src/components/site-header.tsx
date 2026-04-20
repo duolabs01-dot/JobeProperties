@@ -42,6 +42,13 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/partners"
+            transitionTypes={["nav-forward"]}
+            className="rounded-full border border-transparent px-3 py-2 text-[10px] font-medium normal-case tracking-[0.02em] text-white/40 transition-all duration-300 hover:border-white/14 hover:text-white/72"
+          >
+            For businesses
+          </Link>
         </nav>
 
         <ButtonLink
@@ -99,6 +106,17 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
+
+              <div className="mt-2 w-full border-t border-white/10 pt-6">
+                <Link
+                  href="/partners"
+                  onClick={() => setOpen(false)}
+                  className="text-[22px] font-medium tracking-[-0.03em] text-white/50 transition-colors duration-300 hover:text-white/72"
+                  transitionTypes={["nav-forward"]}
+                >
+                  For businesses
+                </Link>
+              </div>
             </nav>
 
             <ButtonLink

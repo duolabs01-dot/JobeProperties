@@ -52,8 +52,8 @@ export function SiteFooter() {
           <Link href="/admin" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
             Owner dashboard
           </Link>
-          <Link href="/advertise" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
-            Advertise with us
+          <Link href="/partners" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
+            For businesses
           </Link>
           <Link href={foundationUrl} target="_blank" rel="noreferrer" className="text-sm text-white/70">
             Dr Sithole Foundation
