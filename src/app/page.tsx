@@ -8,7 +8,9 @@ import { AvailabilityPanel } from "@/components/availability-panel";
 import { AnimatedStatValue } from "@/components/animated-stat-value";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
+import { WordReveal } from "@/components/ui/word-reveal";
 import {
   adminMetrics,
   faqs,
@@ -53,15 +55,21 @@ export default function Home() {
     <div className="bg-[color:var(--paper)]">
       <section className="relative isolate -mt-18 flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] text-white">
         <ViewTransition name="hero-image" share="morph">
-          <div className="absolute inset-0 will-change-transform" style={{ transform: `translateY(${heroOffset}px)` }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 1.12 }}
+            animate={{ opacity: 1, scale: 1.08 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 will-change-transform"
+            style={{ y: heroOffset }}
+          >
             <Image
               src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
               alt="Jobe Propco apartments"
               fill
               priority
-              className="object-cover object-center scale-[1.08]"
+              className="object-cover object-center"
             />
-          </div>
+          </motion.div>
         </ViewTransition>
         <div className="absolute inset-0 bg-[rgba(0,0,0,0.45)]" />
 
@@ -71,33 +79,57 @@ export default function Home() {
               Studio apartments in Alexandra · 9km to Sandton
             </p>
             <div className="space-y-5">
-              <p className="font-display text-5xl leading-none tracking-[0.2em] text-[color:var(--sand)] sm:text-6xl lg:text-7xl">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-5xl leading-none tracking-[0.2em] text-[color:var(--sand)] sm:text-6xl lg:text-7xl"
+              >
                 JOBE PROPCO
-              </p>
-              <div className="h-[2px] w-[60px] bg-[color:var(--sand)]" />
-              <h1 className="home-hero-headline max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl">
-                9km to Sandton. Alexandra still feels like home.
+              </motion.p>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="h-[2px] w-[60px] origin-left bg-[color:var(--sand)]"
+              />
+              <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl">
+                <WordReveal text="9km to Sandton. Alexandra still feels like home." delay={0.7} />
               </h1>
             </div>
-            <p className="home-hero-subhead max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg"
+            >
               Close to the Gautrain, easy on the work commute, and rooted in a neighbourhood that still feels familiar.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <ButtonLink
-                href="/#availability"
-                className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:translate-y-[-1px] hover:bg-white"
-              >
-                See what&apos;s available
-              </ButtonLink>
-              <ButtonLink
-                href="https://wa.me/27722293229"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:border-white hover:bg-white/10"
-              >
-                WhatsApp us
-              </ButtonLink>
-            </div>
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-4 sm:flex-row"
+            >
+              <MagneticButton className="w-full sm:w-auto">
+                <ButtonLink
+                  href="/#availability"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:translate-y-[-1px] hover:bg-white"
+                >
+                  See what&apos;s available
+                </ButtonLink>
+              </MagneticButton>
+              <MagneticButton className="w-full sm:w-auto">
+                <ButtonLink
+                  href="https://wa.me/27722293229"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:border-white hover:bg-white/10"
+                >
+                  WhatsApp us
+                </ButtonLink>
+              </MagneticButton>
+            </motion.div>
           </div>
         </div>
       </section>

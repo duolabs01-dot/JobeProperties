@@ -6,6 +6,7 @@ import { aboutStats, aboutStory, foundationUrl } from "@/lib/property-data";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { WordReveal } from "@/components/ui/word-reveal";
 import { useInView } from "@/hooks/use-in-view";
 
 const timelineItems = [
@@ -40,7 +41,7 @@ export default function AboutPage() {
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <RevealItem className="space-y-8">
             <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl lg:text-7xl">
-              Built from Alexandra. Built for Alexandra.
+              <WordReveal text="Built from Alexandra. Built for Alexandra." />
             </h1>
 
             <div className="space-y-6 text-base leading-8 text-[color:var(--muted)] sm:text-lg">
@@ -79,28 +80,21 @@ export default function AboutPage() {
             >
               <p className="font-display text-4xl leading-none text-[color:var(--ink)]">
                 {stat.label === "Founded" ? (
-                  <AnimatedCounter start={2010} end={2016} duration={1200} active={statsInView} />
+                  <AnimatedCounter from={2010} to={2016} duration={1.2} />
                 ) : null}
                 {stat.label === "Phases" ? (
-                  <AnimatedCounter start={0} end={6} duration={800} active={statsInView} />
+                  <AnimatedCounter from={0} to={6} suffix=" phases" duration={0.8} />
                 ) : null}
                 {stat.label === "Monthly from" ? (
                   <AnimatedCounter
-                    start={0}
-                    end={4300}
-                    duration={1400}
-                    active={statsInView}
-                    formatValue={(value) => `R${new Intl.NumberFormat("en-ZA").format(Math.round(value))}`}
+                    from={4000}
+                    to={4300}
+                    prefix="R"
+                    duration={1.4}
                   />
                 ) : null}
                 {stat.label === "To Sandton" ? (
-                  <AnimatedCounter
-                    start={0}
-                    end={9}
-                    duration={800}
-                    active={statsInView}
-                    formatValue={(value) => `${Math.round(value)}km`}
-                  />
+                  <AnimatedCounter from={0} to={9} suffix="km" duration={0.8} />
                 ) : null}
               </p>
               <p className="mt-3 text-sm uppercase tracking-[0.24em] text-[color:var(--muted)]">{stat.label}</p>

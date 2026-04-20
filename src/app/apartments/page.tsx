@@ -7,6 +7,7 @@ import { RevealItem, RevealSection, revealItemVariants } from "@/components/reve
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
+import { WordReveal } from "@/components/ui/word-reveal";
 import { useInView } from "@/hooks/use-in-view";
 import {
   apartmentGalleryGroups,
@@ -43,7 +44,7 @@ export default function ApartmentsPage() {
           >
             <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Apartments</p>
             <motion.h1 variants={revealItemVariants} className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
-              Studio apartments built for real life.
+              <WordReveal text="Studio apartments built for real life." />
             </motion.h1>
             <motion.p variants={revealItemVariants} className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
               15–20sqm. Private kitchenette. Private bathroom. Built-in cupboards. Biometric entry. From R4,300/month.
@@ -120,12 +121,20 @@ export default function ApartmentsPage() {
                 },
               }}
               whileHover="hover"
-              className="overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(17,24,15,0.08)]"
+              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(17,24,15,0.08)]"
             >
+              <motion.div
+                variants={{
+                  hidden: { width: 0 },
+                  visible: { width: 0 },
+                  hover: { width: 3, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+                }}
+                className="absolute inset-y-0 left-0 z-10 bg-[color:var(--sand)]"
+              />
               <div className="relative aspect-[4/3] overflow-hidden bg-[color:var(--stone)]">
                 <motion.div
                   variants={{
-                    hover: { scale: 1.04, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+                    hover: { scale: 1.06, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
                   }}
                   className="h-full w-full"
                 >
@@ -212,11 +221,19 @@ export default function ApartmentsPage() {
               }}
               whileHover="hover"
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(17,24,15,0.08)]"
+              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(17,24,15,0.08)]"
             >
               <motion.div
                 variants={{
-                  hover: { scale: 1.04, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+                  hidden: { width: 0 },
+                  visible: { width: 0 },
+                  hover: { width: 3, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+                }}
+                className="absolute inset-y-0 left-0 z-10 bg-[color:var(--sand)]"
+              />
+              <motion.div
+                variants={{
+                  hover: { scale: 1.06, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
                 }}
                 className="relative aspect-[4/3] overflow-hidden bg-[color:var(--stone)]"
               >

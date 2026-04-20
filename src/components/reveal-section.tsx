@@ -7,28 +7,31 @@ import { useInView } from "@/hooks/use-in-view";
 export const revealEase: Transition["ease"] = [0.22, 1, 0.36, 1];
 
 export const revealItemVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 28, rotateX: 8 },
   visible: {
     opacity: 1,
     y: 0,
+    rotateX: 0,
     transition: { duration: 0.6, ease: revealEase },
   },
 };
 
 const revealContainerVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 28, rotateX: 8 },
   visible: {
     opacity: 1,
     y: 0,
+    rotateX: 0,
     transition: { duration: 0.6, ease: revealEase },
   },
 };
 
 const revealStaggerVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 28, rotateX: 8 },
   visible: {
     opacity: 1,
     y: 0,
+    rotateX: 0,
     transition: {
       duration: 0.6,
       ease: revealEase,
@@ -48,6 +51,7 @@ export function RevealSection({ stagger = false, children, ...props }: RevealSec
   return (
     <motion.section
       ref={ref}
+      style={{ perspective: 800 }}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       variants={stagger ? revealStaggerVariants : revealContainerVariants}

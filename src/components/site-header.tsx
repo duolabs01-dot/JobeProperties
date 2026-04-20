@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { navItems } from "@/lib/site-data";
 
@@ -51,12 +52,14 @@ export function SiteHeader() {
           </Link>
         </nav>
 
-        <ButtonLink
-          href="/#availability"
-          className="hidden items-center justify-center rounded-full border border-[color:var(--sand)]/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--sand)] hover:border-[color:var(--sand)] hover:bg-[color:var(--sand)] hover:text-[color:var(--ink)] sm:px-5 lg:inline-flex"
-        >
-          See availability
-        </ButtonLink>
+        <MagneticButton className="hidden lg:block">
+          <ButtonLink
+            href="/#availability"
+            className="hidden items-center justify-center rounded-full border border-[color:var(--sand)]/50 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--sand)] hover:border-[color:var(--sand)] hover:bg-[color:var(--sand)] hover:text-[color:var(--ink)] sm:px-5 lg:inline-flex"
+          >
+            See availability
+          </ButtonLink>
+        </MagneticButton>
 
         <Sheet open={open} onOpenChange={setOpen}>
           <MotionButton

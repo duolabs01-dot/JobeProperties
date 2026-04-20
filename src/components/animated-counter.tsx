@@ -1,51 +1,41 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useInView } from "@/hooks/use-in-view";
 
 type AnimatedCounterProps = {
-  start: number;
-  end: number;
-  duration: number;
-  active: boolean;
-  formatValue?: (value: number) => string;
+  from?: number;
+  to: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
 };
 
 export function AnimatedCounter({
-  start,
-  end,
-  duration,
-  active,
-  formatValue = (value) => `${Math.round(value)}`,
+  from = 0,
+  to,
+  suffix = "",
+  prefix = "",
+  duration = 1.4,
 }: AnimatedCounterProps) {
-  const [value, setValue] = useState(start);
-  const hasAnimated = useRef(false);
+  const { ref, inView } = useInView<HTMLSpanElement>();
+  const count = useMotionValue(from);
+  const spring = useSpring(count, {
+    stiffness: 120 / Math.max(duration, 0.6),
+    damping: 20,
+    mass: 0.8,
+  });
+  const display = useTransform(
+    spring,
+    (value) => `${prefix}${Math.round(value).toLocaleString("en-ZA")}${suffix}`,
+  );
 
   useEffect(() => {
-    if (!active || hasAnimated.current) {
-      return;
+    if (inView) {
+      count.set(to);
     }
+  }, [count, inView, to]);
 
-    hasAnimated.current = true;
-
-    let frameId = 0;
-    const startedAt = performance.now();
-
-    const tick = (timestamp: number) => {
-      const progress = Math.min((timestamp - startedAt) / duration, 1);
-      const eased = 1 - (1 - progress) ** 3;
-      const currentValue = start + (end - start) * eased;
-
-      setValue(currentValue);
-
-      if (progress < 1) {
-        frameId = window.requestAnimationFrame(tick);
-      }
-    };
-
-    frameId = window.requestAnimationFrame(tick);
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, [active, duration, end, start]);
-
-  return <span>{formatValue(value)}</span>;
+  return <motion.span ref={ref}>{display}</motion.span>;
 }
