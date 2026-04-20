@@ -1,12 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { Badge } from "@/components/ui/badge";
+import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
+import { useToast } from "@/components/ui/toast";
 import { WordReveal } from "@/components/ui/word-reveal";
 import { useInView } from "@/hooks/use-in-view";
 import {
@@ -19,8 +25,28 @@ import {
   whatsappUrl,
 } from "@/lib/property-data";
 
+const futurePhaseSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  phone: z.string().regex(/^0[0-9]{9}$/, "Enter a valid SA number (e.g. 071 234 5678)"),
+});
+
+type FuturePhaseValues = z.infer<typeof futurePhaseSchema>;
+
 export default function ApartmentsPage() {
   const { ref: heroRef, inView: heroInView } = useInView<HTMLDivElement>();
+  const { toast } = useToast();
+  const [isFutureComplete, setIsFutureComplete] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting, touchedFields, submitCount },
+  } = useForm<FuturePhaseValues>({
+    resolver: zodResolver(futurePhaseSchema),
+    defaultValues: { name: "", phone: "" },
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
 
   return (
     <div className="bg-white">
@@ -274,6 +300,129 @@ export default function ApartmentsPage() {
             </motion.article>
           ))}
         </motion.div>
+      </RevealSection>
+
+      <RevealSection className="bg-[color:var(--paper)]" stagger>
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-24">
+          <RevealItem className="max-w-2xl space-y-4">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">What&apos;s next</p>
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
+              More phases planned.
+            </h2>
+            <p className="text-base leading-8 text-[color:var(--muted)]">
+              Jobe Propco is growing. If you&apos;d like to be first to know when new units open — in the current phases or new ones — leave your details and we&apos;ll reach out before anyone else.
+            </p>
+          </RevealItem>
+
+          <RevealItem>
+            <form
+              className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_24px_70px_rgba(17,24,15,0.08)] sm:p-8"
+              onSubmit={handleSubmit(async (values) => {
+                try {
+                  const response = await fetch("/api/waiting-list", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      ...values,
+                      preferredPhase: "future",
+                    }),
+                  });
+                  const payload = (await response.json()) as { message: string };
+
+                  if (!response.ok) {
+                    throw new Error(payload.message);
+                  }
+
+                  toast({
+                    variant: "success",
+                    title: "You're first on the list.",
+                  });
+                  reset();
+                  setIsFutureComplete(true);
+                } catch (error) {
+                  toast({
+                    variant: "error",
+                    title: "Something went wrong",
+                    description: error instanceof Error ? error.message : "Couldn't save your details. Try again.",
+                  });
+                }
+              })}
+            >
+              <AnimatePresence mode="wait">
+                {isFutureComplete ? (
+                  <motion.div
+                    key="future-complete"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-5 py-4 text-sm font-medium text-[color:var(--olive)]"
+                  >
+                    ✓ We&apos;ll call you before the next release opens up.
+                  </motion.div>
+                ) : (
+                  <motion.div key="future-fields" className="space-y-5">
+                    <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+                      <span>Name</span>
+                      <input
+                        {...register("name")}
+                        className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                        placeholder="Full name"
+                      />
+                      <AnimatePresence initial={false}>
+                        {(touchedFields.name || submitCount > 0) && errors.name ? (
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="text-xs text-red-600"
+                          >
+                            {errors.name.message}
+                          </motion.p>
+                        ) : null}
+                      </AnimatePresence>
+                    </label>
+
+                    <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+                      <span>Phone number</span>
+                      <input
+                        {...register("phone", {
+                          setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
+                        })}
+                        type="tel"
+                        className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                        placeholder="e.g. 071 234 5678"
+                      />
+                      <AnimatePresence initial={false}>
+                        {(touchedFields.phone || submitCount > 0) && errors.phone ? (
+                          <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="text-xs text-red-600"
+                          >
+                            {errors.phone.message}
+                          </motion.p>
+                        ) : null}
+                      </AnimatePresence>
+                    </label>
+
+                    <MotionButton
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isSubmitting ? "Sending..." : "Notify me first"}
+                    </MotionButton>
+
+                    <p className="text-xs leading-6 text-[color:var(--muted)]">
+                      No spam. Just a call when something opens up.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </form>
+          </RevealItem>
+        </div>
       </RevealSection>
 
       <RevealSection className="bg-[color:var(--ink)] text-white" stagger>

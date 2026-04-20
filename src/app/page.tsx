@@ -5,8 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { AvailabilityPanel } from "@/components/availability-panel";
+import { AnimatedCounter } from "@/components/animated-counter";
 import { AnimatedStatValue } from "@/components/animated-stat-value";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
+import { Testimonials } from "@/components/testimonials";
 import { ButtonLink } from "@/components/ui/button-link";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
@@ -203,6 +205,25 @@ export default function Home() {
         </div>
       </RevealSection>
 
+      <RevealSection className="bg-[color:var(--ink)] text-white" stagger>
+        <div className="mx-auto w-full max-w-7xl px-5 py-12 text-center sm:px-8 lg:px-12">
+          <RevealItem className="space-y-3">
+            <p className="font-display text-6xl leading-none text-[color:var(--sand)] sm:text-7xl">
+              <AnimatedCounter from={270} to={300} suffix="+" />
+            </p>
+            <p className="text-sm text-white/60 sm:text-base">residents across Far East Bank</p>
+          </RevealItem>
+
+          <RevealItem className="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.28em] text-white/54 sm:gap-5">
+            <span>6 phases</span>
+            <span className="h-1 w-1 rounded-full bg-white/20" />
+            <span>Est. 2016</span>
+            <span className="h-1 w-1 rounded-full bg-white/20" />
+            <span>9km to Sandton</span>
+          </RevealItem>
+        </div>
+      </RevealSection>
+
       <RevealSection id="availability" className="border-y border-[color:var(--line)] bg-white">
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <AvailabilityPanel />
@@ -268,6 +289,8 @@ export default function Home() {
           </div>
         </div>
       </RevealSection>
+
+      <Testimonials />
 
       <RevealSection className="bg-[color:var(--paper)]">
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">

@@ -41,3 +41,29 @@ Copy `.env.example` to `.env.local` and fill in values when ready.
 3. Add PayFast checkout and payment webhook handling.
 4. Add Supabase Storage for lease documents and maintenance photos.
 5. Wire WhatsApp Business provider once the owner approves reminder flows.
+
+## Adding real content
+
+### Logo
+
+Drop your logo into `/public/logo.svg` (vector preferred) or `/public/logo.png`. The header will use it automatically.
+
+### Favicon
+
+Replace `/public/favicon.svg` with your own 32×32 SVG icon.
+
+### Testimonials
+
+Open `src/components/testimonials.tsx` and replace the 3 placeholder objects with real quotes. The format is:
+
+```ts
+{ quote: "...", name: "...", since: "YYYY", phase: "Phase X" }
+```
+
+### Founder photo (About page)
+
+Drop a photo at `/public/founder.jpg` and update `src/app/about/page.tsx` — replace the placeholder div with:
+
+```tsx
+<Image src="/founder.jpg" alt="Dr Nhlanhla Sithole" fill className="object-cover object-top rounded-[2rem]" />
+```
