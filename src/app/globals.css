@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f5efe6;
+  --paper-strong: #efe6d9;
+  --ink: #11180f;
+  --stone: #d9cebf;
+  --muted: #5c645a;
+  --sand: #d7c495;
+  --olive: #405238;
+  --line: rgba(17, 24, 15, 0.12);
+  --line-strong: rgba(17, 24, 15, 0.2);
+  --surface-veil: rgba(17, 24, 15, 0.5);
+}
+
+@theme inline {
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(215, 196, 149, 0.2), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08)),
+    var(--paper);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+}
+
+::selection {
+  background: rgba(64, 82, 56, 0.18);
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+}
+
+::view-transition-image-pair(.morph) {
+  animation-name: hero-morph;
+}
+
+html:active-view-transition-type(nav-forward) {
+  &::view-transition-old(root) {
+    animation: 220ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out-left;
+  }
+
+  &::view-transition-new(root) {
+    animation: 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both fade-in-left;
+  }
+}
+
+html:active-view-transition-type(nav-back) {
+  &::view-transition-old(root) {
+    animation: 220ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out-right;
+  }
+
+  &::view-transition-new(root) {
+    animation: 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both fade-in-right;
+  }
+}
+
+@keyframes hero-morph {
+  30% {
+    filter: blur(4px);
+  }
+}
+
+@keyframes fade-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
