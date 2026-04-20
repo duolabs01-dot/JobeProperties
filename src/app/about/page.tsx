@@ -1,11 +1,35 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { aboutStats, aboutStory, foundationUrl } from "@/lib/property-data";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
 import { useInView } from "@/hooks/use-in-view";
+
+const timelineItems = [
+  {
+    year: "2016",
+    text: "Jobe Propco founded. First phase of studio apartments in Far East Bank, Alexandra.",
+  },
+  {
+    year: "2022",
+    text: "Jobe Lifestyle Corner opens. The buy-and-braai spot becomes a full precinct: restaurant, bar, salon, car wash.",
+  },
+  {
+    year: "2023",
+    text: "Jobe Towers Guesthouse. Short-stay accommodation added for visitors, contractors, and guests.",
+  },
+  {
+    year: "2024",
+    text: "Jobe Lifestyle Corner expands. Internet café, fashion, ATM, and 80-delegate conference venue added.",
+  },
+  {
+    year: "2026",
+    text: "Six residential phases across Far East Bank. The precinct now serves hundreds of residents and daily visitors.",
+  },
+];
 
 export default function AboutPage() {
   const { ref: statsRef, inView: statsInView } = useInView<HTMLDivElement>();
@@ -102,6 +126,50 @@ export default function AboutPage() {
           >
             Visit the Foundation →
           </ButtonLink>
+        </div>
+      </RevealSection>
+
+      <RevealSection className="border-t border-[color:var(--line)] bg-white" stagger>
+        <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
+          <RevealItem className="max-w-4xl space-y-5">
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
+              One vision. Eight years. Six businesses.
+            </h2>
+            <p className="text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+              Dr Sithole didn&apos;t build a property company. He built a community ecosystem — and the apartments are the foundation.
+            </p>
+          </RevealItem>
+
+          <div className="mt-12 border-l-2 border-[color:var(--sand)] pl-6 sm:pl-8">
+            {timelineItems.map((item) => (
+              <RevealItem key={item.year} className="relative pb-10 last:pb-0">
+                <span className="absolute -left-[34px] top-2 h-1.5 w-1.5 rounded-full bg-[color:var(--sand)] sm:-left-[42px]" />
+                <div className="grid gap-2 sm:grid-cols-[96px_1fr] sm:gap-6">
+                  <p className="font-display text-[1.2rem] leading-none text-[color:var(--sand)]">{item.year}</p>
+                  <p className="text-[13px] leading-7 text-[color:var(--muted)]">{item.text}</p>
+                </div>
+              </RevealItem>
+            ))}
+          </div>
+
+          <RevealItem className="mt-10 flex flex-wrap items-center gap-5 text-xs text-[color:var(--olive)]">
+            <Link
+              href="https://jobelifestyle.co.za"
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors duration-300 hover:text-[color:var(--ink)]"
+            >
+              Jobe Lifestyle Corner ↗
+            </Link>
+            <Link
+              href={foundationUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors duration-300 hover:text-[color:var(--ink)]"
+            >
+              Dr Sithole Foundation ↗
+            </Link>
+          </RevealItem>
         </div>
       </RevealSection>
     </div>

@@ -87,6 +87,45 @@ export default function GuesthousePage() {
         </RevealItem>
       </RevealSection>
 
+      <RevealSection className="bg-[color:var(--paper)]" stagger>
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24">
+          <RevealItem className="space-y-5">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Staying short, thinking long?</p>
+            <h2 className="max-w-2xl font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
+              Most of our long-term tenants started with a short stay.
+            </h2>
+            <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+              If you&apos;re new to the area, job-hunting, or still deciding — a week or two at the guesthouse is a good way to see what the neighbourhood is actually like. And if you like it, the apartments are right here.
+            </p>
+            <div>
+              <ButtonLink
+                href="/#availability"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
+              >
+                See apartment availability →
+              </ButtonLink>
+            </div>
+          </RevealItem>
+
+          <RevealItem>
+            <div className="grid gap-4 rounded-[2rem] bg-[color:var(--ink)] p-6 text-[color:var(--sand)] shadow-[0_28px_80px_rgba(17,24,15,0.18)] sm:grid-cols-3 sm:p-8">
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/4 px-5 py-6">
+                <p className="font-display text-3xl leading-none sm:text-[2.3rem]">From R4,300 / month</p>
+                <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/65">Long-term apartments</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/4 px-5 py-6">
+                <p className="font-display text-3xl leading-none sm:text-[2.3rem]">No lease required</p>
+                <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/65">Move in, move on when you need to</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/4 px-5 py-6">
+                <p className="font-display text-3xl leading-none sm:text-[2.3rem]">Same precinct</p>
+                <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/65">Walk from guesthouse to apartment viewing</p>
+              </div>
+            </div>
+          </RevealItem>
+        </div>
+      </RevealSection>
+
       <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-16 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <h2 className="font-display text-4xl leading-none text-white sm:text-5xl">
