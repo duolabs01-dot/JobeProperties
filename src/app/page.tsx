@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ViewTransition } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Banknote, Car, Flame, PartyPopper, Scissors, Shirt, Wifi, Wine } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,14 +29,14 @@ const crecheSchema = z.object({
 type CrecheValues = z.infer<typeof crecheSchema>;
 
 const lifestyleAmenities = [
-  { emoji: "🍖", name: "Restaurant", description: "Kasi-style kitchen. Traditional braai, full menu." },
-  { emoji: "🍺", name: "Bar Lounge", description: "Drinks, sport, and somewhere to unwind." },
-  { emoji: "✂️", name: "Salon & Barber", description: "Hair salon and barbershop, no appointment needed." },
-  { emoji: "🚗", name: "Car Wash", description: "Drive in, come out clean. On-site." },
-  { emoji: "📡", name: "Fibre Internet", description: "Vuma fibre-ready. Connect from R99/month via Webafrica." },
-  { emoji: "👗", name: "Fashion", description: "Local designer fashion and apparel." },
-  { emoji: "🏧", name: "ATM", description: "Cash on-site. No trip to the mall." },
-  { emoji: "🎉", name: "Events", description: "Private functions and 80-delegate conference venue." },
+  { Icon: Flame, name: "Restaurant", description: "Kasi-style kitchen. Traditional braai, full menu." },
+  { Icon: Wine, name: "Bar Lounge", description: "Drinks, sport, and somewhere to unwind." },
+  { Icon: Scissors, name: "Salon & Barber", description: "Hair salon and barbershop, no appointment needed." },
+  { Icon: Car, name: "Car Wash", description: "Drive in, come out clean. On-site." },
+  { Icon: Wifi, name: "Fibre Internet", description: "Vuma fibre-ready. Connect from R99/month via Webafrica." },
+  { Icon: Shirt, name: "Fashion", description: "Local designer fashion and apparel." },
+  { Icon: Banknote, name: "ATM", description: "Cash on-site. No trip to the mall." },
+  { Icon: PartyPopper, name: "Events", description: "Private functions and 80-delegate conference venue." },
 ] as const;
 
 export default function Home() {
@@ -85,7 +86,7 @@ export default function Home() {
 
   return (
     <div className="bg-[color:var(--surface)]">
-      <section className="relative isolate -mt-18 flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] text-white">
+      <section className="grain-overlay relative isolate -mt-18 flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] text-white">
         <ViewTransition name="hero-image" share="morph">
           <motion.div
             initial={{ opacity: 0, scale: 1.12 }}
@@ -274,7 +275,7 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <section className="relative overflow-hidden" style={{ height: "clamp(320px, 40vw, 500px)" }}>
+      <section className="grain-overlay relative overflow-hidden" style={{ height: "clamp(320px, 40vw, 500px)" }}>
         <motion.div
           ref={bleedRef}
           initial={{ scale: 1.1 }}
@@ -290,7 +291,7 @@ export default function Home() {
           />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(28,25,23,0.75)] via-[rgba(28,25,23,0.3)] to-transparent" />
-        <div className="absolute inset-0 flex items-end">
+        <div className="absolute inset-0 z-10 flex items-end">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={bleedInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
@@ -396,14 +397,18 @@ export default function Home() {
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {lifestyleAmenities.map((amenity) => (
-              <div
+              <motion.div
                 key={amenity.name}
-                className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-white px-5 py-5 shadow-[0_16px_40px_rgba(28,25,23,0.05)]"
+                whileHover={{ y: -4, boxShadow: "0 20px 50px rgba(28,25,23,0.10)" }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="cursor-default rounded-[1.5rem] border border-[color:var(--line-strong)] bg-white px-5 py-5 shadow-[0_16px_40px_rgba(28,25,23,0.05)]"
               >
-                <p className="text-[28px] leading-none">{amenity.emoji}</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[color:var(--accent-light)]">
+                  <amenity.Icon className="h-5 w-5 text-[color:var(--accent-dark)]" strokeWidth={1.8} />
+                </div>
                 <p className="mt-4 text-[13px] font-medium text-[color:var(--ink)]">{amenity.name}</p>
                 <p className="mt-2 text-[11px] leading-6 text-[color:var(--muted)]">{amenity.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
 

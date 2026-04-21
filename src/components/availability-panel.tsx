@@ -100,14 +100,14 @@ export function AvailabilityPanel() {
                 <select
                   value={preferredPhase}
                   onChange={(event) => setPreferredPhase(event.target.value)}
-                  className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-white py-3 pl-4 pr-10 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none ring-0 transition focus:border-[color:var(--accent)] focus:ring-1 focus:ring-[color:var(--accent)]"
+                  className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-white py-3 pl-4 pr-10 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none transition-colors focus:border-[color:var(--accent)] focus:ring-1 focus:ring-[color:var(--accent-light)]"
                 >
                   {phases.map((phase) => (
                     <option key={phase}>{phase}</option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                  <svg className="h-4 w-4 text-[color:var(--muted)]" viewBox="0 0 16 16" fill="none">
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  <svg className="h-4 w-4 text-[color:var(--muted)]" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path
                       d="M4 6l4 4 4-4"
                       stroke="currentColor"
@@ -126,14 +126,14 @@ export function AvailabilityPanel() {
                 <select
                   value={preferredUnitType}
                   onChange={(event) => setPreferredUnitType(event.target.value as (typeof unitTypeOptions)[number])}
-                  className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-white py-3 pl-4 pr-10 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none ring-0 transition focus:border-[color:var(--accent)] focus:ring-1 focus:ring-[color:var(--accent)]"
+                  className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-white py-3 pl-4 pr-10 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none transition-colors focus:border-[color:var(--accent)] focus:ring-1 focus:ring-[color:var(--accent-light)]"
                 >
                   {unitTypeOptions.map((unitType) => (
                     <option key={unitType}>{unitType}</option>
                   ))}
                 </select>
-                <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                  <svg className="h-4 w-4 text-[color:var(--muted)]" viewBox="0 0 16 16" fill="none">
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  <svg className="h-4 w-4 text-[color:var(--muted)]" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path
                       d="M4 6l4 4 4-4"
                       stroke="currentColor"

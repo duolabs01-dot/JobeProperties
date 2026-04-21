@@ -52,7 +52,7 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
       alt="Jobe Propco"
       width={208}
       height={74}
-      className="h-12 w-auto object-contain sm:h-14"
+      className={cn("h-8 w-auto object-contain", !onLight && "brightness-0 invert")}
       priority
       onError={() => {
         if (logoIndex < logoCandidates.length - 1) {

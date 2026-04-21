@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "@/components/portal/logout-button";
 import { MaintenanceRequestsPanel } from "@/components/portal/maintenance-requests-panel";
@@ -76,8 +77,28 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
               Your account is being set up.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-[color:var(--muted)]">
-              Your account is being set up. WhatsApp us on 072 229 3229 with your name and unit number to link your account.
+              Your account needs to be linked to your unit. WhatsApp us and we&apos;ll set it up in
+              minutes.
             </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="https://wa.me/27722293229?text=Hi%2C+I%27ve+just+logged+in+to+the+Jobe+tenant+portal+but+my+account+isn%27t+linked+yet.+My+name+is+[name]+and+my+unit+is+[unit].+Can+you+help%3F"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white" aria-hidden="true">
+                  <path d="M19.05 4.94A9.84 9.84 0 0 0 12.02 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.74.46 3.44 1.32 4.95L2 22l5.31-1.39a9.88 9.88 0 0 0 4.72 1.2h.01c5.46 0 9.9-4.44 9.9-9.9a9.8 9.8 0 0 0-2.89-6.97Z" />
+                </svg>
+                WhatsApp us to link your account
+              </a>
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
+              >
+                Back to homepage
+              </Link>
+            </div>
           </div>
         </section>
       </div>
