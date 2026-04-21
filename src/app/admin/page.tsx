@@ -33,6 +33,9 @@ export const metadata: Metadata = {
   title: "Owner Dashboard | Jobe Propco",
 };
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type AdminPageProps = {
   searchParams: Promise<{
     tab?: string;

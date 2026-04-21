@@ -3,6 +3,9 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { isAdminEmail } from "@/lib/admin";
 import { createServerClient, createServiceRoleClient } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminLayout({
   children,
 }: {

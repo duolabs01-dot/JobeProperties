@@ -15,6 +15,9 @@ import {
   type UnitRow,
 } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-ZA", {
     style: "currency",
