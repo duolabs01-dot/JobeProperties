@@ -12,7 +12,7 @@ import { useInView } from "@/hooks/use-in-view";
 const timelineItems = [
   {
     year: "2016",
-    text: "Jobe Propco founded. First phase of studio apartments in Far East Bank, Alexandra.",
+    text: "Jobe Propco founded. First location of studio apartments in Far East Bank, Alexandra.",
   },
   {
     year: "2022",
@@ -28,7 +28,7 @@ const timelineItems = [
   },
   {
     year: "2026",
-    text: "Six residential phases across Far East Bank. The precinct now serves hundreds of residents and daily visitors.",
+    text: "Six residential locations across Far East Bank. The precinct now serves hundreds of residents and daily visitors.",
   },
 ];
 
@@ -36,7 +36,7 @@ export default function AboutPage() {
   const { ref: statsRef, inView: statsInView } = useInView<HTMLDivElement>();
 
   return (
-    <div data-nav-theme="light" className="bg-[color:var(--paper)]">
+    <div data-nav-theme="light" className="bg-[color:var(--surface)]">
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <RevealItem className="space-y-8">
@@ -52,9 +52,9 @@ export default function AboutPage() {
           </RevealItem>
 
           <RevealItem className="lg:pt-4">
-            <div className="flex aspect-square flex-col items-center justify-center rounded-[2rem] border border-[color:var(--sand)]/70 bg-[color:var(--ink)] px-8 text-center shadow-[0_28px_80px_rgba(17,24,15,0.2)]">
-              <p className="font-display text-[64px] leading-none tracking-[0.08em] text-[color:var(--sand)]">DS</p>
-              <div className="mt-8 h-[2px] w-10 bg-[color:var(--sand)]" />
+            <div className="flex aspect-square flex-col items-center justify-center rounded-[2rem] border border-[color:var(--accent-light)] bg-[color:var(--ink)] px-8 text-center shadow-[0_28px_80px_rgba(28,25,23,0.2)]">
+              <p className="font-display text-[64px] leading-none tracking-[0.08em] text-[color:var(--accent)]">DS</p>
+              <div className="mt-8 h-[2px] w-10 bg-[color:var(--accent)]" />
               <p className="mt-6 text-base font-semibold text-white">Dr Nhlanhla Sithole</p>
               <p className="mt-2 text-xs uppercase tracking-[0.24em] text-white/50">
                 Founder, Jobe Propco · Est. 2016
@@ -76,14 +76,14 @@ export default function AboutPage() {
             <motion.div
               key={stat.label}
               variants={revealItemVariants}
-              className="rounded-[1.75rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-6 py-6"
+              className="rounded-[1.75rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-6 py-6"
             >
               <p className="font-display text-4xl leading-none text-[color:var(--ink)]">
                 {stat.label === "Founded" ? (
                   <AnimatedCounter from={2010} to={2016} duration={1.2} />
                 ) : null}
-                {stat.label === "Phases" ? (
-                  <AnimatedCounter from={0} to={6} suffix=" phases" duration={0.8} />
+                {stat.label === "Locations" ? (
+                  <AnimatedCounter from={0} to={6} suffix=" locations" duration={0.8} />
                 ) : null}
                 {stat.label === "Monthly from" ? (
                   <AnimatedCounter
@@ -105,7 +105,7 @@ export default function AboutPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
         <div className="max-w-3xl space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Community</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Community</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Beyond the apartment.
           </h2>
@@ -134,19 +134,19 @@ export default function AboutPage() {
             </p>
           </RevealItem>
 
-          <div className="mt-12 border-l-2 border-[color:var(--sand)] pl-6 sm:pl-8">
+          <div className="mt-12 border-l-2 border-[color:var(--accent)] pl-6 sm:pl-8">
             {timelineItems.map((item) => (
               <RevealItem key={item.year} className="relative pb-10 last:pb-0">
-                <span className="absolute -left-[34px] top-2 h-1.5 w-1.5 rounded-full bg-[color:var(--sand)] sm:-left-[42px]" />
+                <span className="absolute -left-[34px] top-2 h-1.5 w-1.5 rounded-full bg-[color:var(--accent)] sm:-left-[42px]" />
                 <div className="grid gap-2 sm:grid-cols-[96px_1fr] sm:gap-6">
-                  <p className="font-display text-[1.2rem] leading-none text-[color:var(--sand)]">{item.year}</p>
+                  <p className="font-display text-[1.2rem] leading-none text-[color:var(--accent)]">{item.year}</p>
                   <p className="text-[13px] leading-7 text-[color:var(--muted)]">{item.text}</p>
                 </div>
               </RevealItem>
             ))}
           </div>
 
-          <RevealItem className="mt-10 flex flex-wrap items-center gap-5 text-xs text-[color:var(--olive)]">
+          <RevealItem className="mt-10 flex flex-wrap items-center gap-5 text-xs text-[color:var(--accent-dark)]">
             <Link
               href="https://jobelifestyle.co.za"
               target="_blank"

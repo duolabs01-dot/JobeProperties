@@ -15,10 +15,10 @@ export default async function PortalLoginPage({ searchParams }: PortalLoginPageP
   const params = await searchParams;
 
   return (
-    <div className="bg-[color:var(--paper)]">
+    <div className="bg-[color:var(--surface)]">
       <section className="mx-auto grid min-h-screen w-full max-w-7xl items-center gap-12 px-5 pb-20 pt-28 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-12">
         <div className="max-w-2xl space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Tenant portal</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Tenant portal</p>
           <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
             Tenant login
           </h1>

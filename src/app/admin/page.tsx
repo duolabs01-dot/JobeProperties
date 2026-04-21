@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { apartmentPhases } from "@/lib/property-data";
+import { apartmentLocations, formatLocationLabel } from "@/lib/property-data";
 import { getAdminTab } from "@/lib/admin";
 import {
   formatCurrency,
@@ -123,7 +123,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
       tenantName: tenant?.full_name ?? "Tenant not linked",
       phone: tenant?.phone ?? null,
       unitNumber: unit?.unit_number ?? "—",
-      phase: unit?.phase ?? "—",
+      phase: formatLocationLabel(unit?.phase ?? "—"),
       amount: Number(payment.amount),
       dueDate: payment.due_date,
       status: normalisePaymentStatus(payment),
@@ -141,7 +141,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
       tenantId: request.tenant_id,
       unitId: request.unit_id,
       unitNumber: unit?.unit_number ?? "Not linked",
-      phase: unit?.phase ?? "Unassigned",
+      phase: formatLocationLabel(unit?.phase ?? "Unassigned"),
       title: request.title,
       description: request.description,
       priority: request.priority,
@@ -161,12 +161,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
     status: entry.status,
   }));
 
-  const unitSections: AdminPhaseSection[] = apartmentPhases.map((phase) => ({
-    badge: phase.badge,
-    name: phase.name,
-    address: phase.address,
+  const unitSections: AdminPhaseSection[] = apartmentLocations.map((location) => ({
+    badge: location.badge,
+    name: location.name,
+    address: location.address,
     units: units
-      .filter((unit) => unit.phase === phase.badge)
+      .filter((unit) => formatLocationLabel(unit.phase) === location.badge)
       .sort((left, right) => left.unit_number.localeCompare(right.unit_number))
       .map((unit) => {
         const tenant = tenantByUnitId.get(unit.id);
@@ -176,7 +176,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         return {
           id: unit.id,
           unitNumber: unit.unit_number,
-          phase: unit.phase,
+          phase: formatLocationLabel(unit.phase),
           unitType: unit.unit_type,
           status: unit.status,
           tenantName: tenant?.full_name ?? null,
@@ -224,7 +224,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   return (
     <div className="px-5 pb-12 pt-6 sm:px-8 lg:px-10 lg:py-8">
       <div className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Owner dashboard</p>
+        <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Owner dashboard</p>
         <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
           Dr Sithole&apos;s command centre.
         </h1>
@@ -238,18 +238,18 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           <div className="space-y-8">
             <div className="grid gap-5 xl:grid-cols-4">
               <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Occupancy</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Occupancy</p>
                 <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
                   {occupiedUnits}/{totalUnits} units
                 </p>
                 <div className="mt-5 h-2 w-full overflow-hidden rounded-full bg-[color:var(--line)]">
-                  <div className="h-full rounded-full bg-[color:var(--olive)]" style={{ width: `${occupancyPercentage}%` }} />
+                  <div className="h-full rounded-full bg-[color:var(--accent)]" style={{ width: `${occupancyPercentage}%` }} />
                 </div>
                 <p className="mt-3 text-sm text-[color:var(--muted)]">{occupancyPercentage}% occupied</p>
               </article>
 
               <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Collected</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Collected</p>
                 <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
                   {formatCurrency(revenueThisMonth)}
                 </p>
@@ -257,7 +257,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               </article>
 
               <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Overdue</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Overdue</p>
                 <p className={`mt-4 text-3xl font-semibold tracking-[-0.04em] ${overdueCount > 0 ? "text-red-700" : "text-[color:var(--ink)]"}`}>
                   {overdueCount} tenants
                 </p>
@@ -265,7 +265,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               </article>
 
               <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Open maintenance</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Open maintenance</p>
                 <p className={`mt-4 text-3xl font-semibold tracking-[-0.04em] ${openMaintenanceCount > 0 ? "text-amber-700" : "text-[color:var(--ink)]"}`}>
                   {openMaintenanceCount} open
                 </p>
@@ -277,10 +277,10 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               <section className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Recent payments</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Recent payments</p>
                     <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Last 10 payments</h2>
                   </div>
-                  <Link href="/admin?tab=payments" className="text-sm text-[color:var(--olive)] hover:underline">
+                  <Link href="/admin?tab=payments" className="text-sm text-[color:var(--accent-dark)] hover:underline">
                     View all →
                   </Link>
                 </div>
@@ -297,7 +297,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                     </thead>
                     <tbody>
                       {recentPayments.map((payment) => (
-                        <tr key={payment.id} className="rounded-[1.25rem] bg-[color:var(--paper)]">
+                        <tr key={payment.id} className="rounded-[1.25rem] bg-[color:var(--surface)]">
                           <td className="px-3 py-4 text-sm font-medium text-[color:var(--ink)]">{payment.tenantName}</td>
                           <td className="px-3 py-4 text-sm text-[color:var(--muted)]">{payment.unitNumber}</td>
                           <td className="px-3 py-4 text-sm text-[color:var(--ink)]">{formatCurrency(payment.amount)}</td>
@@ -316,10 +316,10 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               <section className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Maintenance urgent</p>
+                    <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Maintenance urgent</p>
                     <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Needs attention first</h2>
                   </div>
-                  <Link href="/admin?tab=maintenance" className="text-sm text-[color:var(--olive)] hover:underline">
+                  <Link href="/admin?tab=maintenance" className="text-sm text-[color:var(--accent-dark)] hover:underline">
                     Open board →
                   </Link>
                 </div>
@@ -327,7 +327,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                 <div className="mt-6 space-y-4">
                   {urgentMaintenance.length ? (
                     urgentMaintenance.map((request) => (
-                      <article key={request.id} className="rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] p-4">
+                      <article key={request.id} className="rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4">
                         <div className="flex items-start justify-between gap-3">
                           <div className="space-y-2">
                             <p className="text-sm font-semibold text-[color:var(--ink)]">{request.unitNumber}</p>
@@ -368,7 +368,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{item.label}</p>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">{item.label}</p>
                       <p className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{item.value}</p>
                     </div>
                     <Badge variant={item.ok ? "available" : "phase"}>

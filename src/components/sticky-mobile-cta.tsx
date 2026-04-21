@@ -66,7 +66,7 @@ export function StickyMobileCta() {
 
             <ButtonLink
               href="/#availability"
-              className="inline-flex h-full items-center justify-center rounded-full bg-[color:var(--sand)] px-4 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--ink)]"
+              className="inline-flex h-full items-center justify-center rounded-full bg-[color:var(--accent)] px-4 text-xs font-semibold uppercase tracking-[0.2em] text-white"
             >
               See availability
             </ButtonLink>

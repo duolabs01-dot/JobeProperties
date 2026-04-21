@@ -19,6 +19,7 @@ import {
   type AdminWaitingListRecord,
   type AdminWaitingListStatus,
 } from "@/lib/admin-dashboard";
+import { formatLocationLabel } from "@/lib/property-data";
 
 type WaitingListTableProps = {
   entries: AdminWaitingListRecord[];
@@ -51,15 +52,19 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
         accessorKey: "phone",
         header: "Phone",
         cell: ({ row }) => (
-          <a href={`tel:${row.original.phone}`} className="text-sm text-[color:var(--olive)] hover:underline">
+          <a href={`tel:${row.original.phone}`} className="text-sm text-[color:var(--accent-dark)] hover:underline">
             {row.original.phone}
           </a>
         ),
       },
       {
         accessorKey: "preferredPhase",
-        header: "Preferred phase",
-        cell: ({ row }) => <span className="text-sm text-[color:var(--muted)]">{row.original.preferredPhase ?? "Any phase"}</span>,
+        header: "Preferred location",
+        cell: ({ row }) => (
+          <span className="text-sm text-[color:var(--muted)]">
+            {row.original.preferredPhase ? formatLocationLabel(row.original.preferredPhase) : "Any location"}
+          </span>
+        ),
       },
       {
         accessorKey: "unitType",
@@ -88,7 +93,7 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <a
               href={`tel:${row.original.phone}`}
-              className="text-xs font-medium text-[color:var(--olive)] transition-colors duration-300 hover:underline"
+              className="text-xs font-medium text-[color:var(--accent-dark)] transition-colors duration-300 hover:underline"
             >
               Call
             </a>
@@ -168,7 +173,7 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
     <div className="space-y-5 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-5 shadow-[0_20px_70px_rgba(17,24,15,0.06)] sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--olive)]">Lead queue</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--accent-dark)]">Lead queue</p>
           <h3 className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Waiting list</h3>
         </div>
 
@@ -178,7 +183,7 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
             setStatusFilter(event.target.value as StatusFilter);
             setPagination((current) => ({ ...current, pageIndex: 0 }));
           }}
-          className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 text-sm text-[color:var(--ink)] outline-none"
+          className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 text-sm text-[color:var(--ink)] outline-none"
         >
           <option value="all">All statuses</option>
           <option value="new">New</option>
@@ -222,7 +227,7 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
           <tbody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="rounded-[1.25rem] bg-[color:var(--paper)]">
+                <tr key={row.id} className="rounded-[1.25rem] bg-[color:var(--surface)]">
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-3 py-4 align-top text-sm">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -248,7 +253,7 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
             type="button"
             disabled={!table.getCanPreviousPage()}
             onClick={() => table.previousPage()}
-            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--paper)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
           </button>
@@ -256,7 +261,7 @@ export function WaitingListTable({ entries }: WaitingListTableProps) {
             type="button"
             disabled={!table.getCanNextPage()}
             onClick={() => table.nextPage()}
-            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--paper)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
           </button>

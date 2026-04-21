@@ -18,19 +18,19 @@ import { useInView } from "@/hooks/use-in-view";
 import {
   apartmentGalleryGroups,
   apartmentHeroImage,
-  apartmentPhases,
+  apartmentLocations,
   apartmentSpecs,
   unitTypes,
   whatsappNumber,
   whatsappUrl,
 } from "@/lib/property-data";
 
-const futurePhaseSchema = z.object({
+const futureLocationSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   phone: z.string().regex(/^0[0-9]{9}$/, "Enter a valid SA number (e.g. 071 234 5678)"),
 });
 
-type FuturePhaseValues = z.infer<typeof futurePhaseSchema>;
+type FutureLocationValues = z.infer<typeof futureLocationSchema>;
 
 export default function ApartmentsPage() {
   const { ref: heroRef, inView: heroInView } = useInView<HTMLDivElement>();
@@ -41,8 +41,8 @@ export default function ApartmentsPage() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting, touchedFields, submitCount },
-  } = useForm<FuturePhaseValues>({
-    resolver: zodResolver(futurePhaseSchema),
+  } = useForm<FutureLocationValues>({
+    resolver: zodResolver(futureLocationSchema),
     defaultValues: { name: "", phone: "" },
     mode: "onBlur",
     reValidateMode: "onChange",
@@ -58,7 +58,7 @@ export default function ApartmentsPage() {
           priority
           className="object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,24,15,0.92)_0%,rgba(17,24,15,0.74)_48%,rgba(17,24,15,0.38)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,25,23,0.92)_0%,rgba(28,25,23,0.74)_48%,rgba(28,25,23,0.38)_100%)]" />
 
         <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-32 sm:px-8 lg:px-12 lg:pb-24">
           <motion.div
@@ -68,12 +68,19 @@ export default function ApartmentsPage() {
             variants={{ visible: { transition: { delayChildren: 0.1, staggerChildren: 0.08 } } }}
             className="max-w-3xl space-y-5"
           >
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Apartments</p>
-            <motion.h1 variants={revealItemVariants} className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent)]">Apartments</p>
+            <motion.h1
+              variants={revealItemVariants}
+              className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl"
+            >
               <WordReveal text="Studio apartments built for real life." />
             </motion.h1>
-            <motion.p variants={revealItemVariants} className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
-              15–20sqm. Private kitchenette. Private bathroom. Built-in cupboards. Biometric entry. From R4,300/month.
+            <motion.p
+              variants={revealItemVariants}
+              className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg"
+            >
+              15–20sqm. Private kitchenette. Private bathroom. Built-in cupboards. Biometric entry.
+              From R4,300/month.
             </motion.p>
           </motion.div>
         </div>
@@ -81,7 +88,9 @@ export default function ApartmentsPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Inside the apartments</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
+            Inside the apartments
+          </p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Open plan, practical, and easy to move into.
           </h2>
@@ -95,13 +104,13 @@ export default function ApartmentsPage() {
         </RevealItem>
       </RevealSection>
 
-      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--paper)]">
+      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--surface)]">
         <div className="mx-auto w-full max-w-7xl px-5 py-10 sm:px-8 lg:px-12">
           <div className="flex flex-wrap gap-3 lg:gap-4">
             {apartmentSpecs.map((spec) => (
               <div
                 key={spec}
-                className="inline-flex items-center rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm text-[color:var(--ink)] shadow-[0_10px_30px_rgba(17,24,15,0.04)]"
+                className="inline-flex items-center rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm text-[color:var(--ink)] shadow-[0_10px_30px_rgba(28,25,23,0.04)]"
               >
                 {spec}
               </div>
@@ -112,12 +121,15 @@ export default function ApartmentsPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Three ways to live here</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
+            Three ways to live here
+          </p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Pick the layout that fits your life.
           </h2>
           <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">
-            All studios share the same finishes, security, and price point. The difference is how the space opens up.
+            All studios share the same finishes, security, and price point. The difference is how the
+            space opens up.
           </p>
         </RevealItem>
 
@@ -129,25 +141,21 @@ export default function ApartmentsPage() {
             <motion.article
               key={unitType.id}
               variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 28,
-                  boxShadow: "0 22px 70px rgba(17,24,15,0.08)",
-                },
+                hidden: { opacity: 0, y: 28, boxShadow: "0 22px 70px rgba(28,25,23,0.08)" },
                 visible: {
                   opacity: 1,
                   y: 0,
-                  boxShadow: "0 22px 70px rgba(17,24,15,0.08)",
+                  boxShadow: "0 22px 70px rgba(28,25,23,0.08)",
                   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
                 },
                 hover: {
                   y: -6,
-                  boxShadow: "0 24px 60px rgba(17,24,15,0.14)",
+                  boxShadow: "0 24px 60px rgba(28,25,23,0.14)",
                   transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
               whileHover="hover"
-              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(17,24,15,0.08)]"
+              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)]"
             >
               <motion.div
                 variants={{
@@ -155,7 +163,7 @@ export default function ApartmentsPage() {
                   visible: { width: 0 },
                   hover: { width: 3, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
                 }}
-                className="absolute inset-y-0 left-0 z-10 bg-[color:var(--sand)]"
+                className="absolute inset-y-0 left-0 z-10 bg-[color:var(--accent)]"
               />
               <div className="relative aspect-[4/3] overflow-hidden bg-[color:var(--stone)]">
                 <motion.div
@@ -179,7 +187,9 @@ export default function ApartmentsPage() {
 
               <div className="space-y-4 bg-white p-6">
                 <div className="space-y-2">
-                  <h3 className="font-display text-[1.4rem] leading-none text-[color:var(--ink)]">{unitType.name}</h3>
+                  <h3 className="font-display text-[1.4rem] leading-none text-[color:var(--ink)]">
+                    {unitType.name}
+                  </h3>
                   <p className="text-[0.9rem] italic text-[color:var(--muted)]">{unitType.tagline}</p>
                   <p className="text-sm leading-7 text-[color:var(--muted)]">{unitType.description}</p>
                 </div>
@@ -199,7 +209,7 @@ export default function ApartmentsPage() {
                   href={`https://wa.me/27722293229?text=${encodeURIComponent(`Hi, I'm interested in a ${unitType.name} studio. Can you tell me more?`)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center text-sm font-medium text-[color:var(--olive)] hover:underline"
+                  className="inline-flex items-center justify-center text-sm font-medium text-[color:var(--accent-dark)] hover:underline"
                 >
                   Enquire about this type →
                 </ButtonLink>
@@ -211,12 +221,15 @@ export default function ApartmentsPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Six phases</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
+            Our locations
+          </p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-            Pick the phase that suits your route.
+            Six locations. One community.
           </h2>
           <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">
-            Each phase sits close to Alexandra life, with Sandton and the Gautrain still within easy reach.
+            Each location sits close to Alexandra life, with Sandton and the Gautrain still within easy
+            reach.
           </p>
         </RevealItem>
 
@@ -224,30 +237,26 @@ export default function ApartmentsPage() {
           variants={{ visible: { transition: { delayChildren: 0.12, staggerChildren: 0.08 } } }}
           className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
         >
-          {apartmentPhases.map((phase) => (
+          {apartmentLocations.map((location) => (
             <motion.article
-              key={phase.badge}
+              key={location.badge}
               variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 28,
-                  boxShadow: "0 22px 70px rgba(17,24,15,0.08)",
-                },
+                hidden: { opacity: 0, y: 28, boxShadow: "0 22px 70px rgba(28,25,23,0.08)" },
                 visible: {
                   opacity: 1,
                   y: 0,
-                  boxShadow: "0 22px 70px rgba(17,24,15,0.08)",
+                  boxShadow: "0 22px 70px rgba(28,25,23,0.08)",
                   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
                 },
                 hover: {
                   y: -6,
-                  boxShadow: "0 24px 60px rgba(17,24,15,0.14)",
+                  boxShadow: "0 24px 60px rgba(28,25,23,0.14)",
                   transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
               whileHover="hover"
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(17,24,15,0.08)]"
+              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)]"
             >
               <motion.div
                 variants={{
@@ -255,7 +264,7 @@ export default function ApartmentsPage() {
                   visible: { width: 0 },
                   hover: { width: 3, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
                 }}
-                className="absolute inset-y-0 left-0 z-10 bg-[color:var(--sand)]"
+                className="absolute inset-y-0 left-0 z-10 bg-[color:var(--accent)]"
               />
               <motion.div
                 variants={{
@@ -263,24 +272,28 @@ export default function ApartmentsPage() {
                 }}
                 className="relative aspect-[4/3] overflow-hidden bg-[color:var(--stone)]"
               >
-                <ShimmerImage src={phase.image} alt={phase.name} fill wrapperClassName="h-full w-full bg-[color:var(--stone)]" className="object-cover" />
+                <ShimmerImage
+                  src={location.image}
+                  alt={location.name}
+                  fill
+                  wrapperClassName="h-full w-full bg-[color:var(--stone)]"
+                  className="object-cover"
+                />
               </motion.div>
               <div className="space-y-4 p-6">
                 <div className="space-y-3">
-                  <Badge variant="phase">
-                    {phase.badge}
-                  </Badge>
+                  <Badge variant="phase">{location.badge}</Badge>
                   <div>
                     <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
-                      {phase.name}
+                      {location.name}
                     </h3>
-                    <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{phase.address}</p>
+                    <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{location.address}</p>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-3">
                   <ButtonLink
-                    href={phase.mapsUrl}
+                    href={location.mapsUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
@@ -288,7 +301,7 @@ export default function ApartmentsPage() {
                     Google Maps
                   </ButtonLink>
                   <ButtonLink
-                    href={phase.whatsappUrl}
+                    href={location.whatsappUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-full border border-[#25D366] bg-[#25D366] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white shadow-[0_14px_30px_rgba(37,211,102,0.18)] hover:bg-[#1fb95a]"
@@ -302,21 +315,25 @@ export default function ApartmentsPage() {
         </motion.div>
       </RevealSection>
 
-      <RevealSection className="bg-[color:var(--paper)]" stagger>
+      <RevealSection className="bg-[color:var(--surface)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-24">
           <RevealItem className="max-w-2xl space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">What&apos;s next</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
+              What&apos;s next
+            </p>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-              More phases planned.
+              More locations planned.
             </h2>
             <p className="text-base leading-8 text-[color:var(--muted)]">
-              Jobe Propco is growing. If you&apos;d like to be first to know when new units open — in the current phases or new ones — leave your details and we&apos;ll reach out before anyone else.
+              Jobe Propco is growing. If you&apos;d like to be first to know when new units open — in the
+              current locations or new ones — leave your details and we&apos;ll reach out before anyone
+              else.
             </p>
           </RevealItem>
 
           <RevealItem>
             <form
-              className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_24px_70px_rgba(17,24,15,0.08)] sm:p-8"
+              className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_24px_70px_rgba(28,25,23,0.08)] sm:p-8"
               onSubmit={handleSubmit(async (values) => {
                 try {
                   const response = await fetch("/api/waiting-list", {
@@ -343,7 +360,8 @@ export default function ApartmentsPage() {
                   toast({
                     variant: "error",
                     title: "Something went wrong",
-                    description: error instanceof Error ? error.message : "Couldn't save your details. Try again.",
+                    description:
+                      error instanceof Error ? error.message : "Couldn't save your details. Try again.",
                   });
                 }
               })}
@@ -355,7 +373,7 @@ export default function ApartmentsPage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-5 py-4 text-sm font-medium text-[color:var(--olive)]"
+                    className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-5 py-4 text-sm font-medium text-[color:var(--accent-dark)]"
                   >
                     ✓ We&apos;ll call you before the next release opens up.
                   </motion.div>
@@ -365,7 +383,7 @@ export default function ApartmentsPage() {
                       <span>Name</span>
                       <input
                         {...register("name")}
-                        className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                        className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                         placeholder="Full name"
                       />
                       <AnimatePresence initial={false}>
@@ -389,7 +407,7 @@ export default function ApartmentsPage() {
                           setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
                         })}
                         type="tel"
-                        className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                        className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                         placeholder="e.g. 071 234 5678"
                       />
                       <AnimatePresence initial={false}>
@@ -409,7 +427,7 @@ export default function ApartmentsPage() {
                     <MotionButton
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isSubmitting ? "Sending..." : "Notify me first"}
                     </MotionButton>
@@ -438,7 +456,7 @@ export default function ApartmentsPage() {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-white"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
             >
               WhatsApp {whatsappNumber}
             </ButtonLink>

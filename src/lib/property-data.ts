@@ -9,7 +9,7 @@ export type GalleryGroup = {
   items: GalleryItem[];
 };
 
-export type ApartmentPhase = {
+export type ApartmentLocation = {
   badge: string;
   name: string;
   address: string;
@@ -38,6 +38,14 @@ const createMapsLink = (query: string) =>
 export const whatsappNumber = "072 229 3229";
 export const whatsappUrl = "https://wa.me/27722293229";
 export const foundationUrl = "https://drsitholefoundation.org/";
+
+export function formatLocationLabel(value: string | null | undefined) {
+  if (!value) {
+    return "";
+  }
+
+  return value.replace(/\bPhase\b/gi, "Location");
+}
 
 export const apartmentHeroImage =
   "https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page--1024x768.jpg";
@@ -119,7 +127,7 @@ export const apartmentGalleryGroups: GalleryGroup[] = [
       },
       {
         src: "https://jobepropco.co.za/wp-content/uploads/2025/06/DJI_0279-2-scaled.jpg",
-        alt: "Aerial view of Jobe Propco phase buildings",
+        alt: "Aerial view of a Jobe Propco location",
       },
       {
         src: "https://jobepropco.co.za/wp-content/uploads/2025/06/DJI_0285-scaled.jpg",
@@ -194,9 +202,9 @@ export const unitTypes: UnitType[] = [
   },
 ];
 
-export const apartmentPhases: ApartmentPhase[] = [
+export const apartmentLocations: ApartmentLocation[] = [
   {
-    badge: "Phase 1",
+    badge: "Location 1 · Jobe Mews",
     name: "Jobe Mews",
     address: "858 Mauritius Loop, Far East Bank",
     image: "https://jobepropco.co.za/wp-content/uploads/2025/05/DJI_0321-scaled.jpg",
@@ -204,7 +212,7 @@ export const apartmentPhases: ApartmentPhase[] = [
     whatsappUrl,
   },
   {
-    badge: "Phase 2",
+    badge: "Location 2 · Jobe Precinct",
     name: "Jobe Precinct",
     address: "Jobe Precinct, Far East Bank",
     image: "https://jobepropco.co.za/wp-content/uploads/2025/05/DJI_0289-scaled.jpg",
@@ -212,7 +220,7 @@ export const apartmentPhases: ApartmentPhase[] = [
     whatsappUrl,
   },
   {
-    badge: "Phase 3",
+    badge: "Location 3 · Jobe Heights",
     name: "Jobe Heights",
     address: "1767 S Africa Blvd, Far East Bank",
     image: "https://jobepropco.co.za/wp-content/uploads/2025/05/DJI_0283-scaled.jpg",
@@ -220,7 +228,7 @@ export const apartmentPhases: ApartmentPhase[] = [
     whatsappUrl,
   },
   {
-    badge: "Phase 4",
+    badge: "Location 4 · Jobe Bel Air",
     name: "Jobe Bel Air",
     address: "1805 Nigeria St, Far East Bank",
     image: "https://jobepropco.co.za/wp-content/uploads/2025/05/DJI_0294-scaled.jpg",
@@ -228,7 +236,7 @@ export const apartmentPhases: ApartmentPhase[] = [
     whatsappUrl,
   },
   {
-    badge: "Phase 5",
+    badge: "Location 5 · Jobe Towers",
     name: "Jobe Towers",
     address: "1191 S Africa Loop, Alexandra",
     image:
@@ -237,7 +245,7 @@ export const apartmentPhases: ApartmentPhase[] = [
     whatsappUrl,
   },
   {
-    badge: "Phase 6",
+    badge: "Location 6 · Lifestyle Corner",
     name: "Jobe Lifestyle Corner",
     address: "503 S Africa Blvd, Far East Bank",
     image: "https://jobepropco.co.za/wp-content/uploads/2025/05/Jobe-Lifestyle.jpg",
@@ -307,13 +315,13 @@ export const guesthouseGalleryGroups: GalleryGroup[] = [
 
 export const aboutStory = [
   "Jobe Propco was founded in 2016 by Dr Nhlanhla Sithole — a doctor who saw what was missing in the city he served. His patients, his colleagues, his neighbours were spending hours commuting from far-away rentals to work in Sandton. The housing close to the economic centre was either unaffordable or undignified. He decided to change that.",
-  "Starting with one phase and a clear idea, Dr Sithole built Jobe Propco to give working people and students a real alternative. A studio that is private, secure, and close to where the jobs are. Not a halfway compromise — a properly finished home at a price that makes sense.",
-  "Today Jobe Propco spans six phases in Far East Bank, Alexandra — all within 9km of Sandton City, 3km from the Gautrain, and a short walk from the Jobe Lifestyle Corner. The vision is still the same: dignified, affordable housing that lets people focus on building their lives, not surviving their commute.",
+  "Starting with one location and a clear idea, Dr Sithole built Jobe Propco to give working people and students a real alternative. A studio that is private, secure, and close to where the jobs are. Not a halfway compromise — a properly finished home at a price that makes sense.",
+  "Today Jobe Propco spans six locations in Far East Bank, Alexandra — all within 9km of Sandton City, 3km from the Gautrain, and a short walk from the Jobe Lifestyle Corner. The vision is still the same: dignified, affordable housing that lets people focus on building their lives, not surviving their commute.",
 ];
 
 export const aboutStats = [
   { value: "2016", label: "Founded" },
-  { value: "6", label: "Phases" },
+  { value: "6", label: "Locations" },
   { value: "R4,300", label: "Monthly from" },
   { value: "9km", label: "To Sandton" },
 ];
@@ -332,7 +340,7 @@ export const moveInFaqs: FaqItem[] = [
   {
     question: "Can I choose my unit type?",
     answer:
-      "Yes, when you enquire tell us which layout you prefer. We'll match you to an available unit in that type across any of the six phases.",
+      "Yes, when you enquire tell us which layout you prefer. We'll match you to an available unit in that type across any of the six locations.",
   },
   {
     question: "Do I need to sign a lease?",
@@ -364,7 +372,7 @@ export const moveInFaqs: FaqItem[] = [
   {
     question: "Is there parking?",
     answer:
-      "Yes. Ask about availability for your specific phase when you enquire.",
+      "Yes. Ask about availability for your specific location when you enquire.",
   },
   {
     question: "How far is it from Sandton?",

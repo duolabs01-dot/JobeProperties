@@ -55,7 +55,7 @@ export function PayNowButton() {
           setIsPending(false);
         }
       }}
-      className="inline-flex items-center justify-center rounded-full bg-[color:var(--olive)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--ink)] disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
     >
       {isPending ? "Opening PayFast..." : "Pay now"}
     </MotionButton>

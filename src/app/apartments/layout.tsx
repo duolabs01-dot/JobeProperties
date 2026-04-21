@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Studio Apartments | Jobe Propco",
   description:
-    "View our studio apartments across 6 phases in Far East Bank, Alexandra. Private kitchenette, bathroom, built-in cupboards. From R4,300/month.",
+    "View our studio apartments across 6 locations in Far East Bank, Alexandra. Private kitchenette, bathroom, built-in cupboards. From R4,300/month.",
   openGraph: {
     title: "Studio Apartments | Jobe Propco",
     description:
-      "View our studio apartments across 6 phases in Far East Bank, Alexandra. Private kitchenette, bathroom, built-in cupboards. From R4,300/month.",
+      "View our studio apartments across 6 locations in Far East Bank, Alexandra. Private kitchenette, bathroom, built-in cupboards. From R4,300/month.",
     url: "https://jobepropco.vercel.app/apartments",
     siteName: "Jobe Propco",
     images: [

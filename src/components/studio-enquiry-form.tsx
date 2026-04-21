@@ -80,7 +80,7 @@ export function StudioEnquiryForm() {
       }}
     >
       <div className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Quick enquiry</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">Quick enquiry</p>
         <h2 className="font-display text-3xl leading-none text-[color:var(--ink)] sm:text-4xl">
           Tell us where you are in the process.
         </h2>
@@ -92,7 +92,7 @@ export function StudioEnquiryForm() {
           required
           value={form.name}
           onChange={(event) => setForm({ ...form, name: event.target.value })}
-          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
           placeholder="Full name"
         />
       </label>
@@ -104,7 +104,7 @@ export function StudioEnquiryForm() {
           type="tel"
           value={form.phone}
           onChange={(event) => setForm({ ...form, phone: event.target.value })}
-          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
           placeholder="071 234 5678"
         />
         {form.phone && !isPhoneValid ? (
@@ -118,7 +118,7 @@ export function StudioEnquiryForm() {
           type="date"
           value={form.preferredMoveInDate}
           onChange={(event) => setForm({ ...form, preferredMoveInDate: event.target.value })}
-          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
         />
       </label>
 
@@ -133,7 +133,7 @@ export function StudioEnquiryForm() {
                 key={option}
                 className={`inline-flex items-center gap-3 rounded-full border px-4 py-3 text-sm transition ${
                   isSelected
-                    ? "border-[color:var(--ink)] bg-[color:var(--sand)] text-[color:var(--ink)]"
+                    ? "border-[color:var(--accent)] bg-[color:var(--accent-light)] text-[color:var(--accent-dark)]"
                     : "border-[color:var(--line-strong)] bg-white text-[color:var(--muted)]"
                 }`}
               >
@@ -142,7 +142,7 @@ export function StudioEnquiryForm() {
                   name="unitType"
                   checked={isSelected}
                   onChange={() => setForm({ ...form, unitType: option })}
-                  className="accent-[color:var(--olive)]"
+                  className="accent-[color:var(--accent)]"
                 />
                 {option}
               </label>
@@ -154,7 +154,7 @@ export function StudioEnquiryForm() {
       <MotionButton
         type="submit"
         disabled={isPending}
-        className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "Sending..." : "Send enquiry"}
       </MotionButton>

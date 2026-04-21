@@ -28,7 +28,7 @@ export const SheetTrigger = DialogPrimitive.Trigger;
 export const SheetClose = DialogPrimitive.Close;
 
 const sheetContentVariants = cva(
-  "fixed top-0 h-dvh w-full max-w-[320px] bg-[color:var(--paper)] text-[color:var(--ink)] shadow-[0_28px_80px_rgba(0,0,0,0.18)]",
+  "fixed top-0 h-dvh w-full max-w-[320px] bg-[color:var(--surface)] text-[color:var(--ink)] shadow-[0_28px_80px_rgba(0,0,0,0.18)]",
   {
     variants: {
       side: {

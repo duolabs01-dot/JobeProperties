@@ -1,101 +1,249 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data";
+
+const ecosystemPartners = [
+  {
+    initials: "JP",
+    name: "Jobe Propco",
+    description: "Studio apartments & guesthouse",
+    href: "/",
+    logoSrc: "/logo.png",
+    external: false,
+  },
+  {
+    initials: "JL",
+    name: "Jobe Lifestyle",
+    description: "Restaurant, bar, salon & more",
+    href: "https://jobelifestyle.co.za",
+    logoSrc: null,
+    external: true,
+  },
+  {
+    initials: "DS",
+    name: "Dr Sithole Foundation",
+    description: "Youth empowerment through education",
+    href: foundationUrl,
+    logoSrc:
+      "https://drsitholefoundation.org/wp-content/uploads/2022/06/cropped-cropped-Green-and-Brown-Circle-Illustrated-Leaves-Environment-Charity-Logo-8-99x83.png",
+    external: true,
+  },
+  {
+    initials: "CC",
+    name: "CentreConnect",
+    description: "Technology & community apps",
+    href: "https://centerconnect.co.za",
+    logoSrc: null,
+    external: true,
+  },
+  {
+    initials: "JO",
+    name: "Jobe Outdoor Media",
+    description: "Out-of-home advertising",
+    href: "#",
+    logoSrc: "https://drsitholefoundation.org/wp-content/uploads/2022/08/Jobe-Outdoor-Media-7-150x150.png",
+    external: false,
+  },
+] as const;
+
+function TiktokIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
+      <path d="M16.45 3c.37 1.92 1.5 3.43 3.55 3.6v2.8a6.4 6.4 0 0 1-3.46-1.15v6.12c0 3.07-2.5 5.63-5.75 5.63S5 17.44 5 14.37s2.5-5.58 5.72-5.58c.33 0 .66.03.98.1v3c-.3-.1-.62-.16-.95-.16-1.55 0-2.8 1.18-2.8 2.64 0 1.54 1.31 2.69 2.83 2.69 1.7 0 2.76-1.31 2.76-3.25V3h2.91Z" />
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-none stroke-current stroke-[1.8]">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function FacebookIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
+      <path d="M13.5 21v-7.1h2.4l.36-2.8H13.5V9.32c0-.81.22-1.37 1.39-1.37H16.4V5.46c-.26-.04-1.12-.11-2.13-.11-2.1 0-3.55 1.28-3.55 3.64v2.02H8.3v2.8h2.42V21h2.78Z" />
+    </svg>
+  );
+}
+
+function WhatsappIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
+      <path d="M19.05 4.94A9.84 9.84 0 0 0 12.02 2c-5.46 0-9.9 4.44-9.9 9.9 0 1.74.46 3.44 1.32 4.95L2 22l5.31-1.39a9.88 9.88 0 0 0 4.72 1.2h.01c5.46 0 9.9-4.44 9.9-9.9a9.8 9.8 0 0 0-2.89-6.97ZM12.03 20.1h-.01a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.15.83.84-3.07-.2-.31a8.2 8.2 0 0 1-1.27-4.34c0-4.54 3.69-8.23 8.24-8.23 2.2 0 4.26.86 5.81 2.42a8.15 8.15 0 0 1 2.4 5.83c0 4.54-3.69 8.23-8.22 8.23Zm4.52-6.16c-.25-.13-1.47-.72-1.7-.8-.22-.08-.38-.12-.54.13-.16.24-.62.8-.76.97-.14.16-.28.18-.53.06-.25-.13-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.41.08-.16.04-.3-.02-.42-.06-.13-.54-1.3-.74-1.79-.2-.47-.4-.41-.54-.42h-.46c-.16 0-.42.06-.63.3-.22.24-.84.82-.84 1.99 0 1.18.86 2.32.98 2.48.12.16 1.68 2.57 4.06 3.6.57.24 1.01.39 1.36.5.57.18 1.08.15 1.48.09.45-.07 1.38-.56 1.58-1.1.2-.54.2-1.01.14-1.1-.06-.08-.22-.13-.47-.25Z" />
+    </svg>
+  );
+}
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
+      <section className="border-b border-[color:var(--line)] bg-white text-[color:var(--ink)]">
+        <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
+          <p className="mb-8 text-[10px] uppercase tracking-[0.28em] text-[color:var(--muted)]">
+            Part of the Jobe Enterprise ecosystem
+          </p>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+            {ecosystemPartners.map((partner) => {
+              const content = (
+                <div className="rounded-2xl border border-transparent bg-[color:var(--surface)] px-4 py-5 text-center transition-all duration-200 hover:border-[color:var(--accent-light)]">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-white">
+                    {partner.logoSrc ? (
+                      <Image
+                        src={partner.logoSrc}
+                        alt={partner.name}
+                        width={48}
+                        height={48}
+                        className="h-12 w-12 object-contain"
+                      />
+                    ) : (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[color:var(--accent-light)] text-sm font-semibold text-[color:var(--accent-dark)]">
+                        {partner.initials}
+                      </div>
+                    )}
+                  </div>
+                  <p className="mt-3 text-[13px] font-medium text-[color:var(--ink)]">{partner.name}</p>
+                  <p className="mt-1 text-[11px] leading-5 text-[color:var(--muted)]">{partner.description}</p>
+                </div>
+              );
+
+              if (partner.external) {
+                return (
+                  <Link
+                    key={partner.name}
+                    href={partner.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block"
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+
+              return (
+                <Link key={partner.name} href={partner.href} className="block" transitionTypes={partner.href.startsWith("/") ? ["nav-forward"] : undefined}>
+                  {content}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
-        <div className="mb-6 flex flex-col gap-4 border-b border-white/10 pb-6 lg:flex-row lg:items-center lg:justify-between">
-          <p className="text-[11px] uppercase tracking-[0.32em] text-white/30">Part of the Jobe Enterprise group</p>
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.75fr_0.75fr_0.9fr]">
+          <div className="space-y-3">
+            <p className="font-display text-2xl tracking-[0.18em] text-[color:var(--accent)]">JOBE</p>
+            <p className="max-w-xl text-sm leading-7 text-white/66">
+              Studio apartments in Alexandra. 9km from Sandton.
+            </p>
             <Link
-              href="https://jobelifestyle.co.za"
+              href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/12 px-3 py-1 text-[10px] text-white/50 transition-colors duration-300 hover:text-white/80"
+              className="inline-flex text-sm text-white/76 transition-colors duration-300 hover:text-white"
             >
-              Jobe Lifestyle
+              WhatsApp {whatsappNumber}
             </Link>
-            <Link
-              href="/guesthouse"
-              transitionTypes={["nav-forward"]}
-              className="rounded-full border border-white/12 px-3 py-1 text-[10px] text-white/50 transition-colors duration-300 hover:text-white/80"
-            >
-              Jobe Guesthouse
+          </div>
+
+          <div className="flex flex-col gap-2 text-sm text-white/70">
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Explore</p>
+            <Link href="/apartments" transitionTypes={["nav-forward"]}>
+              Apartments
             </Link>
-            <Link
-              href={foundationUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-white/12 px-3 py-1 text-[10px] text-white/50 transition-colors duration-300 hover:text-white/80"
-            >
+            <Link href="/guesthouse" transitionTypes={["nav-forward"]}>
+              Guesthouse
+            </Link>
+            <Link href="/about" transitionTypes={["nav-forward"]}>
+              About
+            </Link>
+            <Link href="/faq" transitionTypes={["nav-forward"]}>
+              FAQ
+            </Link>
+          </div>
+
+          <div className="flex flex-col gap-2 text-sm text-white/70">
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Tenants</p>
+            <Link href="/portal/login" transitionTypes={["nav-forward"]}>
+              Tenant login
+            </Link>
+            <Link href="/#availability">
+              See availability
+            </Link>
+            <Link href="/#availability">
+              Waiting list
+            </Link>
+            <Link href="/contact" transitionTypes={["nav-forward"]}>
+              Contact
+            </Link>
+          </div>
+
+          <div className="flex flex-col gap-2 text-sm text-white/70">
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Community</p>
+            <Link href={foundationUrl} target="_blank" rel="noreferrer">
               Dr Sithole Foundation
+            </Link>
+            <Link href="https://centerconnect.co.za" target="_blank" rel="noreferrer">
+              CentreConnect
+            </Link>
+            <Link href="https://jobelifestyle.co.za" target="_blank" rel="noreferrer">
+              Jobe Lifestyle Corner
+            </Link>
+            <Link href="/partners" transitionTypes={["nav-forward"]}>
+              Partner with us
             </Link>
           </div>
         </div>
-
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.75fr_0.75fr_0.7fr]">
-        <div className="space-y-3">
-          <p className="font-display text-2xl tracking-[0.18em] text-[color:var(--sand)]">JOBE</p>
-          <p className="max-w-xl text-sm leading-7 text-white/66">Studio apartments in Alexandra. 9km from Sandton.</p>
-          <Link
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex text-sm text-white/76 transition-colors duration-300 hover:text-white"
-          >
-            WhatsApp {whatsappNumber}
-          </Link>
-        </div>
-        <div className="flex flex-col gap-2 text-sm text-white/70">
-          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">Explore</p>
-          <Link href="/apartments" transitionTypes={["nav-forward"]}>
-            Apartments
-          </Link>
-          <Link href="/guesthouse" transitionTypes={["nav-forward"]}>
-            Guesthouse
-          </Link>
-          <Link href="/about" transitionTypes={["nav-forward"]}>
-            About
-          </Link>
-          <Link href="/faq" transitionTypes={["nav-forward"]}>
-            FAQ
-          </Link>
-        </div>
-        <div className="flex flex-col gap-2 text-sm text-white/70">
-          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">Tenants</p>
-          <Link href="/portal" transitionTypes={["nav-forward"]}>
-            Tenant portal
-          </Link>
-          <Link href="/#availability">
-            See Availability
-          </Link>
-          <Link href="/#availability">
-            Waiting List
-          </Link>
-          <Link href="/contact" transitionTypes={["nav-forward"]}>
-            Contact
-          </Link>
-        </div>
-        <div className="flex flex-col gap-2 text-xs text-white/56">
-          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--sand)]">Owners</p>
-          <Link href="/admin" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
-            Owner dashboard
-          </Link>
-          <Link href="/partners" transitionTypes={["nav-forward"]} className="text-sm text-white/70">
-            For businesses
-          </Link>
-          <Link href={foundationUrl} target="_blank" rel="noreferrer" className="text-sm text-white/70">
-            Dr Sithole Foundation
-          </Link>
-        </div>
-        </div>
       </div>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-2 border-t border-white/10 px-5 py-6 text-[11px] text-white/40 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
-        <p>© 2026 Jobe Propco</p>
-        <p>Built to make dignified housing accessible in Alexandra.</p>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-6 text-[11px] text-white/40 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+          <p>© 2026 Jobe Propco</p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <p>Built to make dignified housing accessible in Alexandra.</p>
+            <div className="flex items-center gap-2">
+              <Link
+                href="#"
+                title="Follow us on Instagram (coming soon)"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--accent)]"
+              >
+                <InstagramIcon />
+              </Link>
+              <Link
+                href="#"
+                title="Follow us on Facebook (coming soon)"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--accent)]"
+              >
+                <FacebookIcon />
+              </Link>
+              <Link
+                href="#"
+                title="Follow us on TikTok (coming soon)"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--accent)]"
+              >
+                <TiktokIcon />
+              </Link>
+              <Link
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                title="Chat with us on WhatsApp"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#25D366] bg-[#25D366] text-white transition-transform duration-300 hover:scale-[1.03]"
+              >
+                <WhatsappIcon />
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );

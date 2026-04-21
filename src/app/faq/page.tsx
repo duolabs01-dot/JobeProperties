@@ -69,11 +69,11 @@ export default function FaqPage() {
   const calculatorValue = plans.find((plan) => plan.id === calculatorPlan) ?? plans[1];
 
   return (
-    <div data-nav-theme="light" className="bg-[color:var(--paper)]">
-      <section className="bg-[color:var(--paper)] text-[color:var(--ink)]">
+    <div data-nav-theme="light" className="bg-[color:var(--surface)]">
+      <section className="bg-[color:var(--surface)] text-[color:var(--ink)]">
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">FAQ</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">FAQ</p>
             <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl lg:text-7xl">
               Everything you need to know before you move in.
             </h1>
@@ -99,7 +99,7 @@ export default function FaqPage() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--olive)]"
+                className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
               >
                 WhatsApp {whatsappNumber}
               </ButtonLink>
@@ -113,10 +113,10 @@ export default function FaqPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--paper)]" stagger>
+      <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--surface)]" stagger>
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <RevealItem className="max-w-3xl space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Payment options for 2026</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Payment options for 2026</p>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Three ways to get started.
             </h2>
@@ -144,7 +144,7 @@ export default function FaqPage() {
                   onClick={() => setSelectedPlan(plan.id)}
                   className={`cursor-pointer rounded-[2rem] border bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.07)] transition duration-300 ${
                     isSelected
-                      ? "border-[color:var(--sand)] shadow-[0_24px_80px_rgba(17,24,15,0.1)]"
+                      ? "border-[color:var(--accent)] shadow-[0_24px_80px_rgba(17,24,15,0.1)]"
                       : "border-[color:var(--line-strong)]"
                   } ${isDimmed ? "opacity-75" : "opacity-100"}`}
                 >
@@ -159,7 +159,7 @@ export default function FaqPage() {
                       </Badge>
                     </div>
 
-                    <div className="space-y-3 rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] px-4 py-4">
+                    <div className="space-y-3 rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] px-4 py-4">
                       {plan.summary.map((line) => (
                         <div key={line.label} className="flex items-start justify-between gap-4 text-sm text-[color:var(--muted)]">
                           <span>{line.label}</span>
@@ -169,7 +169,7 @@ export default function FaqPage() {
                     </div>
 
                     <div className="rounded-[1.5rem] bg-[color:var(--ink)] px-5 py-4 text-white">
-                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--sand)]">Highlight</p>
+                      <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--accent)]">Highlight</p>
                       <p className="mt-3 font-display text-3xl leading-none">{plan.highlight}</p>
                     </div>
 
@@ -177,7 +177,7 @@ export default function FaqPage() {
                       href={`https://wa.me/27722293229?text=${encodeURIComponent(plan.whatsappMessage)}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center justify-center text-sm font-medium text-[color:var(--olive)] hover:underline"
+                      className="inline-flex items-center justify-center text-sm font-medium text-[color:var(--accent-dark)] hover:underline"
                     >
                       WhatsApp →
                     </ButtonLink>
@@ -187,7 +187,7 @@ export default function FaqPage() {
                         href={`https://wa.me/27722293229?text=${encodeURIComponent(plan.whatsappMessage)}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--sand)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-white"
+                        className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
                       >
                         Selected — WhatsApp to confirm
                       </ButtonLink>
@@ -201,7 +201,7 @@ export default function FaqPage() {
           <RevealItem className="mt-10 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)] sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[0.42fr_0.58fr] lg:items-end">
               <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Calculator</p>
+                <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">Calculator</p>
                 <h3 className="font-display text-3xl leading-none text-[color:var(--ink)] sm:text-4xl">
                   Work out your first month
                 </h3>
@@ -213,7 +213,7 @@ export default function FaqPage() {
                   <select
                     value={calculatorPlan}
                     onChange={(event) => setCalculatorPlan(event.target.value as PlanId)}
-                    className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                    className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                   >
                     {calculatorOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -224,7 +224,7 @@ export default function FaqPage() {
                 </label>
 
                 <div className="rounded-[1.5rem] bg-[color:var(--ink)] px-5 py-5 text-white">
-                  <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--sand)]">First month cost</p>
+                  <p className="text-xs uppercase tracking-[0.24em] text-[color:var(--accent)]">First month cost</p>
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={calculatorValue.id}

@@ -10,6 +10,7 @@ import { MotionButton } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/toast";
 import { phases, units } from "@/lib/site-data";
+import { formatLocationLabel } from "@/lib/property-data";
 
 const waitingListSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -22,7 +23,7 @@ type WaitingListValues = z.infer<typeof waitingListSchema>;
 const initialState: WaitingListValues = {
   name: "",
   phone: "",
-  preferredPhase: "Any phase",
+  preferredPhase: "Any location",
 };
 
 const unitTypeOptions = ["Any type", "Standard", "Balcony", "Sliding door"] as const;
@@ -35,7 +36,7 @@ const unitTypeLabels = {
 
 export function AvailabilityPanel() {
   const { toast } = useToast();
-  const [preferredPhase, setPreferredPhase] = useState("Any phase");
+  const [preferredPhase, setPreferredPhase] = useState("Any location");
   const deferredPhase = useDeferredValue(preferredPhase);
   const [preferredUnitType, setPreferredUnitType] = useState<(typeof unitTypeOptions)[number]>("Any type");
   const deferredUnitType = useDeferredValue(preferredUnitType);
@@ -60,7 +61,8 @@ export function AvailabilityPanel() {
   });
 
   const filteredUnits = units.filter((unit) => {
-    const matchesPhase = deferredPhase === "Any phase" || unit.phase === deferredPhase;
+    const locationLabel = formatLocationLabel(unit.phase);
+    const matchesPhase = deferredPhase === "Any location" || locationLabel === deferredPhase;
     const matchesUnitType = deferredUnitType === "Any type" || unitTypeLabels[unit.unitType] === deferredUnitType;
 
     return unit.available && matchesPhase && matchesUnitType;
@@ -86,14 +88,14 @@ export function AvailabilityPanel() {
       <div className="space-y-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Availability</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Availability</p>
             <h3 className="mt-3 font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               When a studio opens here, it goes quickly.
             </h3>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-end">
             <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
-              Choose a phase
+              Choose a location
               <select
                 value={preferredPhase}
                 onChange={(event) => setPreferredPhase(event.target.value)}
@@ -123,7 +125,7 @@ export function AvailabilityPanel() {
         <div className="space-y-5 border-t border-[color:var(--line)] pt-6">
           <div
             className={`inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] ${
-              filteredUnits.length ? "text-[color:var(--olive)]" : "text-[#EF9F27]"
+              filteredUnits.length ? "text-[color:var(--accent-dark)]" : "text-[#EF9F27]"
             }`}
           >
             <span
@@ -160,7 +162,7 @@ export function AvailabilityPanel() {
                   <article key={unit.id} className="grid gap-3 border-b border-[color:var(--line)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
                     <div className="space-y-3">
                       <div className="space-y-2">
-                        <Badge variant="phase">{unit.phase}</Badge>
+                        <Badge variant="phase">{formatLocationLabel(unit.phase)}</Badge>
                         <Badge variant="unit">{unitTypeLabels[unit.unitType]} studio</Badge>
                       </div>
                       <div>
@@ -174,10 +176,10 @@ export function AvailabilityPanel() {
                         {unit.availableFrom}
                       </Badge>
                       <Link
-                        href={`https://wa.me/27722293229?text=${encodeURIComponent(`Hi, I'm interested in ${unit.name} in ${unit.phase}. Is it still available?`)}`}
+                        href={`https://wa.me/27722293229?text=${encodeURIComponent(`Hi, I'm interested in ${unit.name} in ${formatLocationLabel(unit.phase)}. Is it still available?`)}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex text-xs text-[color:var(--olive)] transition-colors duration-300 hover:underline sm:justify-end"
+                        className="inline-flex text-xs text-[color:var(--accent-dark)] transition-colors duration-300 hover:underline sm:justify-end"
                       >
                         Enquire via WhatsApp →
                       </Link>
@@ -186,7 +188,7 @@ export function AvailabilityPanel() {
                 ))}
                 {!filteredUnits.length ? (
                   <p className="text-sm leading-7 text-[color:var(--muted)]">
-                    Nothing open in that phase right now. Leave your number and we&apos;ll call when the next unit opens.
+                    Nothing open in that location right now. Leave your number and we&apos;ll call when the next unit opens.
                   </p>
                 ) : null}
               </motion.div>
@@ -228,7 +230,7 @@ export function AvailabilityPanel() {
         })}
       >
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Next opening</p>
+          <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">Next opening</p>
           <h3 className="font-display text-3xl leading-none text-[color:var(--ink)] sm:text-4xl">
             Miss this one. Don&apos;t miss the next.
           </h3>
@@ -244,7 +246,7 @@ export function AvailabilityPanel() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-5 py-4 text-sm font-medium text-[color:var(--olive)]"
+              className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-5 py-4 text-sm font-medium text-[color:var(--accent-dark)]"
             >
               ✓ We have your number. Watch this space.
             </motion.div>
@@ -254,7 +256,7 @@ export function AvailabilityPanel() {
                 <span>Name</span>
                 <input
                   {...register("name")}
-                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                   placeholder="Full name"
                 />
                 <AnimatePresence initial={false}>
@@ -278,7 +280,7 @@ export function AvailabilityPanel() {
                     setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
                   })}
                   type="tel"
-                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                   placeholder="e.g. 071 234 5678"
                 />
                 <AnimatePresence initial={false}>
@@ -296,10 +298,10 @@ export function AvailabilityPanel() {
               </label>
 
               <label className="block space-y-2 text-sm text-[color:var(--ink)]">
-                <span>Preferred phase</span>
+                <span>Preferred location</span>
                 <select
                   {...register("preferredPhase")}
-                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                 >
                   {phases.map((phase) => (
                     <option key={phase}>{phase}</option>
@@ -322,7 +324,7 @@ export function AvailabilityPanel() {
               <MotionButton
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? "Sending..." : "Notify me"}
               </MotionButton>

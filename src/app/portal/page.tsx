@@ -5,6 +5,7 @@ import { PayNowButton } from "@/components/portal/pay-now-button";
 import { PaymentHistoryTable } from "@/components/portal/payment-history-table";
 import { PortalStatusBadge } from "@/components/portal/portal-status-badge";
 import { Badge } from "@/components/ui/badge";
+import { formatLocationLabel } from "@/lib/property-data";
 import {
   createServerClient,
   type LeaseRow,
@@ -64,10 +65,10 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
 
   if (!tenant) {
     return (
-      <div className="bg-[color:var(--paper)]">
+      <div className="bg-[color:var(--surface)]">
         <section className="mx-auto min-h-screen w-full max-w-4xl px-5 pb-20 pt-28 sm:px-8 lg:px-12">
           <div className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-8 shadow-[0_24px_80px_rgba(17,24,15,0.08)]">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Setup required</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Setup required</p>
             <h1 className="mt-4 font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Your account is being set up.
             </h1>
@@ -116,11 +117,11 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
     null;
 
   return (
-    <div className="bg-[color:var(--paper)]">
+    <div className="bg-[color:var(--surface)]">
       <section className="mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 lg:px-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Tenant portal</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Tenant portal</p>
             <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Hi {tenant.full_name}
             </h1>
@@ -130,25 +131,25 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
         </div>
 
         {params.paid === "true" ? (
-          <div className="mt-6 rounded-[1.5rem] border border-[color:var(--olive)]/20 bg-[color:#eaf2e7] px-5 py-4 text-sm text-[color:var(--olive)]">
+          <div className="mt-6 rounded-[1.5rem] border border-[color:var(--success)]/20 bg-[color:var(--success-bg)] px-5 py-4 text-sm text-[color:var(--success)]">
             Payment received by PayFast. Your portal will reflect it as soon as the confirmation comes through.
           </div>
         ) : null}
 
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
           <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Unit</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Unit</p>
             <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
               {unit?.unit_number ?? "Not linked"}
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              {unit?.phase ? <Badge variant="phase">{unit.phase}</Badge> : null}
+              {unit?.phase ? <Badge variant="phase">{formatLocationLabel(unit.phase)}</Badge> : null}
               {unit?.unit_type ? <Badge variant="unit">{formatUnitType(unit.unit_type)}</Badge> : null}
             </div>
           </article>
 
           <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Next payment</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Next payment</p>
             {nextPayment ? (
               <>
                 <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
@@ -167,7 +168,7 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
           </article>
 
           <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
-            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Lease</p>
+            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Lease</p>
             <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
               {lease ? `${formatDate(lease.start_date)} to ${lease.end_date ? formatDate(lease.end_date) : "Month to month"}` : "Month to month"}
             </p>
@@ -176,7 +177,7 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
                 href={lease.signed_document_url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex text-sm text-[color:var(--olive)] underline-offset-4 hover:underline"
+                className="mt-4 inline-flex text-sm text-[color:var(--accent-dark)] underline-offset-4 hover:underline"
               >
                 Open signed lease
               </a>
@@ -188,7 +189,7 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
           <div className="space-y-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="space-y-2">
-                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Payments</p>
+                <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Payments</p>
                 <h2 className="text-3xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Payment history</h2>
               </div>
 

@@ -77,7 +77,7 @@ export function MaintenanceKanban({ requests }: MaintenanceKanbanProps) {
                 return (
                   <article
                     key={request.id}
-                    className="rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] p-4"
+                    className="rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-2">

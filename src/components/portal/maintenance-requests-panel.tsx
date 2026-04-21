@@ -51,7 +51,7 @@ export function MaintenanceRequestsPanel({
     <div className="space-y-5 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
       <div className="flex items-center justify-between gap-4">
         <div className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Maintenance requests</p>
+          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Maintenance requests</p>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">Recent issues</h2>
         </div>
 
@@ -59,7 +59,7 @@ export function MaintenanceRequestsPanel({
           <DialogPrimitive.Trigger asChild>
             <MotionButton
               type="button"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[color:var(--olive)]"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)]"
             >
               Log new request
             </MotionButton>
@@ -98,7 +98,7 @@ export function MaintenanceRequestsPanel({
                       <DialogPrimitive.Close asChild>
                         <MotionButton
                           type="button"
-                          className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-3 text-[color:var(--ink)]"
+                          className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-3 text-[color:var(--ink)]"
                         >
                           <X className="h-4 w-4" />
                         </MotionButton>
@@ -177,7 +177,7 @@ export function MaintenanceRequestsPanel({
                         <input
                           value={title}
                           onChange={(event) => setTitle(event.target.value)}
-                          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                           placeholder="What needs attention?"
                         />
                       </label>
@@ -188,7 +188,7 @@ export function MaintenanceRequestsPanel({
                           value={description}
                           onChange={(event) => setDescription(event.target.value)}
                           rows={5}
-                          className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+                          className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
                           placeholder="Tell us what happened and where it is."
                         />
                       </label>
@@ -199,14 +199,14 @@ export function MaintenanceRequestsPanel({
                           type="file"
                           accept="image/*"
                           onChange={(event) => setFile(event.target.files?.[0] ?? null)}
-                          className="w-full rounded-[1rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 text-sm"
+                          className="w-full rounded-[1rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 text-sm"
                         />
                       </label>
 
                       <MotionButton
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center rounded-full bg-[color:var(--olive)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--ink)] disabled:cursor-not-allowed disabled:opacity-60"
+                        className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
                       >
                         {isSubmitting ? "Saving..." : "Submit request"}
                       </MotionButton>
@@ -224,7 +224,7 @@ export function MaintenanceRequestsPanel({
           requests.map((request) => (
             <div
               key={request.id}
-              className="rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] p-4"
+              className="rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="space-y-2">

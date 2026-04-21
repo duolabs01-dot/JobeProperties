@@ -10,7 +10,7 @@ export default function ContactPage() {
     <div data-nav-theme="light" className="bg-white">
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Contact</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Contact</p>
           <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl">
             Get in touch.
           </h1>
@@ -22,7 +22,7 @@ export default function ContactPage() {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--olive)]"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
             >
               WhatsApp {whatsappNumber}
             </ButtonLink>
@@ -34,7 +34,7 @@ export default function ContactPage() {
         </RevealItem>
       </RevealSection>
 
-      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--paper)]">
+      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--surface)]">
         <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
           <div className="overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_24px_70px_rgba(17,24,15,0.08)]">
             <iframe
@@ -50,8 +50,8 @@ export default function ContactPage() {
       </RevealSection>
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
-        <div className="max-w-xl rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-6">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Address</p>
+        <div className="max-w-xl rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-6">
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Address</p>
           <p className="mt-4 text-lg leading-8 text-[color:var(--ink)]">
             1191 S Africa Loop, Far East Bank, Alexandra, 2014
           </p>

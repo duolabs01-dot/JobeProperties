@@ -28,7 +28,7 @@ export default function GuesthousePage() {
 
         <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-32 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-3xl space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--sand)]">Guesthouse</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent)]">Guesthouse</p>
             <h1 className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
               Jobe Towers Guesthouse.
             </h1>
@@ -40,7 +40,7 @@ export default function GuesthousePage() {
       </section>
 
       <RevealSection className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24" stagger>
-        <RevealItem className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-4 shadow-[0_20px_70px_rgba(17,24,15,0.08)] sm:p-6">
+        <RevealItem className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-4 shadow-[0_20px_70px_rgba(17,24,15,0.08)] sm:p-6">
           <div className="mx-auto max-w-xl">
             <ShimmerImage
               src={guesthousePricingImage}
@@ -54,7 +54,7 @@ export default function GuesthousePage() {
         </RevealItem>
 
         <RevealItem className="flex flex-col justify-center space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Pricing</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Pricing</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             See the rates, then book straight away.
           </h2>
@@ -66,7 +66,7 @@ export default function GuesthousePage() {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--olive)]"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
             >
               Book Now
             </ButtonLink>
@@ -76,7 +76,7 @@ export default function GuesthousePage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-8 lg:px-12 lg:pb-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Photo gallery</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Photo gallery</p>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Rooms, bathrooms, and shared spaces before you arrive.
           </h2>
@@ -87,10 +87,10 @@ export default function GuesthousePage() {
         </RevealItem>
       </RevealSection>
 
-      <RevealSection className="bg-[color:var(--paper)]" stagger>
+      <RevealSection className="bg-[color:var(--surface)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24">
           <RevealItem className="space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Staying short, thinking long?</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Staying short, thinking long?</p>
             <h2 className="max-w-2xl font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Most of our long-term tenants started with a short stay.
             </h2>
@@ -108,7 +108,7 @@ export default function GuesthousePage() {
           </RevealItem>
 
           <RevealItem>
-            <div className="grid gap-4 rounded-[2rem] bg-[color:var(--ink)] p-6 text-[color:var(--sand)] shadow-[0_28px_80px_rgba(17,24,15,0.18)] sm:grid-cols-3 sm:p-8">
+            <div className="grid gap-4 rounded-[2rem] bg-[color:var(--ink)] p-6 text-[color:var(--accent)] shadow-[0_28px_80px_rgba(17,24,15,0.18)] sm:grid-cols-3 sm:p-8">
               <div className="rounded-[1.5rem] border border-white/10 bg-white/4 px-5 py-6">
                 <p className="font-display text-3xl leading-none sm:text-[2.3rem]">From R4,300 / month</p>
                 <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/65">Long-term apartments</p>
@@ -136,7 +136,7 @@ export default function GuesthousePage() {
             href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-white"
+            className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
           >
             WhatsApp to book → {whatsappNumber}
           </ButtonLink>

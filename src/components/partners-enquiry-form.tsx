@@ -103,7 +103,7 @@ export function PartnersEnquiryForm() {
       })}
     >
       <motion.div variants={revealItemVariants} className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Partnership enquiry</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">Partnership enquiry</p>
         <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
           Tell us about your business.
         </h2>
@@ -115,7 +115,7 @@ export function PartnersEnquiryForm() {
           <span>Business name</span>
           <input
             {...register("businessName")}
-            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             placeholder="Your business name"
           />
           <AnimatePresence initial={false}>
@@ -136,7 +136,7 @@ export function PartnersEnquiryForm() {
           <span>Contact name</span>
           <input
             {...register("contactName")}
-            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             placeholder="Full name"
           />
           <AnimatePresence initial={false}>
@@ -162,7 +162,7 @@ export function PartnersEnquiryForm() {
               setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
             })}
             type="tel"
-            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             placeholder="071 234 5678"
           />
           <AnimatePresence initial={false}>
@@ -184,7 +184,7 @@ export function PartnersEnquiryForm() {
           <input
             {...register("email")}
             type="email"
-            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             placeholder="hello@business.com"
           />
           <AnimatePresence initial={false}>
@@ -206,7 +206,7 @@ export function PartnersEnquiryForm() {
         <span>What are you interested in?</span>
         <select
           {...register("interest")}
-          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
         >
           {interestOptions.map((option) => (
             <option key={option}>{option}</option>
@@ -231,7 +231,7 @@ export function PartnersEnquiryForm() {
         <textarea
           {...register("message")}
           rows={5}
-          className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
           placeholder="Tell us what you do, what you're interested in, and how you'd like to work with Jobe."
         />
         <AnimatePresence initial={false}>
@@ -252,7 +252,7 @@ export function PartnersEnquiryForm() {
         <MotionButton
           type="submit"
           disabled={isPending}
-          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? "Sending..." : "Send enquiry"}
         </MotionButton>

@@ -20,7 +20,7 @@ export function ShimmerImage({
   return (
     <div className={cn("relative overflow-hidden", wrapperClassName)}>
       {!isLoaded ? (
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--stone)_25%,var(--paper-strong)_50%,var(--stone)_75%)] bg-[length:200%_100%] [animation:shimmer_1.5s_infinite]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--stone)_25%,var(--surface-strong)_50%,var(--stone)_75%)] bg-[length:200%_100%] [animation:shimmer_1.5s_infinite]" />
       ) : null}
 
       <Image

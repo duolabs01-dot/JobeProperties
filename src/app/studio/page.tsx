@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 
 export default function StudioPage() {
   return (
-    <div className="bg-[color:var(--paper)]">
+    <div className="bg-[color:var(--surface)]">
       <section className="relative isolate min-h-screen overflow-hidden bg-[color:var(--ink)] text-white">
         <Image
           src={heroImage}
@@ -57,7 +57,7 @@ export default function StudioPage() {
         <div className="relative z-10 flex min-h-screen flex-col">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
             <Link href="/" className="flex items-baseline gap-3">
-              <span className="font-display text-xl tracking-[0.18em] text-[color:var(--sand)] sm:text-2xl">JOBE</span>
+              <span className="font-display text-xl tracking-[0.18em] text-[color:var(--accent)] sm:text-2xl">JOBE</span>
               <span className="text-[10px] uppercase tracking-[0.36em] text-white/56 sm:text-xs">Propco</span>
             </Link>
 
@@ -81,7 +81,7 @@ export default function StudioPage() {
               </p>
               <ButtonLink
                 href="#studio-enquiry"
-                className="inline-flex items-center justify-center rounded-full bg-[color:var(--sand)] px-7 py-4 text-xs font-semibold uppercase tracking-[0.26em] text-[color:var(--ink)] hover:bg-white"
+                className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-7 py-4 text-xs font-semibold uppercase tracking-[0.26em] text-white hover:bg-[color:var(--accent-dark)]"
               >
                 Check availability & WhatsApp us
               </ButtonLink>
@@ -120,12 +120,12 @@ export default function StudioPage() {
 
       <section className="mx-auto grid w-full max-w-7xl gap-10 px-5 pb-16 sm:px-8 lg:grid-cols-[1fr_0.92fr] lg:px-12 lg:pb-20">
         <div className="space-y-5">
-          <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Fastest way in</p>
+          <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">Fastest way in</p>
           <h2 className="max-w-2xl font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Leave your details and we&apos;ll tell you what&apos;s open right now.
           </h2>
           <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
-            If you already know you want to move quickly, WhatsApp works too. We&apos;ll point you to the right phase and the right layout.
+            If you already know you want to move quickly, WhatsApp works too. We&apos;ll point you to the right location and the right layout.
           </p>
           <ButtonLink
             href={whatsappLeadUrl}

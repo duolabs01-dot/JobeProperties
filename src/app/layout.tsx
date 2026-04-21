@@ -91,7 +91,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }}
         />
       </head>
-      <body className="min-h-full bg-[color:var(--paper)] font-sans text-[color:var(--ink)] antialiased">
+      <body className="min-h-full bg-white font-sans text-[color:var(--ink)] antialiased">
         <CursorGlow />
         <AppShell>{children}</AppShell>
         <Toaster />

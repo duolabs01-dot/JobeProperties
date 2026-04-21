@@ -65,7 +65,7 @@ export function UnitsGrid({ phases }: UnitsGridProps) {
                   </button>
                 ))
               ) : (
-                <p className="text-sm text-[color:var(--muted)]">No units added to this phase yet.</p>
+                <p className="text-sm text-[color:var(--muted)]">No units added to this location yet.</p>
               )}
             </div>
           </section>
@@ -107,7 +107,7 @@ export function UnitsGrid({ phases }: UnitsGridProps) {
                     <MotionButton
                       type="button"
                       onClick={() => setActiveUnit(null)}
-                      className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-3 text-[color:var(--ink)]"
+                      className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-3 text-[color:var(--ink)]"
                     >
                       <X className="h-4 w-4" />
                     </MotionButton>
@@ -115,13 +115,13 @@ export function UnitsGrid({ phases }: UnitsGridProps) {
 
                   <div className="mt-6 grid gap-5 sm:grid-cols-2">
                     <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Tenant</p>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Tenant</p>
                       <p className="text-sm text-[color:var(--ink)]">{activeUnit.tenantName ?? "No tenant linked"}</p>
                       <p className="text-sm text-[color:var(--muted)]">{activeUnit.tenantPhone ?? "No phone saved"}</p>
                     </div>
 
                     <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Payment</p>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Payment</p>
                       {activeUnit.paymentStatus ? (
                         <Badge variant={getPaymentBadgeVariant(activeUnit.paymentStatus)}>
                           {activeUnit.paymentStatus}
@@ -132,12 +132,12 @@ export function UnitsGrid({ phases }: UnitsGridProps) {
                     </div>
 
                     <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Lease start</p>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Lease start</p>
                       <p className="text-sm text-[color:var(--ink)]">{formatDate(activeUnit.leaseStartDate)}</p>
                     </div>
 
                     <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Lease end</p>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Lease end</p>
                       <p className="text-sm text-[color:var(--ink)]">
                         {activeUnit.leaseEndDate ? formatDate(activeUnit.leaseEndDate) : "Month to month"}
                       </p>

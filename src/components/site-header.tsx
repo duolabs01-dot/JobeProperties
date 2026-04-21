@@ -19,7 +19,7 @@ const lightNavPaths = new Set(["/faq", "/partners", "/about", "/contact"]);
 function TextLogo() {
   return (
     <>
-      <span className="font-display text-xl tracking-[0.18em] text-[color:var(--sand)] sm:text-2xl">
+      <span className="font-display text-xl tracking-[0.18em] text-[color:var(--accent)] sm:text-2xl">
         JOBE
       </span>
       <span className="text-[10px] uppercase tracking-[0.36em] text-white/72 sm:text-xs">
@@ -135,33 +135,34 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/partners"
-            transitionTypes={["nav-forward"]}
-            className={cn(
-              "rounded-full border px-3 py-2 text-[10px] font-medium normal-case tracking-[0.02em] transition-all duration-300",
-              useLightChrome
-                ? "border-transparent text-[color:var(--muted)] hover:border-[color:var(--line-strong)] hover:text-[color:var(--ink)]"
-                : "border-transparent text-white/56 hover:border-white/20 hover:text-white",
-            )}
-          >
-            For businesses
-          </Link>
         </nav>
 
-        <MagneticButton className="hidden lg:block">
-          <ButtonLink
-            href="/#availability"
+        <div className="hidden items-center gap-4 lg:flex">
+          <MagneticButton className="hidden lg:block">
+            <ButtonLink
+              href="/#availability"
+              className={cn(
+                "hidden items-center justify-center rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] sm:px-5 lg:inline-flex",
+                useLightChrome
+                  ? "border-[color:var(--nav-cta-border)] text-[color:var(--nav-cta-text)] hover:bg-[color:var(--nav-cta-hover-bg)] hover:text-white"
+                  : "border-white/24 bg-white/8 text-white hover:border-white/38 hover:bg-white/14",
+              )}
+            >
+              See availability
+            </ButtonLink>
+          </MagneticButton>
+
+          <Link
+            href="/portal/login"
+            transitionTypes={["nav-forward"]}
             className={cn(
-              "hidden items-center justify-center rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] sm:px-5 lg:inline-flex",
-              useLightChrome
-                ? "border-[color:var(--nav-cta-border)] text-[color:var(--nav-cta-text)] hover:bg-[color:var(--nav-cta-hover-bg)] hover:text-white"
-                : "border-white/24 bg-white/8 text-white hover:border-white/38 hover:bg-white/14",
+              "text-[10px] uppercase tracking-[0.2em] transition-opacity duration-300",
+              useLightChrome ? "text-[color:var(--nav-text)] opacity-60 hover:opacity-100" : "text-white/70 hover:text-white",
             )}
           >
-            See availability
-          </ButtonLink>
-        </MagneticButton>
+            Tenant login
+          </Link>
+        </div>
 
         <Sheet open={open} onOpenChange={setOpen}>
           <MotionButton
@@ -171,7 +172,7 @@ export function SiteHeader() {
             className={cn(
               "inline-flex items-center justify-center rounded-full p-3 lg:hidden",
               useLightChrome
-                ? "border border-[color:var(--line-strong)] bg-[color:var(--paper)] text-[color:var(--ink)]"
+                ? "border border-[color:var(--line-strong)] bg-[color:var(--surface)] text-[color:var(--ink)]"
                 : "border border-white/15 bg-white/10 text-white backdrop-blur-md",
             )}
           >
@@ -214,14 +215,14 @@ export function SiteHeader() {
                 </Link>
               ))}
 
-              <div className="mt-2 w-full border-t border-[color:var(--line)] pt-6">
+              <div className="mt-2 w-full border-t border-[color:var(--line)] pt-6 text-center">
                 <Link
-                  href="/partners"
+                  href="/portal/login"
                   onClick={() => setOpen(false)}
-                  className="text-[22px] font-medium tracking-[-0.03em] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--ink)]"
+                  className="text-[18px] font-medium uppercase tracking-[0.2em] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--ink)]"
                   transitionTypes={["nav-forward"]}
                 >
-                  For businesses
+                  Tenant login
                 </Link>
               </div>
             </nav>
@@ -229,7 +230,7 @@ export function SiteHeader() {
             <ButtonLink
               href="/#availability"
               onClick={() => setOpen(false)}
-              className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--olive)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--ink)]"
+              className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)]"
             >
               See availability
             </ButtonLink>

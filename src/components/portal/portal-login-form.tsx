@@ -167,7 +167,7 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
 
   return (
     <div className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_24px_80px_rgba(17,24,15,0.08)] sm:p-8">
-      <div className="inline-flex rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-1">
+      <div className="inline-flex rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-1">
         {(["phone", "email"] as const).map((item) => (
           <button
             key={item}
@@ -194,7 +194,7 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
               onChange={(event) => setPhone(event.target.value)}
               type="tel"
               placeholder="071 234 5678"
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             />
           </label>
         ) : (
@@ -205,7 +205,7 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
               onChange={(event) => setEmail(event.target.value)}
               type="email"
               placeholder="you@example.com"
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             />
           </label>
         )}
@@ -214,7 +214,7 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
           type="button"
           disabled={isSending || (tab === "phone" ? phone.trim().length < 10 : email.trim().length < 5)}
           onClick={handleSendLink}
-          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSending ? "Sending..." : "Send link"}
         </MotionButton>
@@ -222,7 +222,7 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
         {statusMessage ? <p className="text-sm leading-7 text-[color:var(--muted)]">{statusMessage}</p> : null}
 
         {hasSentOtp ? (
-          <div className="space-y-4 rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] p-4">
+          <div className="space-y-4 rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4">
             <div className="space-y-2">
               <p className="text-sm font-medium text-[color:var(--ink)]">Enter your 6-digit code</p>
               <p className="text-sm leading-7 text-[color:var(--muted)]">

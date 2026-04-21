@@ -97,7 +97,7 @@ export function ContactForm() {
       })}
     >
       <motion.div variants={revealItemVariants} className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">Send us a message</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">Send us a message</p>
         <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
           Tell us what you need.
         </h2>
@@ -108,7 +108,7 @@ export function ContactForm() {
           <span>Name</span>
           <input
             {...register("name")}
-            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             placeholder="Full name"
           />
           <AnimatePresence initial={false}>
@@ -132,7 +132,7 @@ export function ContactForm() {
               setValueAs: (value) => (typeof value === "string" ? value.replace(/\s+/g, "") : value),
             })}
             type="tel"
-            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+            className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
             placeholder="071 234 5678"
           />
           <AnimatePresence initial={false}>
@@ -155,7 +155,7 @@ export function ContactForm() {
         <input
           {...register("email")}
           type="email"
-          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
           placeholder="Optional"
         />
         <AnimatePresence initial={false}>
@@ -177,7 +177,7 @@ export function ContactForm() {
         <textarea
           {...register("message")}
           rows={5}
-          className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+          className="w-full rounded-[1.5rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
           placeholder="Tell us how we can help"
         />
         <AnimatePresence initial={false}>
@@ -201,13 +201,13 @@ export function ContactForm() {
             return (
               <label
                 key={option}
-                className="inline-flex items-center gap-3 rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm text-[color:var(--muted)] transition has-[:checked]:border-[color:var(--ink)] has-[:checked]:bg-[color:var(--sand)] has-[:checked]:text-[color:var(--ink)]"
+                className="inline-flex items-center gap-3 rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm text-[color:var(--muted)] transition has-[:checked]:border-[color:var(--accent)] has-[:checked]:bg-[color:var(--accent-light)] has-[:checked]:text-[color:var(--accent-dark)]"
               >
                 <input
                   {...register("enquiryType")}
                   type="radio"
                   value={option}
-                  className="accent-[color:var(--olive)]"
+                  className="accent-[color:var(--accent)]"
                 />
                 {option}
               </label>
@@ -220,7 +220,7 @@ export function ContactForm() {
         <MotionButton
           type="submit"
           disabled={isPending}
-          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? "Sending..." : "Send message"}
         </MotionButton>

@@ -53,11 +53,11 @@ const opportunityCards = [
 
 export default function PartnersPage() {
   return (
-    <div data-nav-theme="light" className="bg-[color:var(--paper)]">
-      <section className="bg-[color:var(--paper)] text-[color:var(--ink)]">
+    <div data-nav-theme="light" className="bg-[color:var(--surface)]">
+      <section className="bg-[color:var(--surface)] text-[color:var(--ink)]">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">For businesses</p>
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">For businesses</p>
             <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
               The Alexandra community, available to your brand.
             </h1>
@@ -101,7 +101,7 @@ export default function PartnersPage() {
                   href={card.href}
                   target={card.target}
                   rel={card.target === "_blank" ? "noreferrer" : undefined}
-                  className="inline-flex items-center text-sm font-medium text-[color:var(--olive)] hover:underline"
+                  className="inline-flex items-center text-sm font-medium text-[color:var(--accent-dark)] hover:underline"
                 >
                   {card.label}
                 </ButtonLink>

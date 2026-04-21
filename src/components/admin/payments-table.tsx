@@ -66,7 +66,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
       },
       {
         accessorKey: "phase",
-        header: "Phase",
+        header: "Location",
         cell: ({ row }) => <Badge variant="phase">{row.original.phase}</Badge>,
       },
       {
@@ -103,7 +103,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
               href={row.original.receiptUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-medium text-[color:var(--olive)] hover:underline"
+              className="text-xs font-medium text-[color:var(--accent-dark)] hover:underline"
             >
               Download
             </a>
@@ -162,7 +162,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
                     setRemindingId(null);
                   }
                 }}
-                className="text-xs font-medium text-[color:var(--olive)] transition-colors duration-300 hover:underline disabled:opacity-60"
+                className="text-xs font-medium text-[color:var(--accent-dark)] transition-colors duration-300 hover:underline disabled:opacity-60"
               >
                 {remindingId === payment.id ? "Sending..." : "Send reminder"}
               </button>
@@ -197,7 +197,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
 
   const exportCsv = () => {
     const csvRows = [
-      ["Tenant name", "Phone", "Unit", "Phase", "Amount", "Due date", "Status", "Paid at", "Reminded at"],
+      ["Tenant name", "Phone", "Unit", "Location", "Amount", "Due date", "Status", "Paid at", "Reminded at"],
       ...filteredRows.map((row) => [
         row.tenantName,
         row.phone ?? "",
@@ -238,7 +238,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
                 setPagination((current) => ({ ...current, pageIndex: 0 }));
               }}
               placeholder="Search tenant name"
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] py-3 pl-11 pr-4 text-sm outline-none"
+              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] py-3 pl-11 pr-4 text-sm outline-none"
             />
           </label>
 
@@ -248,7 +248,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
               setStatusFilter(event.target.value as StatusFilter);
               setPagination((current) => ({ ...current, pageIndex: 0 }));
             }}
-            className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 text-sm text-[color:var(--ink)] outline-none"
+            className="rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 text-sm text-[color:var(--ink)] outline-none"
           >
             <option value="all">All statuses</option>
             <option value="paid">Paid</option>
@@ -302,7 +302,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
           <tbody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="rounded-[1.25rem] bg-[color:var(--paper)]">
+                <tr key={row.id} className="rounded-[1.25rem] bg-[color:var(--surface)]">
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-3 py-4 align-top text-sm">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -331,7 +331,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
             type="button"
             disabled={!table.getCanPreviousPage()}
             onClick={() => table.previousPage()}
-            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--paper)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
           </MotionButton>
@@ -339,7 +339,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
             type="button"
             disabled={!table.getCanNextPage()}
             onClick={() => table.nextPage()}
-            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--paper)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
           </MotionButton>

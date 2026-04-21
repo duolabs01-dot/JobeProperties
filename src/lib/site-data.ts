@@ -1,4 +1,4 @@
-import { apartmentPhases } from "@/lib/property-data";
+import { apartmentLocations } from "@/lib/property-data";
 
 export type Unit = {
   id: string;
@@ -18,14 +18,13 @@ export const navItems = [
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
-  { href: "/portal", label: "Tenant portal" },
 ];
 
 export const units: Unit[] = [
   {
     id: "phase-4-a12",
     name: "Studio A12",
-    phase: "Phase 4",
+    phase: "Location 4",
     unitType: "standard",
     beds: "1 bed studio",
     price: "R4,200/mo",
@@ -36,7 +35,7 @@ export const units: Unit[] = [
   {
     id: "phase-5-b08",
     name: "Studio B08",
-    phase: "Phase 5",
+    phase: "Location 5",
     unitType: "balcony",
     beds: "1 bed studio",
     price: "R4,350/mo",
@@ -47,7 +46,7 @@ export const units: Unit[] = [
   {
     id: "phase-6-c03",
     name: "Studio C03",
-    phase: "Phase 6",
+    phase: "Location 6",
     unitType: "sliding-door",
     beds: "1 bed studio",
     price: "R4,500/mo",
@@ -57,7 +56,7 @@ export const units: Unit[] = [
   },
 ];
 
-export const phases = ["Any phase", ...apartmentPhases.map((phase) => phase.badge)];
+export const phases = ["Any location", ...apartmentLocations.map((phase) => phase.badge)];
 
 export const gallery = [
   {
@@ -78,7 +77,7 @@ export const gallery = [
 ];
 
 export const socialProofPhrases = [
-  "6 phases across Far East Bank",
+  "6 locations across Far East Bank",
   "Founded 2016 by Dr Nhlanhla Sithole",
   "3km from Marlboro Gautrain",
   "No lease agreement required",
@@ -109,12 +108,6 @@ export const portalMoments = [
   "Keep your lease and move details where you can find them.",
 ];
 
-export const adminMetrics = [
-  { label: "Maintenance", value: "48 hrs", detail: "Most requests are picked up within two days." },
-  { label: "Payments", value: "Tracked", detail: "Rent, receipts, and overdue balances stay up to date." },
-  { label: "Move-ins", value: "On file", detail: "Documents, handovers, and vacancies are easy to follow." },
-];
-
 export const faqs = [
   {
     question: "How do I pay my rent?",
@@ -126,7 +119,7 @@ export const faqs = [
   },
   {
     question: "Is there parking?",
-    answer: "Yes. Ask about parking availability for your phase when you enquire.",
+    answer: "Yes. Ask about parking availability for your location when you enquire.",
   },
   {
     question: "How do I secure a unit?",

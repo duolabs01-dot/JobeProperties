@@ -45,7 +45,7 @@ function SidebarNav({
             className={cn(
               "flex items-center gap-3 rounded-[1.25rem] px-4 py-3 text-sm font-medium transition-colors duration-300",
               isActive
-                ? "bg-[color:var(--olive)] text-white shadow-[0_14px_30px_rgba(64,82,56,0.18)]"
+                ? "bg-[color:var(--accent)] text-white shadow-[0_14px_30px_rgba(200,103,58,0.18)]"
                 : "text-[color:var(--muted)] hover:bg-white hover:text-[color:var(--ink)]",
             )}
           >
@@ -75,7 +75,7 @@ export function AdminSidebar({
           <Link href="/admin" className="inline-flex rounded-[1rem] bg-[color:var(--ink)] px-3 py-2">
             <Image src="/logo.png" alt="Jobe Propco" width={124} height={42} className="h-9 w-auto object-contain" />
           </Link>
-          <p className="mt-4 text-xs uppercase tracking-[0.3em] text-[color:var(--olive)]">Command centre</p>
+          <p className="mt-4 text-xs uppercase tracking-[0.3em] text-[color:var(--accent-dark)]">Command centre</p>
           <p className="mt-2 text-sm text-[color:var(--muted)]">{adminEmail}</p>
         </div>
 
@@ -84,7 +84,7 @@ export function AdminSidebar({
         </div>
 
         <div className="border-t border-[color:var(--line)] px-5 py-5">
-          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">Tenants</p>
+          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">Tenants</p>
           <p className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{tenantCount}</p>
           <LogoutButton
             redirectTo="/"

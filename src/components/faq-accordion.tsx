@@ -37,7 +37,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                   <span className="text-xl font-semibold tracking-[-0.04em] text-[color:var(--ink)] sm:text-2xl">
                     {item.question}
                   </span>
-                  <span className="inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--olive)]">
+                  <span className="inline-flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-dark)]">
                     <span>{isOpen ? "Close" : "Open"}</span>
                     <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.24 }}>
                       <ChevronDown className="h-4 w-4" />

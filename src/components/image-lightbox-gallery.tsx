@@ -88,7 +88,7 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
                 }}
                 className={`rounded-full border px-5 py-3 text-sm font-semibold transition ${
                   isActive
-                    ? "border-[color:var(--ink)] bg-[color:var(--sand)] text-[color:var(--ink)]"
+                    ? "border-[color:var(--accent)] bg-[color:var(--accent)] text-white"
                     : "border-[color:var(--line-strong)] bg-white text-[color:var(--muted)] hover:border-[color:var(--ink)] hover:text-[color:var(--ink)]"
                 }`}
               >

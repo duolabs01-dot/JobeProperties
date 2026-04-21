@@ -45,7 +45,7 @@ export function ReminderSettingsCard() {
     <article className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">
+          <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">
             Automatic rent reminders
           </p>
           <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
@@ -65,7 +65,7 @@ export function ReminderSettingsCard() {
             checked={enabled}
             onCheckedChange={setEnabled}
             aria-label="Toggle automatic rent reminders"
-            className="relative h-8 w-14 rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] transition-colors duration-300 data-[state=checked]:bg-[color:var(--olive)]"
+            className="relative h-8 w-14 rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] transition-colors duration-300 data-[state=checked]:bg-[color:var(--accent)]"
           >
             <Switch.Thumb className="block h-6 w-6 translate-x-1 rounded-full bg-white shadow-sm transition-transform duration-300 data-[state=checked]:translate-x-7" />
           </Switch.Root>
@@ -74,19 +74,19 @@ export function ReminderSettingsCard() {
 
       <div className="mt-8 grid gap-5 lg:grid-cols-2">
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--olive)]">
+          <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--accent-dark)]">
             3 days before due date message
           </p>
-          <pre className="overflow-x-auto rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] p-4 text-xs leading-6 text-[color:var(--muted)]">
+          <pre className="overflow-x-auto rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4 text-xs leading-6 text-[color:var(--muted)]">
             <code>{upcomingReminderTemplate}</code>
           </pre>
         </div>
 
         <div className="space-y-3">
-          <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--olive)]">
+          <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--accent-dark)]">
             On the day - overdue message
           </p>
-          <pre className="overflow-x-auto rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--paper)] p-4 text-xs leading-6 text-[color:var(--muted)]">
+          <pre className="overflow-x-auto rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4 text-xs leading-6 text-[color:var(--muted)]">
             <code>{overdueReminderTemplate}</code>
           </pre>
         </div>

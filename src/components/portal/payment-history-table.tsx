@@ -52,7 +52,7 @@ export function PaymentHistoryTable({ payments }: { payments: PaymentRow[] }) {
               href={row.original.receipt_url}
               target="_blank"
               rel="noreferrer"
-              className="text-[color:var(--olive)] underline-offset-4 hover:underline"
+              className="text-[color:var(--accent-dark)] underline-offset-4 hover:underline"
             >
               Download
             </a>
@@ -75,7 +75,7 @@ export function PaymentHistoryTable({ payments }: { payments: PaymentRow[] }) {
     <div className="overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_20px_70px_rgba(17,24,15,0.06)]">
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse">
-          <thead className="bg-[color:var(--paper)] text-left text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
+          <thead className="bg-[color:var(--surface)] text-left text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -113,7 +113,7 @@ export function PaymentHistoryTable({ payments }: { payments: PaymentRow[] }) {
           <MotionButton
             type="button"
             onClick={() => setVisibleCount((count) => count + 6)}
-            className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--paper)]"
+            className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--surface)]"
           >
             Load more
           </MotionButton>

@@ -8,6 +8,7 @@ const waitingListSchema = z.object({
   phone: z.string().min(7),
   preferredPhase: z.string().min(3),
   preferredUnitType: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 export async function POST(request: Request) {
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
       phone: payload.phone,
       preferred_phase: payload.preferredPhase,
       preferred_unit_type: payload.preferredUnitType ?? null,
+      notes: payload.notes ?? null,
       status: "new",
     } as never);
 
@@ -32,14 +34,15 @@ export async function POST(request: Request) {
       headline: `New availability enquiry from ${payload.name}`,
       lines: [
         `Phone: ${payload.phone}`,
-        `Preferred phase: ${payload.preferredPhase}`,
+        `Preferred location: ${payload.preferredPhase}`,
         payload.preferredUnitType ? `Preferred unit type: ${payload.preferredUnitType}` : "",
+        payload.notes ? `Notes: ${payload.notes}` : "",
         "Source: availability form",
       ].filter(Boolean),
     });
 
     return NextResponse.json({
-      message: "Thanks. We'll call when a unit opens in your preferred phase.",
+      message: "Thanks. We'll call when a unit opens in your preferred location.",
     });
   } catch (error) {
     return NextResponse.json(
