@@ -13,6 +13,7 @@ const badgeVariants = cva(
         available: "border-transparent bg-[color:var(--olive)] text-white",
         waiting: "border-[color:var(--line-strong)] bg-[color:var(--paper)] text-[color:var(--muted)]",
         unit: "border-[color:var(--sand)] bg-transparent text-[color:var(--olive)]",
+        red: "border-transparent bg-red-100 text-red-800",
         paid: "border-transparent bg-[color:#0f766e] text-white",
         pending: "border-transparent bg-[color:#EF9F27] text-[color:var(--ink)]",
         overdue: "border-transparent bg-[color:#b91c1c] text-white",

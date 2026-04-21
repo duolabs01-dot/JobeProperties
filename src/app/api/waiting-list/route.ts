@@ -1,16 +1,31 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { createServiceRoleClient } from "@/lib/supabase";
 import { notifyOwner } from "@/lib/notifications";
 
 const waitingListSchema = z.object({
   name: z.string().min(2),
   phone: z.string().min(7),
   preferredPhase: z.string().min(3),
+  preferredUnitType: z.string().optional(),
 });
 
 export async function POST(request: Request) {
   try {
     const payload = waitingListSchema.parse(await request.json());
+    const supabase = createServiceRoleClient();
+
+    const { error } = await supabase.from("waiting_list").insert({
+      full_name: payload.name,
+      phone: payload.phone,
+      preferred_phase: payload.preferredPhase,
+      preferred_unit_type: payload.preferredUnitType ?? null,
+      status: "new",
+    } as never);
+
+    if (error) {
+      throw error;
+    }
 
     await notifyOwner({
       subject: `Availability enquiry · ${payload.preferredPhase}`,
@@ -18,8 +33,9 @@ export async function POST(request: Request) {
       lines: [
         `Phone: ${payload.phone}`,
         `Preferred phase: ${payload.preferredPhase}`,
+        payload.preferredUnitType ? `Preferred unit type: ${payload.preferredUnitType}` : "",
         "Source: availability form",
-      ],
+      ].filter(Boolean),
     });
 
     return NextResponse.json({

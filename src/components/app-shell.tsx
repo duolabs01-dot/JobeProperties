@@ -9,14 +9,16 @@ import { StickyMobileCta } from "@/components/sticky-mobile-cta";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isCampaignPage = pathname === "/studio";
+  const isAdminPage = pathname.startsWith("/admin");
+  const hideChrome = isCampaignPage || isAdminPage;
 
   return (
     <>
-      {isCampaignPage ? null : <SiteHeader />}
-      <main className={isCampaignPage ? "min-h-screen" : "min-h-screen pt-18"}>{children}</main>
-      {isCampaignPage ? null : <SiteFooter />}
-      {isCampaignPage ? null : <StickyMobileCta />}
-      {isCampaignPage ? null : <FloatingWhatsAppButton />}
+      {hideChrome ? null : <SiteHeader />}
+      <main className={hideChrome ? "min-h-screen" : "min-h-screen pt-18"}>{children}</main>
+      {hideChrome ? null : <SiteFooter />}
+      {hideChrome ? null : <StickyMobileCta />}
+      {hideChrome ? null : <FloatingWhatsAppButton />}
     </>
   );
 }

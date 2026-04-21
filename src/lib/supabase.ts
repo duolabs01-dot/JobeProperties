@@ -48,6 +48,7 @@ export type PaymentRow = {
   amount: number;
   due_date: string;
   paid_at: string | null;
+  reminded_at: string | null;
   status: "pending" | "paid" | "overdue" | "failed";
   gateway: string | null;
   gateway_reference: string | null;
@@ -64,6 +65,18 @@ export type MaintenanceRequestRow = {
   photo_urls: string[];
   priority: "low" | "medium" | "high";
   status: "open" | "in_progress" | "resolved";
+  created_at: string;
+};
+
+export type WaitingListRow = {
+  id: string;
+  full_name: string;
+  phone: string;
+  preferred_phase: string | null;
+  preferred_unit_type: string | null;
+  notes: string | null;
+  contacted_at: string | null;
+  status: "new" | "contacted" | "qualified" | "archived";
   created_at: string;
 };
 
@@ -109,6 +122,14 @@ export type AppDatabase = {
           created_at?: string;
         };
         Update: Partial<MaintenanceRequestRow>;
+      };
+      waiting_list: {
+        Row: WaitingListRow;
+        Insert: Omit<WaitingListRow, "id" | "created_at"> & {
+          id?: string;
+          created_at?: string;
+        };
+        Update: Partial<WaitingListRow>;
       };
     };
     Views: Record<string, never>;
