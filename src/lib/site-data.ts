@@ -103,6 +103,8 @@ export const socialProofPhrases = [
   "No lease agreement required",
   "Students welcome",
   "24/7 biometric security",
+  "Vuma fibre from R99/month",
+  "Uncapped internet in every unit",
   "Restaurant, bar & salon on-site",
   "Conference venue for 80 delegates",
 ];

@@ -30,7 +30,7 @@ const lifestyleAmenities = [
   { emoji: "🍺", name: "Bar Lounge", description: "Drinks, sport, and somewhere to unwind." },
   { emoji: "✂️", name: "Salon & Barber", description: "Hair salon and barbershop, no appointment needed." },
   { emoji: "🚗", name: "Car Wash", description: "Drive in, come out clean. On-site." },
-  { emoji: "💻", name: "Internet Café", description: "Fast internet, printing, and scanning." },
+  { emoji: "📡", name: "Fibre Internet", description: "Vuma fibre-ready. Connect from R99/month via Webafrica." },
   { emoji: "👗", name: "Fashion", description: "Local designer fashion and apparel." },
   { emoji: "🏧", name: "ATM", description: "Cash on-site. No trip to the mall." },
   { emoji: "🎉", name: "Events", description: "Private functions and 80-delegate conference venue." },
@@ -372,7 +372,7 @@ export default function Home() {
               Life at Jobe Lifestyle Corner
             </p>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-              Your barber, your dinner, your internet — downstairs.
+              Your barber, your dinner, your fibre — downstairs.
             </h2>
             <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">
               Jobe Lifestyle Corner sits within the precinct. Tenants don&apos;t need to leave the

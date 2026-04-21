@@ -13,6 +13,7 @@ import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import { useToast } from "@/components/ui/toast";
+import { VumaPricingCards } from "@/components/vuma-pricing-cards";
 import { WordReveal } from "@/components/ui/word-reveal";
 import { useInView } from "@/hooks/use-in-view";
 import {
@@ -217,6 +218,57 @@ export default function ApartmentsPage() {
             </motion.article>
           ))}
         </motion.div>
+      </RevealSection>
+
+      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--surface)]" stagger>
+        <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1fr] lg:px-12 lg:py-24">
+          <RevealItem className="space-y-5">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
+              Internet connectivity
+            </p>
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
+              Fibre internet, ready in your unit.
+            </h2>
+            <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
+              Every Jobe unit has Vuma Fibre infrastructure installed. Tenants connect directly with
+              Webafrica — packages start at R99/month for uncapped 10Mbps. No sharing, no throttling.
+            </p>
+            <div className="space-y-3 rounded-2xl border border-[color:var(--line-strong)] bg-white p-5">
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-[color:var(--muted)]">
+                What &quot;fibre-ready&quot; means
+              </p>
+              {[
+                "The building has Vuma fibre cabling installed",
+                "You sign up and pay Webafrica directly",
+                "Typical install: 5–7 business days after signup",
+                "No contract required on entry-level packages",
+              ].map((point) => (
+                <div key={point} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[color:var(--accent-light)]">
+                    <svg
+                      className="h-3 w-3 text-[color:var(--accent-dark)]"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                    >
+                      <path
+                        d="M2 6l3 3 5-5"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="text-sm leading-6 text-[color:var(--ink-soft)]">{point}</span>
+                </div>
+              ))}
+            </div>
+          </RevealItem>
+
+          <RevealItem>
+            <VumaPricingCards />
+          </RevealItem>
+        </div>
       </RevealSection>
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>

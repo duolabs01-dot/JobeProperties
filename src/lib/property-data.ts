@@ -32,12 +32,20 @@ export type UnitType = {
   image: string;
 };
 
+export type VumaPackage = {
+  speed: string;
+  uploadSpeed: string;
+  price: string;
+  featured: boolean;
+};
+
 const createMapsLink = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
 export const whatsappNumber = "072 229 3229";
 export const whatsappUrl = "https://wa.me/27722293229";
 export const foundationUrl = "https://drsitholefoundation.org/";
+export const vumaSignupUrl = "https://www.webafrica.co.za/fibre/vuma";
 
 export function formatLocationLabel(value: string | null | undefined) {
   if (!value) {
@@ -200,6 +208,14 @@ export const unitTypes: UnitType[] = [
     image:
       "https://jobepropco.co.za/wp-content/uploads/2025/06/QJ2A7348-scaled-e1748771512324.jpg",
   },
+];
+
+export const vumaPackages: VumaPackage[] = [
+  { speed: "10Mbps", uploadSpeed: "5Mbps", price: "R99", featured: true },
+  { speed: "10Mbps", uploadSpeed: "10Mbps", price: "R249", featured: false },
+  { speed: "20Mbps", uploadSpeed: "10Mbps", price: "R399", featured: false },
+  { speed: "40Mbps", uploadSpeed: "10Mbps", price: "R529", featured: false },
+  { speed: "100Mbps", uploadSpeed: "50Mbps", price: "R799", featured: false },
 ];
 
 export const apartmentLocations: ApartmentLocation[] = [
@@ -382,6 +398,16 @@ export const moveInFaqs: FaqItem[] = [
   {
     question: "Is there Wi-Fi or fibre?",
     answer: "Units are fibre-ready. Ask about connectivity when you enquire.",
+  },
+  {
+    question: "How do I get internet connected?",
+    answer:
+      "Units are Vuma Fibre-ready. Sign up directly with Webafrica at webafrica.co.za — packages start at R99/month for uncapped 10Mbps. You pay them directly. Allow 5–7 business days for installation after signup.",
+  },
+  {
+    question: "Can I use my own internet provider?",
+    answer:
+      "The building is wired for Vuma Fibre. Other providers that run on the Vuma network may also be available. Ask us when you enquire and we'll confirm what's possible in your specific unit.",
   },
 ];
 
