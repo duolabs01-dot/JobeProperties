@@ -36,7 +36,7 @@ export default function AboutPage() {
   const { ref: statsRef, inView: statsInView } = useInView<HTMLDivElement>();
 
   return (
-    <div className="bg-[color:var(--paper)]">
+    <div data-nav-theme="light" className="bg-[color:var(--paper)]">
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <RevealItem className="space-y-8">

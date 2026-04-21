@@ -53,7 +53,7 @@ const opportunityCards = [
 
 export default function PartnersPage() {
   return (
-    <div className="bg-[color:var(--paper)]">
+    <div data-nav-theme="light" className="bg-[color:var(--paper)]">
       <section className="bg-[color:var(--paper)] text-[color:var(--ink)]">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">

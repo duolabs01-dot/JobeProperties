@@ -67,3 +67,14 @@ Drop a photo at `/public/founder.jpg` and update `src/app/about/page.tsx` — re
 ```tsx
 <Image src="/founder.jpg" alt="Dr Nhlanhla Sithole" fill className="object-cover object-top rounded-[2rem]" />
 ```
+
+## Automatic reminders
+
+Deploy the Edge Function: `supabase functions deploy send-reminders`
+
+Set secrets: `supabase secrets set WASSENGER_API_KEY=your_key`
+
+The function runs automatically at 8am daily.
+
+This repo also includes `supabase/functions/send-reminders/config.toml` with the intended `0 8 * * *`
+schedule so the daily reminder timing is captured alongside the function code.

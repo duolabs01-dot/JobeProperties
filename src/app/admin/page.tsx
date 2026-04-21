@@ -23,6 +23,7 @@ import {
   type WaitingListRow,
 } from "@/lib/supabase";
 import { Badge } from "@/components/ui/badge";
+import { ReminderSettingsCard } from "@/components/admin/reminder-settings-card";
 import { MaintenanceKanban } from "@/components/admin/maintenance-kanban";
 import { PaymentsTable } from "@/components/admin/payments-table";
 import { UnitsGrid } from "@/components/admin/units-grid";
@@ -356,23 +357,27 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         {activeTab === "units" ? <UnitsGrid phases={unitSections} /> : null}
 
         {activeTab === "settings" ? (
-          <div className="grid gap-5 xl:grid-cols-2">
-            {envChecks.map((item) => (
-              <article
-                key={item.label}
-                className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{item.label}</p>
-                    <p className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{item.value}</p>
+          <div className="space-y-6">
+            <ReminderSettingsCard />
+
+            <div className="grid gap-5 xl:grid-cols-2">
+              {envChecks.map((item) => (
+                <article
+                  key={item.label}
+                  className="rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-6 shadow-[0_20px_70px_rgba(17,24,15,0.06)]"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--olive)]">{item.label}</p>
+                      <p className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{item.value}</p>
+                    </div>
+                    <Badge variant={item.ok ? "available" : "phase"}>
+                      {item.ok ? "Ready" : "Check"}
+                    </Badge>
                   </div>
-                  <Badge variant={item.ok ? "available" : "phase"}>
-                    {item.ok ? "Ready" : "Check"}
-                  </Badge>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         ) : null}
       </div>

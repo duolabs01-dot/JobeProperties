@@ -69,7 +69,7 @@ export default function FaqPage() {
   const calculatorValue = plans.find((plan) => plan.id === calculatorPlan) ?? plans[1];
 
   return (
-    <div className="bg-[color:var(--paper)]">
+    <div data-nav-theme="light" className="bg-[color:var(--paper)]">
       <section className="bg-[color:var(--paper)] text-[color:var(--ink)]">
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">

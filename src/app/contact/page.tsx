@@ -7,7 +7,7 @@ import { whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
 export default function ContactPage() {
   return (
-    <div className="bg-white">
+    <div data-nav-theme="light" className="bg-white">
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-5">
           <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--olive)]">Contact</p>

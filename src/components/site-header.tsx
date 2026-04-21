@@ -2,15 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { useScrollY } from "@/hooks/use-scroll-y";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import { navItems } from "@/lib/site-data";
 
 const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? null;
+const lightNavPaths = new Set(["/faq", "/partners", "/about", "/contact"]);
 
 function TextLogo() {
   return (
@@ -57,7 +61,34 @@ function LogoMark() {
 }
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const scrollY = useScrollY();
   const [open, setOpen] = useState(false);
+  const [isLightPage, setIsLightPage] = useState(() => lightNavPaths.has(pathname));
+
+  useEffect(() => {
+    const syncTheme = () => {
+      const hasLightThemeMarker = document.querySelector('[data-nav-theme="light"]') !== null;
+      setIsLightPage(hasLightThemeMarker || lightNavPaths.has(pathname));
+    };
+
+    syncTheme();
+
+    const observer = new MutationObserver(() => {
+      syncTheme();
+    });
+
+    observer.observe(document.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["data-nav-theme"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -67,21 +98,38 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  const useLightChrome = isLightPage || scrollY >= 20;
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[color:var(--nav-border)] bg-[color:var(--nav-bg)] backdrop-blur-xl">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        useLightChrome
+          ? "border-b border-[color:var(--nav-border)] bg-[color:var(--nav-bg)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent",
+      )}
+    >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
         <Link href="/" className="group flex items-center" transitionTypes={["nav-back"]}>
-          <div className="rounded-lg bg-[color:var(--ink)] px-2 py-1">
+          <div className={cn(useLightChrome ? "rounded-md bg-[color:var(--ink)] px-2 py-1" : "")}>
             <LogoMark />
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-4 text-[11px] uppercase tracking-[0.24em] text-[color:var(--nav-text)] xl:gap-6 xl:text-xs xl:tracking-[0.28em] lg:flex">
+        <nav
+          className={cn(
+            "hidden items-center gap-4 text-[11px] uppercase tracking-[0.24em] xl:gap-6 xl:text-xs xl:tracking-[0.28em] lg:flex",
+            useLightChrome ? "text-[color:var(--nav-text)]" : "text-white/80",
+          )}
+        >
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="transition-colors duration-300 hover:text-[color:var(--nav-text-hover)]"
+              className={cn(
+                "transition-colors duration-300",
+                useLightChrome ? "hover:text-[color:var(--nav-text-hover)]" : "hover:text-white",
+              )}
               transitionTypes={item.href.startsWith("/") && !item.href.startsWith("/#") ? ["nav-forward"] : undefined}
             >
               {item.label}
@@ -90,7 +138,12 @@ export function SiteHeader() {
           <Link
             href="/partners"
             transitionTypes={["nav-forward"]}
-            className="rounded-full border border-transparent px-3 py-2 text-[10px] font-medium normal-case tracking-[0.02em] text-[color:var(--muted)] transition-all duration-300 hover:border-[color:var(--line-strong)] hover:text-[color:var(--ink)]"
+            className={cn(
+              "rounded-full border px-3 py-2 text-[10px] font-medium normal-case tracking-[0.02em] transition-all duration-300",
+              useLightChrome
+                ? "border-transparent text-[color:var(--muted)] hover:border-[color:var(--line-strong)] hover:text-[color:var(--ink)]"
+                : "border-transparent text-white/56 hover:border-white/20 hover:text-white",
+            )}
           >
             For businesses
           </Link>
@@ -99,7 +152,12 @@ export function SiteHeader() {
         <MagneticButton className="hidden lg:block">
           <ButtonLink
             href="/#availability"
-            className="hidden items-center justify-center rounded-full border border-[color:var(--nav-cta-border)] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--nav-cta-text)] hover:bg-[color:var(--nav-cta-hover-bg)] hover:text-white sm:px-5 lg:inline-flex"
+            className={cn(
+              "hidden items-center justify-center rounded-full border px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] sm:px-5 lg:inline-flex",
+              useLightChrome
+                ? "border-[color:var(--nav-cta-border)] text-[color:var(--nav-cta-text)] hover:bg-[color:var(--nav-cta-hover-bg)] hover:text-white"
+                : "border-white/24 bg-white/8 text-white hover:border-white/38 hover:bg-white/14",
+            )}
           >
             See availability
           </ButtonLink>
@@ -110,7 +168,12 @@ export function SiteHeader() {
             type="button"
             aria-label="Open navigation"
             onClick={() => setOpen(true)}
-            className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] p-3 text-[color:var(--ink)] lg:hidden"
+            className={cn(
+              "inline-flex items-center justify-center rounded-full p-3 lg:hidden",
+              useLightChrome
+                ? "border border-[color:var(--line-strong)] bg-[color:var(--paper)] text-[color:var(--ink)]"
+                : "border border-white/15 bg-white/10 text-white backdrop-blur-md",
+            )}
           >
             <Menu className="h-6 w-6" />
           </MotionButton>
