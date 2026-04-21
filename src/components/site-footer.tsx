@@ -6,7 +6,14 @@ import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data"
 
 const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? "/logo.png";
 
-const ecosystemPartners = [
+const ecosystemPartners: ReadonlyArray<{
+  initials: string;
+  name: string;
+  description: string;
+  href: string;
+  logoSrc: string | null;
+  external: boolean;
+}> = [
   {
     initials: "JP",
     name: "Jobe Propco",
@@ -20,7 +27,7 @@ const ecosystemPartners = [
     name: "Jobe Lifestyle",
     description: "Restaurant, bar, salon & more",
     href: "https://jobelifestyle.co.za",
-    logoSrc: null,
+    logoSrc: "https://jobelifestyle.co.za/wp-content/uploads/2024/05/JOBE-LIFESTYLE-LLOGO-1.png",
     external: true,
   },
   {
@@ -37,7 +44,7 @@ const ecosystemPartners = [
     name: "CentreConnect",
     description: "Technology & community apps",
     href: "https://centerconnect.co.za",
-    logoSrc: null,
+    logoSrc: "https://centerconnect.co.za/centreconnect-logo.svg",
     external: true,
   },
   {
@@ -48,7 +55,7 @@ const ecosystemPartners = [
     logoSrc: "https://drsitholefoundation.org/wp-content/uploads/2022/08/Jobe-Outdoor-Media-7-150x150.png",
     external: false,
   },
-] as const;
+];
 
 function TiktokIcon() {
   return (
@@ -96,14 +103,14 @@ export function SiteFooter() {
             {ecosystemPartners.map((partner) => {
               const content = (
                 <div className="rounded-2xl border border-transparent bg-[color:var(--surface)] px-4 py-5 text-center transition-all duration-200 hover:border-[color:var(--accent-light)]">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-white">
+                  <div className="mx-auto flex h-16 w-full max-w-[9rem] items-center justify-center overflow-hidden rounded-xl bg-white px-3 shadow-[inset_0_0_0_1px_rgba(28,25,23,0.05)]">
                     {partner.logoSrc ? (
                       <Image
                         src={partner.logoSrc}
                         alt={partner.name}
-                        width={48}
-                        height={48}
-                        className="h-12 w-12 object-contain"
+                        width={144}
+                        height={64}
+                        className="h-11 w-auto max-w-full object-contain"
                       />
                     ) : (
                       <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[color:var(--accent-light)] text-sm font-semibold text-[color:var(--accent-dark)]">
@@ -147,9 +154,9 @@ export function SiteFooter() {
               <Image
                 src={LOGO_URL}
                 alt="Jobe Propco"
-                width={180}
-                height={64}
-                className="h-12 w-auto object-contain"
+                width={224}
+                height={80}
+                className="h-14 w-auto object-contain sm:h-16"
                 priority
               />
             </Link>

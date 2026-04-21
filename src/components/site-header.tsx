@@ -50,9 +50,9 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
     <Image
       src={currentLogo}
       alt="Jobe Propco"
-      width={164}
-      height={58}
-      className="h-10 w-auto object-contain sm:h-11"
+      width={208}
+      height={74}
+      className="h-12 w-auto object-contain sm:h-14"
       priority
       onError={() => {
         if (logoIndex < logoCandidates.length - 1) {
