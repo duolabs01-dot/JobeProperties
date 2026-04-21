@@ -16,20 +16,25 @@ import { navItems } from "@/lib/site-data";
 const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? null;
 const lightNavPaths = new Set(["/faq", "/partners", "/about", "/contact"]);
 
-function TextLogo() {
+function TextLogo({ onLight = false }: { onLight?: boolean }) {
   return (
     <>
       <span className="font-display text-xl tracking-[0.18em] text-[color:var(--accent)] sm:text-2xl">
         JOBE
       </span>
-      <span className="text-[10px] uppercase tracking-[0.36em] text-white/72 sm:text-xs">
+      <span
+        className={cn(
+          "text-[10px] uppercase tracking-[0.36em] sm:text-xs",
+          onLight ? "text-[color:var(--ink)]/72" : "text-white/72",
+        )}
+      >
         Propco
       </span>
     </>
   );
 }
 
-function LogoMark() {
+function LogoMark({ onLight = false }: { onLight?: boolean }) {
   const logoCandidates = useMemo(
     () => [LOGO_URL, "/logo.png"].filter((value): value is string => Boolean(value)),
     [],
@@ -38,7 +43,7 @@ function LogoMark() {
   const currentLogo = logoCandidates[logoIndex] ?? null;
 
   if (!currentLogo) {
-    return <TextLogo />;
+    return <TextLogo onLight={onLight} />;
   }
 
   return (
@@ -47,7 +52,10 @@ function LogoMark() {
       alt="Jobe Propco"
       width={120}
       height={40}
-      className="h-8 w-auto object-contain drop-shadow-sm"
+      className={cn(
+        "h-8 w-auto object-contain",
+        onLight ? "brightness-0" : "brightness-100",
+      )}
       priority
       onError={() => {
         if (logoIndex < logoCandidates.length - 1) {
@@ -111,9 +119,7 @@ export function SiteHeader() {
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
         <Link href="/" className="group flex items-center" transitionTypes={["nav-back"]}>
-          <div className={cn(useLightChrome ? "rounded-md bg-[color:var(--ink)] px-2 py-1" : "")}>
-            <LogoMark />
-          </div>
+          <LogoMark onLight={useLightChrome} />
         </Link>
 
         <nav
@@ -187,9 +193,7 @@ export function SiteHeader() {
                 className="group flex items-center"
                 transitionTypes={["nav-back"]}
               >
-                <div className="rounded-lg bg-[color:var(--ink)] px-2 py-1">
-                  <LogoMark />
-                </div>
+                <LogoMark onLight />
               </Link>
 
               <MotionButton

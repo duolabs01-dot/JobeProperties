@@ -228,14 +228,14 @@ export default function ApartmentsPage() {
             Six locations. One community.
           </h2>
           <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)]">
-            Each location sits close to Alexandra life, with Sandton and the Gautrain still within easy
-            reach.
+            All within Far East Bank — each with its own address, the same quality, and the same easy
+            access to Sandton.
           </p>
         </RevealItem>
 
         <motion.div
           variants={{ visible: { transition: { delayChildren: 0.12, staggerChildren: 0.08 } } }}
-          className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+          className="-mx-5 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0 xl:grid-cols-3"
         >
           {apartmentLocations.map((location) => (
             <motion.article
@@ -256,7 +256,7 @@ export default function ApartmentsPage() {
               }}
               whileHover="hover"
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)]"
+              className="group relative flex w-[280px] shrink-0 snap-start flex-col overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)] lg:w-auto"
             >
               <motion.div
                 variants={{
@@ -266,49 +266,48 @@ export default function ApartmentsPage() {
                 }}
                 className="absolute inset-y-0 left-0 z-10 bg-[color:var(--accent)]"
               />
-              <motion.div
-                variants={{
-                  hover: { scale: 1.06, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
-                }}
-                className="relative aspect-[4/3] overflow-hidden bg-[color:var(--stone)]"
-              >
-                <ShimmerImage
-                  src={location.image}
-                  alt={location.name}
-                  fill
-                  wrapperClassName="h-full w-full bg-[color:var(--stone)]"
-                  className="object-cover"
-                />
-              </motion.div>
-              <div className="space-y-4 p-6">
-                <div className="space-y-3">
-                  <Badge variant="phase">{location.badge}</Badge>
-                  <div>
-                    <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">
-                      {location.name}
-                    </h3>
-                    <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{location.address}</p>
-                  </div>
+              <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--stone)]">
+                <motion.div
+                  variants={{
+                    hover: { scale: 1.06, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+                  }}
+                  className="h-full w-full"
+                >
+                  <ShimmerImage
+                    src={location.image}
+                    alt={location.name}
+                    fill
+                    wrapperClassName="h-full w-full bg-[color:var(--stone)]"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,25,23,0.85)] via-[rgba(28,25,23,0.2)] to-transparent" />
+                <div className="absolute right-4 top-4">
+                  <Badge variant="phase">{location.badge.split(" · ")[0]}</Badge>
                 </div>
+                <div className="absolute bottom-0 left-0 p-6">
+                  <h3 className="font-display text-2xl leading-none text-white sm:text-3xl">{location.name}</h3>
+                  <p className="mt-2 text-sm text-white/70">{location.address}</p>
+                </div>
+              </div>
 
-                <div className="flex flex-wrap gap-3">
-                  <ButtonLink
-                    href={location.mapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
-                  >
-                    Google Maps
-                  </ButtonLink>
-                  <ButtonLink
-                    href={location.whatsappUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-full border border-[#25D366] bg-[#25D366] px-4 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white shadow-[0_14px_30px_rgba(37,211,102,0.18)] hover:bg-[#1fb95a]"
-                  >
-                    WhatsApp us
-                  </ButtonLink>
-                </div>
+              <div className="flex flex-wrap gap-3 p-5">
+                <ButtonLink
+                  href={location.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--ink)] hover:text-white"
+                >
+                  View map
+                </ButtonLink>
+                <ButtonLink
+                  href={location.whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)]"
+                >
+                  Enquire
+                </ButtonLink>
               </div>
             </motion.article>
           ))}

@@ -155,6 +155,24 @@ export default function Home() {
                 View locations
               </ButtonLink>
             </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.6 }}
+              className="flex items-center gap-5 pt-4 lg:hidden"
+            >
+              <span className="text-xs uppercase tracking-[0.24em] text-white/70">
+                <strong className="text-white">6</strong> Locations
+              </span>
+              <span className="h-3 w-px bg-white/20" />
+              <span className="text-xs uppercase tracking-[0.24em] text-white/70">
+                <strong className="text-white">300+</strong> Residents
+              </span>
+              <span className="h-3 w-px bg-white/20" />
+              <span className="text-xs uppercase tracking-[0.24em] text-white/70">
+                Est. <strong className="text-white">2016</strong>
+              </span>
+            </motion.div>
           </div>
         </div>
 
@@ -253,21 +271,58 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="border-b border-[color:var(--line)] bg-[color:var(--accent-light)]" stagger>
-        <div className="mx-auto w-full max-w-7xl px-5 py-12 text-center sm:px-8 lg:px-12">
-          <RevealItem className="space-y-3">
-            <p className="font-display text-6xl leading-none text-[color:var(--accent-dark)] sm:text-7xl">
-              <AnimatedCounter from={270} to={300} suffix="+" />
+      <section className="relative overflow-hidden" style={{ height: "clamp(320px, 40vw, 500px)" }}>
+        <Image
+          src="https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-2-1-scaled-e1748731289337-1024x644.jpg"
+          alt="Jobe Propco studio interior"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(28,25,23,0.75)] via-[rgba(28,25,23,0.3)] to-transparent" />
+        <div className="absolute inset-0 flex items-end">
+          <div className="mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 lg:px-12">
+            <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[color:var(--accent)]">
+              Inside every unit
             </p>
-            <p className="text-sm text-[color:var(--ink-soft)] sm:text-base">residents across Far East Bank</p>
+            <p className="max-w-lg font-display text-3xl leading-tight text-white sm:text-4xl">
+              Built-in cupboards, natural light,
+              <br />
+              and a layout that works.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <RevealSection className="overflow-hidden border-y border-[color:var(--line)] bg-white">
+        <div className="mx-auto grid max-w-7xl items-center px-5 py-16 sm:px-8 lg:grid-cols-2 lg:px-12 lg:py-0">
+          <RevealItem className="lg:border-r lg:border-[color:var(--line)] lg:py-20 lg:pr-12">
+            <div className="font-display text-[8rem] leading-none tracking-[-0.06em] text-[color:var(--accent)] sm:text-[10rem] lg:text-[14rem]">
+              <AnimatedCounter from={270} to={300} suffix="+" />
+            </div>
+            <p className="mt-2 text-sm uppercase tracking-[0.28em] text-[color:var(--muted)]">
+              Residents across Far East Bank
+            </p>
           </RevealItem>
 
-          <RevealItem className="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs uppercase tracking-[0.28em] text-[color:var(--ink-soft)] sm:gap-5">
-            <span>6 locations</span>
-            <span className="h-1 w-1 rounded-full bg-[color:var(--line-strong)]" />
-            <span>Est. 2016</span>
-            <span className="h-1 w-1 rounded-full bg-[color:var(--line-strong)]" />
-            <span>9km to Sandton</span>
+          <RevealItem className="mt-8 space-y-8 lg:mt-0 lg:py-20 lg:pl-12">
+            <div className="space-y-5">
+              {[
+                { value: "6", label: "Locations in Alexandra" },
+                { value: "2016", label: "Founded by Dr Nhlanhla Sithole" },
+                { value: "9km", label: "From Sandton CBD" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex items-baseline gap-5 border-b border-[color:var(--line)] pb-5">
+                  <span className="min-w-[80px] font-display text-4xl leading-none text-[color:var(--ink)]">
+                    {stat.value}
+                  </span>
+                  <span className="text-sm text-[color:var(--muted)]">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm leading-7 text-[color:var(--muted)]">
+              From one location to six locations, Jobe Propco has grown into the most complete
+              residential precinct in Far East Bank.
+            </p>
           </RevealItem>
         </div>
       </RevealSection>
@@ -287,10 +342,6 @@ export default function Home() {
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
             Pay rent, log repairs, and pull up your lease without chasing anyone.
           </h2>
-          <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
-            Pay rent, report a repair, and pull up your lease without asking around or making a trip to
-            the bank.
-          </p>
           <ButtonLink
             href="/portal"
             transitionTypes={["nav-forward"]}
@@ -301,6 +352,9 @@ export default function Home() {
         </RevealItem>
 
         <div className="space-y-8 border-t border-[color:var(--line)] pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--muted)]">
+            Three things you never need to chase again.
+          </p>
           {portalMoments.map((item) => (
             <motion.div key={item} variants={revealItemVariants} className="border-b border-[color:var(--line)] pb-6">
               <p className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{item}</p>

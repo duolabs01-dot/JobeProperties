@@ -30,7 +30,7 @@ import { UnitsGrid } from "@/components/admin/units-grid";
 import { WaitingListTable } from "@/components/admin/waiting-list-table";
 
 export const metadata: Metadata = {
-  title: "Owner Dashboard | Jobe Propco",
+  title: "Management | Jobe Propco",
 };
 
 export const dynamic = "force-dynamic";

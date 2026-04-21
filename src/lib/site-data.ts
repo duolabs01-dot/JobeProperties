@@ -74,6 +74,26 @@ export const gallery = [
     alt: "Lifestyle Corner commercial area",
     caption: "Food, essentials, and everyday stops close by, so late finishes do not mean long detours.",
   },
+  {
+    src: "https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-1-scaled-e1748731339120.jpg",
+    alt: "Studio living area at Jobe Propco",
+    caption: "Clean lines, warm light, and a layout that works for one person or three.",
+  },
+  {
+    src: "https://jobepropco.co.za/wp-content/uploads/2025/06/QJ2A7347-scaled-e1748771472367.jpg",
+    alt: "Private balcony at Jobe Propco",
+    caption: "Balcony units open up the studio and let the outside in.",
+  },
+  {
+    src: "https://jobepropco.co.za/wp-content/uploads/2025/05/bathroom-2-scaled-e1748769101963.jpg",
+    alt: "Private bathroom at Jobe Propco",
+    caption: "Private bathroom in every unit. No sharing.",
+  },
+  {
+    src: "https://jobepropco.co.za/wp-content/uploads/2025/05/DJI_0283-scaled.jpg",
+    alt: "Jobe Heights aerial view",
+    caption: "Six locations, all within Far East Bank.",
+  },
 ];
 
 export const socialProofPhrases = [
