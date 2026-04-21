@@ -37,8 +37,10 @@ export function VumaPricingCards() {
               key={`${pkg.speed}-${pkg.uploadSpeed}-${pkg.price}`}
               type="button"
               onClick={() => setSelected(index)}
+              animate={{ scale: isSelected ? 1.02 : 1 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className={[
                 "rounded-2xl p-5 text-left transition-all duration-200",
                 isSelected

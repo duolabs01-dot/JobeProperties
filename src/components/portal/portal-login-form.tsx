@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { MotionButton } from "@/components/ui/button";
@@ -186,29 +187,39 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
       </div>
 
       <div className="mt-6 space-y-5">
-        {tab === "phone" ? (
-          <label className="block space-y-2 text-sm text-[color:var(--ink)]">
-            <span>Phone number</span>
-            <input
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-              type="tel"
-              placeholder="071 234 5678"
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
-            />
-          </label>
-        ) : (
-          <label className="block space-y-2 text-sm text-[color:var(--ink)]">
-            <span>Email address</span>
-            <input
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              type="email"
-              placeholder="you@example.com"
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
-            />
-          </label>
-        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={tab}
+            initial={{ opacity: 0, x: tab === "phone" ? -16 : 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: tab === "phone" ? 16 : -16 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {tab === "phone" ? (
+              <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+                <span>Phone number</span>
+                <input
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  type="tel"
+                  placeholder="071 234 5678"
+                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
+                />
+              </label>
+            ) : (
+              <label className="block space-y-2 text-sm text-[color:var(--ink)]">
+                <span>Email address</span>
+                <input
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  type="email"
+                  placeholder="you@example.com"
+                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
+                />
+              </label>
+            )}
+          </motion.div>
+        </AnimatePresence>
 
         <MotionButton
           type="button"
@@ -221,34 +232,44 @@ export function PortalLoginForm({ redirectTo = "/portal" }: { redirectTo?: strin
 
         {statusMessage ? <p className="text-sm leading-7 text-[color:var(--muted)]">{statusMessage}</p> : null}
 
-        {hasSentOtp ? (
-          <div className="space-y-4 rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4">
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-[color:var(--ink)]">Enter your 6-digit code</p>
-              <p className="text-sm leading-7 text-[color:var(--muted)]">
-                If you received a login code as well, enter it here to finish signing in.
-              </p>
-            </div>
-
-            <input
-              value={token}
-              onChange={(event) => setToken(event.target.value.replace(/\D/g, "").slice(0, 6))}
-              inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder="123456"
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-center text-lg tracking-[0.4em] outline-none"
-            />
-
-            <MotionButton
-              type="button"
-              disabled={isVerifying || token.length !== 6}
-              onClick={handleVerifyCode}
-              className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--ink)] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+        <AnimatePresence>
+          {hasSentOtp ? (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
             >
-              {isVerifying ? "Verifying..." : "Verify code"}
-            </MotionButton>
-          </div>
-        ) : null}
+              <div className="space-y-4 rounded-[1.5rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-4">
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-[color:var(--ink)]">Enter your 6-digit code</p>
+                  <p className="text-sm leading-7 text-[color:var(--muted)]">
+                    If you received a login code as well, enter it here to finish signing in.
+                  </p>
+                </div>
+
+                <input
+                  value={token}
+                  onChange={(event) => setToken(event.target.value.replace(/\D/g, "").slice(0, 6))}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="123456"
+                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-center text-lg tracking-[0.4em] outline-none"
+                />
+
+                <MotionButton
+                  type="button"
+                  disabled={isVerifying || token.length !== 6}
+                  onClick={handleVerifyCode}
+                  className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] transition duration-300 hover:bg-[color:var(--ink)] hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isVerifying ? "Verifying..." : "Verify code"}
+                </MotionButton>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
     </div>
   );

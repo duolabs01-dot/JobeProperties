@@ -120,11 +120,12 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
       <AnimatePresence>
         {activeItem ? (
           <motion.div
+            key="lightbox-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(17,24,15,0.92)] px-4 py-8"
+            className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(28,25,23,0.92)] px-4 py-8"
           >
             <button
               type="button"
@@ -134,6 +135,7 @@ export function ImageLightboxGallery({ groups }: ImageLightboxGalleryProps) {
             />
 
             <motion.div
+              key={activeIndex}
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.94 }}

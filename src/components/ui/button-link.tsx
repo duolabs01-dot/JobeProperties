@@ -10,7 +10,11 @@ export function ButtonLink({ className, href, children, ...props }: ButtonLinkPr
   const isWhatsappLink = typeof href === "string" && href.startsWith("https://wa.me");
 
   return (
-    <motion.span whileTap={{ scale: 0.97 }} className="inline-flex">
+    <motion.span
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      className="inline-flex"
+    >
       <Link
         href={href}
         className={cn(

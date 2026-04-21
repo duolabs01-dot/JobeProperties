@@ -6,6 +6,7 @@ import { aboutStats, aboutStory, foundationUrl } from "@/lib/property-data";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
 import { WordReveal } from "@/components/ui/word-reveal";
 import { useInView } from "@/hooks/use-in-view";
 
@@ -125,7 +126,7 @@ export default function AboutPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
         <div className="max-w-3xl space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Community</p>
+          <SectionLabel>Community</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Beyond the apartment.
           </h2>
@@ -154,15 +155,26 @@ export default function AboutPage() {
             </p>
           </RevealItem>
 
-          <div className="mt-12 border-l-2 border-[color:var(--accent)] pl-6 sm:pl-8">
-            {timelineItems.map((item) => (
-              <RevealItem key={item.year} className="relative pb-10 last:pb-0">
-                <span className="absolute -left-[34px] top-2 h-1.5 w-1.5 rounded-full bg-[color:var(--accent)] sm:-left-[42px]" />
-                <div className="grid gap-2 sm:grid-cols-[96px_1fr] sm:gap-6">
-                  <p className="font-display text-[1.2rem] leading-none text-[color:var(--accent)]">{item.year}</p>
-                  <p className="text-[13px] leading-7 text-[color:var(--muted)]">{item.text}</p>
+          <div className="relative mt-10 space-y-0">
+            <div className="absolute bottom-0 left-[72px] top-0 w-px bg-[color:var(--line-strong)]" />
+
+            {timelineItems.map((item, index) => (
+              <motion.div
+                key={item.year}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
+                className="relative flex gap-8 pb-10 last:pb-0"
+              >
+                <div className="relative w-[72px] shrink-0 pt-0.5 text-right">
+                  <span className="font-display text-sm font-semibold text-[color:var(--accent)]">
+                    {item.year}
+                  </span>
+                  <div className="absolute -right-[4.5px] top-[5px] h-2.5 w-2.5 rounded-full border-2 border-[color:var(--accent)] bg-white" />
                 </div>
-              </RevealItem>
+                <p className="pt-0.5 text-sm leading-7 text-[color:var(--muted)]">{item.text}</p>
+              </motion.div>
             ))}
           </div>
 

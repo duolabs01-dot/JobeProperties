@@ -6,6 +6,7 @@ import { FaqAccordion } from "@/components/faq-accordion";
 import { RevealItem, RevealSection } from "@/components/reveal-section";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
 import { moveInFaqs, whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
 type PlanId = "proposal-1" | "proposal-2" | "proposal-3";
@@ -73,7 +74,7 @@ export default function FaqPage() {
       <section className="bg-[color:var(--surface)] text-[color:var(--ink)]">
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-28 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-4xl space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">FAQ</p>
+            <SectionLabel>FAQ</SectionLabel>
             <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl lg:text-7xl">
               Everything you need to know before you move in.
             </h1>
@@ -116,7 +117,7 @@ export default function FaqPage() {
       <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--surface)]" stagger>
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <RevealItem className="max-w-3xl space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Payment options for 2026</p>
+            <SectionLabel>Payment options for 2026</SectionLabel>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Three ways to get started.
             </h2>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
 import { RevealItem, RevealSection } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import {
   guesthouseGalleryGroups,
@@ -24,7 +25,7 @@ export default function GuesthousePage() {
           priority
           className="object-cover opacity-40"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,24,15,0.94)_0%,rgba(17,24,15,0.76)_48%,rgba(17,24,15,0.42)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,25,23,0.94)_0%,rgba(28,25,23,0.76)_48%,rgba(28,25,23,0.42)_100%)]" />
 
         <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-32 sm:px-8 lg:px-12 lg:pb-24">
           <div className="max-w-3xl space-y-5">
@@ -65,7 +66,7 @@ export default function GuesthousePage() {
         </RevealItem>
 
         <RevealItem className="flex flex-col justify-center space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Pricing</p>
+          <SectionLabel>Pricing</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             See the rates, then book straight away.
           </h2>
@@ -77,7 +78,7 @@ export default function GuesthousePage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 pb-20 sm:px-8 lg:px-12 lg:pb-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Photo gallery</p>
+          <SectionLabel>Photo gallery</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Rooms, bathrooms, and shared spaces before you arrive.
           </h2>
@@ -91,7 +92,7 @@ export default function GuesthousePage() {
       <RevealSection className="bg-[color:var(--surface)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24">
           <RevealItem className="space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Staying short, thinking long?</p>
+            <SectionLabel>Staying short, thinking long?</SectionLabel>
             <h2 className="max-w-2xl font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Most of our long-term tenants started with a short stay.
             </h2>

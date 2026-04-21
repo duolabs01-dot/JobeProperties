@@ -11,6 +11,7 @@ import { RevealItem, RevealSection, revealItemVariants } from "@/components/reve
 import { Badge } from "@/components/ui/badge";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import { useToast } from "@/components/ui/toast";
 import { VumaPricingCards } from "@/components/vuma-pricing-cards";
@@ -89,9 +90,7 @@ export default function ApartmentsPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
-            Inside the apartments
-          </p>
+          <SectionLabel>Inside the apartments</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Open plan, practical, and easy to move into.
           </h2>
@@ -122,9 +121,7 @@ export default function ApartmentsPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
-            Three ways to live here
-          </p>
+          <SectionLabel>Three ways to live here</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Pick the layout that fits your life.
           </h2>
@@ -223,9 +220,7 @@ export default function ApartmentsPage() {
       <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--surface)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_1fr] lg:px-12 lg:py-24">
           <RevealItem className="space-y-5">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
-              Internet connectivity
-            </p>
+            <SectionLabel>Internet connectivity</SectionLabel>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Fibre internet, ready in your unit.
             </h2>
@@ -273,9 +268,7 @@ export default function ApartmentsPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
-            Our locations
-          </p>
+          <SectionLabel>Our locations</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
             Six locations. One community.
           </h2>
@@ -369,9 +362,7 @@ export default function ApartmentsPage() {
       <RevealSection className="bg-[color:var(--surface)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-12 lg:py-24">
           <RevealItem className="max-w-2xl space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
-              What&apos;s next
-            </p>
+            <SectionLabel>What&apos;s next</SectionLabel>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               More locations planned.
             </h2>

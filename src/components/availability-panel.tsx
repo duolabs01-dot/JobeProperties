@@ -96,28 +96,54 @@ export function AvailabilityPanel() {
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-end">
             <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
               Choose a location
-              <select
-                value={preferredPhase}
-                onChange={(event) => setPreferredPhase(event.target.value)}
-                className="rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none"
-              >
-                {phases.map((phase) => (
-                  <option key={phase}>{phase}</option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={preferredPhase}
+                  onChange={(event) => setPreferredPhase(event.target.value)}
+                  className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-white py-3 pl-4 pr-10 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none ring-0 transition focus:border-[color:var(--accent)] focus:ring-1 focus:ring-[color:var(--accent)]"
+                >
+                  {phases.map((phase) => (
+                    <option key={phase}>{phase}</option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                  <svg className="h-4 w-4 text-[color:var(--muted)]" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M4 6l4 4 4-4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
             </label>
 
             <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
               Unit type
-              <select
-                value={preferredUnitType}
-                onChange={(event) => setPreferredUnitType(event.target.value as (typeof unitTypeOptions)[number])}
-                className="rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-3 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none"
-              >
-                {unitTypeOptions.map((unitType) => (
-                  <option key={unitType}>{unitType}</option>
-                ))}
-              </select>
+              <div className="relative">
+                <select
+                  value={preferredUnitType}
+                  onChange={(event) => setPreferredUnitType(event.target.value as (typeof unitTypeOptions)[number])}
+                  className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-white py-3 pl-4 pr-10 text-sm normal-case tracking-normal text-[color:var(--ink)] outline-none ring-0 transition focus:border-[color:var(--accent)] focus:ring-1 focus:ring-[color:var(--accent)]"
+                >
+                  {unitTypeOptions.map((unitType) => (
+                    <option key={unitType}>{unitType}</option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                  <svg className="h-4 w-4 text-[color:var(--muted)]" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M4 6l4 4 4-4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
             </label>
           </div>
         </div>
@@ -159,7 +185,12 @@ export function AvailabilityPanel() {
             ) : (
               <motion.div key="units" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
                 {filteredUnits.map((unit) => (
-                  <article key={unit.id} className="grid gap-3 border-b border-[color:var(--line)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
+                  <motion.article
+                    key={unit.id}
+                    whileHover={{ x: 4 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    className="grid gap-3 border-b border-[color:var(--line)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end"
+                  >
                     <div className="space-y-3">
                       <div className="space-y-2">
                         <Badge variant="highlight">{formatLocationLabel(unit.phase)}</Badge>
@@ -184,7 +215,7 @@ export function AvailabilityPanel() {
                         Enquire via WhatsApp →
                       </Link>
                     </div>
-                  </article>
+                  </motion.article>
                 ))}
                 {!filteredUnits.length ? (
                   <p className="text-sm leading-7 text-[color:var(--muted)]">

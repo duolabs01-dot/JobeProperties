@@ -3,6 +3,7 @@
 import { ContactForm } from "@/components/contact-form";
 import { RevealItem, RevealSection } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
 import { whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
 export default function ContactPage() {
@@ -10,7 +11,7 @@ export default function ContactPage() {
     <div data-nav-theme="light" className="bg-white">
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
         <RevealItem className="max-w-3xl space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Contact</p>
+          <SectionLabel>Contact</SectionLabel>
           <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl">
             Get in touch.
           </h1>
@@ -51,7 +52,7 @@ export default function ContactPage() {
 
       <RevealSection className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
         <div className="max-w-xl rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-6">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Address</p>
+          <SectionLabel>Address</SectionLabel>
           <p className="mt-4 text-lg leading-8 text-[color:var(--ink)]">
             1191 S Africa Loop, Far East Bank, Alexandra, 2014
           </p>

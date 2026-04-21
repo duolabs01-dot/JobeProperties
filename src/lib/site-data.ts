@@ -111,16 +111,16 @@ export const socialProofPhrases = [
 
 export const ownerSignals = [
   {
-    title: "Clear communication",
-    body: "Availability, rent, and maintenance each have a clear place, so you are not left guessing who to contact.",
+    title: "Biometric access at every door.",
+    body: "No keys to lose, no strangers getting in. Your fingerprint is your key — and only yours.",
   },
   {
-    title: "Repairs get followed up",
-    body: "If something breaks, the details are logged properly and easier to act on fast.",
+    title: "Maintenance is logged, not lost.",
+    body: "Report something broken through the portal. We track it, follow it up, and close it out. No chasing required.",
   },
   {
-    title: "Your paperwork stays close",
-    body: "Lease copies, move dates, and payment records are easy to find when you need them.",
+    title: "Pay rent from your phone.",
+    body: "Card, EFT, or instant payment through the tenant portal. Your receipt arrives the moment it goes through.",
   },
 ];
 

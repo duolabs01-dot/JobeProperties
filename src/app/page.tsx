@@ -13,10 +13,12 @@ import { RevealItem, RevealSection, revealItemVariants } from "@/components/reve
 import { Testimonials } from "@/components/testimonials";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import { useToast } from "@/components/ui/toast";
 import { WordReveal } from "@/components/ui/word-reveal";
-import { faqs, gallery, ownerSignals, portalMoments, socialProofPhrases } from "@/lib/site-data";
+import { useInView } from "@/hooks/use-in-view";
+import { gallery, ownerSignals, portalMoments, socialProofPhrases } from "@/lib/site-data";
 
 const crecheSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -39,6 +41,7 @@ const lifestyleAmenities = [
 export default function Home() {
   const marqueeGallery = [...gallery, ...gallery];
   const marqueeProof = [...socialProofPhrases, ...socialProofPhrases];
+  const { ref: bleedRef, inView: bleedInView } = useInView<HTMLDivElement>({ threshold: 0.15 });
   const [heroOffset, setHeroOffset] = useState(0);
   const [isCrecheComplete, setIsCrecheComplete] = useState(false);
   const { toast } = useToast();
@@ -201,7 +204,7 @@ export default function Home() {
         stagger
       >
         <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Life at Jobe</p>
+          <SectionLabel>Life at Jobe</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
             Light, storage, and a place that feels easy to come back to.
           </h2>
@@ -272,15 +275,28 @@ export default function Home() {
       </RevealSection>
 
       <section className="relative overflow-hidden" style={{ height: "clamp(320px, 40vw, 500px)" }}>
-        <Image
-          src="https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-2-1-scaled-e1748731289337-1024x644.jpg"
-          alt="Jobe Propco studio interior"
-          fill
-          className="object-cover object-center"
-        />
+        <motion.div
+          ref={bleedRef}
+          initial={{ scale: 1.1 }}
+          animate={bleedInView ? { scale: 1.04 } : { scale: 1.1 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="https://jobepropco.co.za/wp-content/uploads/2025/05/Open-Space-2-1-scaled-e1748731289337-1024x644.jpg"
+            alt="Jobe Propco studio interior"
+            fill
+            className="object-cover object-center"
+          />
+        </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(28,25,23,0.75)] via-[rgba(28,25,23,0.3)] to-transparent" />
         <div className="absolute inset-0 flex items-end">
-          <div className="mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={bleedInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            className="mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 lg:px-12"
+          >
             <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[color:var(--accent)]">
               Inside every unit
             </p>
@@ -289,7 +305,7 @@ export default function Home() {
               <br />
               and a layout that works.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -338,7 +354,7 @@ export default function Home() {
         stagger
       >
         <RevealItem className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Tenant portal</p>
+          <SectionLabel>Tenant portal</SectionLabel>
           <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
             Pay rent, log repairs, and pull up your lease without chasing anyone.
           </h2>
@@ -368,9 +384,7 @@ export default function Home() {
       <RevealSection className="bg-[color:var(--surface)]">
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <div className="max-w-3xl space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
-              Life at Jobe Lifestyle Corner
-            </p>
+            <SectionLabel>Life at Jobe Lifestyle Corner</SectionLabel>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
               Your barber, your dinner, your fibre — downstairs.
             </h2>
@@ -409,7 +423,7 @@ export default function Home() {
       <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--accent-light)]" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[0.6fr_0.4fr] lg:px-12">
           <RevealItem className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Coming soon</p>
+            <SectionLabel>Coming soon</SectionLabel>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               A creche inside the community.
             </h2>
@@ -526,7 +540,7 @@ export default function Home() {
       <RevealSection className="border-y border-[color:var(--line)] bg-white" stagger>
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-12 lg:py-24">
           <RevealItem className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Why it matters</p>
+            <SectionLabel>Why it matters</SectionLabel>
             <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               The small things matter when you&apos;re renting.
             </h2>
@@ -546,22 +560,34 @@ export default function Home() {
         </div>
       </RevealSection>
 
-      <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24" stagger>
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <RevealItem className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">FAQ</p>
-            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-              What people usually ask first.
+      <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--surface)]">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-6 px-5 py-16 text-center sm:px-8 lg:flex-row lg:justify-between lg:px-12 lg:py-20 lg:text-left">
+          <div className="max-w-xl space-y-3">
+            <SectionLabel className="items-center justify-center lg:items-start lg:justify-start">
+              Common questions
+            </SectionLabel>
+            <h2 className="font-display text-3xl leading-tight text-[color:var(--ink)] sm:text-4xl">
+              Everything you need to know before moving in.
             </h2>
-          </RevealItem>
-
-          <div className="space-y-8">
-            {faqs.map((faq) => (
-              <motion.div key={faq.question} variants={revealItemVariants} className="border-b border-[color:var(--line)] pb-6">
-                <p className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{faq.question}</p>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--muted)]">{faq.answer}</p>
-              </motion.div>
-            ))}
+            <p className="text-base leading-7 text-[color:var(--muted)]">
+              Deposit options, lease terms, parking, fibre setup — all answered clearly in one place.
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col lg:items-end">
+            <ButtonLink
+              href="/faq"
+              transitionTypes={["nav-forward"]}
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)]"
+            >
+              Read all FAQs
+            </ButtonLink>
+            <ButtonLink
+              href="/faq#pricing"
+              transitionTypes={["nav-forward"]}
+              className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
+            >
+              View pricing plans
+            </ButtonLink>
           </div>
         </div>
       </RevealSection>

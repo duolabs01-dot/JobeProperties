@@ -151,16 +151,6 @@ html:active-view-transition-type(nav-back) {
   }
 }
 
-@keyframes whatsapp-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-}
-
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
@@ -182,8 +172,18 @@ html:active-view-transition-type(nav-back) {
   }
 }
 
-.home-whatsapp-pulse {
-  animation: 2s ease-in-out infinite whatsapp-pulse;
+@keyframes wa-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.wa-float-idle {
+  animation: 3s ease-in-out infinite wa-float;
 }
 
 .home-signal-pulse {
