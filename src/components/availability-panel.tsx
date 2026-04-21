@@ -162,7 +162,7 @@ export function AvailabilityPanel() {
                   <article key={unit.id} className="grid gap-3 border-b border-[color:var(--line)] pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
                     <div className="space-y-3">
                       <div className="space-y-2">
-                        <Badge variant="phase">{formatLocationLabel(unit.phase)}</Badge>
+                        <Badge variant="highlight">{formatLocationLabel(unit.phase)}</Badge>
                         <Badge variant="unit">{unitTypeLabels[unit.unitType]} studio</Badge>
                       </div>
                       <div>

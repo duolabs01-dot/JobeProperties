@@ -82,7 +82,7 @@ export function MaintenanceKanban({ requests }: MaintenanceKanbanProps) {
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-2">
                         <p className="text-sm font-semibold text-[color:var(--ink)]">{request.unitNumber}</p>
-                        <Badge variant="phase">{request.phase}</Badge>
+                        <Badge variant="highlight">{request.phase}</Badge>
                       </div>
 
                       <Badge variant={getPriorityBadgeVariant(request.priority)}>

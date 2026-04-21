@@ -45,7 +45,7 @@ export function UnitsGrid({ phases }: UnitsGridProps) {
           >
             <div className="space-y-2">
               <div className="flex items-center gap-3">
-                <Badge variant="phase">{phase.badge}</Badge>
+                <Badge variant="highlight">{phase.badge}</Badge>
                 <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{phase.name}</h3>
               </div>
               <p className="text-sm leading-7 text-[color:var(--muted)]">{phase.address}</p>
@@ -99,7 +99,7 @@ export function UnitsGrid({ phases }: UnitsGridProps) {
                         {activeUnit.unitNumber}
                       </DialogPrimitive.Title>
                       <div className="flex flex-wrap gap-2">
-                        <Badge variant="phase">{activeUnit.phase}</Badge>
+                        <Badge variant="highlight">{activeUnit.phase}</Badge>
                         <Badge variant="unit">{formatUnitType(activeUnit.unitType)}</Badge>
                       </div>
                     </div>

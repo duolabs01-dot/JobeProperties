@@ -25,6 +25,27 @@ export default async function PortalLoginPage({ searchParams }: PortalLoginPageP
           <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
             Enter your phone number or email. We&apos;ll send you a link — no password needed.
           </p>
+          <div className="space-y-3 pt-3">
+            <blockquote className="border-l-2 border-[color:var(--accent)] pl-4 italic text-[color:var(--muted)]">
+              &quot;I log maintenance from my phone. It gets sorted. That&apos;s all I needed.&quot;
+            </blockquote>
+            <cite className="text-xs text-[color:var(--muted)]">— Jobe Towers resident</cite>
+          </div>
+          <div className="grid grid-cols-2 gap-4 pt-3">
+            {[
+              { value: "300+", label: "Residents" },
+              { value: "6", label: "Locations" },
+              { value: "48h", label: "Maintenance response" },
+              { value: "R0", label: "Bank visits needed" },
+            ].map((stat) => (
+              <div key={stat.label} className="rounded-2xl bg-[color:var(--surface)] p-4">
+                <p className="font-display text-3xl text-[color:var(--accent)]">{stat.value}</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <PortalLoginForm redirectTo={params.redirectTo} />

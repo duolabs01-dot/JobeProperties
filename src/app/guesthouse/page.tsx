@@ -40,16 +40,27 @@ export default function GuesthousePage() {
       </section>
 
       <RevealSection className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:px-12 lg:py-24" stagger>
-        <RevealItem className="relative overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-4 shadow-[0_20px_70px_rgba(17,24,15,0.08)] sm:p-6">
-          <div className="mx-auto max-w-xl">
+        <RevealItem className="space-y-5">
+          <div className="mx-auto max-w-sm rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-4">
             <ShimmerImage
               src={guesthousePricingImage}
               alt="Jobe Towers Guesthouse pricing sheet"
               width={724}
               height={1024}
-              wrapperClassName="rounded-[1.5rem]"
+              wrapperClassName="rounded-[1.5rem] border border-[color:var(--line)]"
               className="h-auto w-full rounded-[1.5rem]"
             />
+          </div>
+          <p className="text-center text-sm text-[color:var(--muted)]">Current room rates.</p>
+          <div className="flex justify-center">
+            <ButtonLink
+              href="https://wa.me/27722293229?text=Hi%2C+I%27d+like+to+book+the+guesthouse.+Can+you+share+availability%3F"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
+            >
+              WhatsApp to book
+            </ButtonLink>
           </div>
         </RevealItem>
 
@@ -61,16 +72,6 @@ export default function GuesthousePage() {
           <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
             If the dates work for you, WhatsApp is the fastest way to lock in your stay.
           </p>
-          <div>
-            <ButtonLink
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
-            >
-              Book Now
-            </ButtonLink>
-          </div>
         </RevealItem>
       </RevealSection>
 

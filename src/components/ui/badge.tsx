@@ -9,7 +9,7 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default: "border-[color:var(--line-strong)] bg-white text-[color:var(--ink)]",
-        phase: "border-transparent bg-[color:var(--accent)] text-white",
+        highlight: "border-transparent bg-[color:var(--accent)] text-white",
         available: "border-transparent bg-[#166534] text-white",
         waiting: "border-[color:var(--line-strong)] bg-[color:var(--surface)] text-[color:var(--muted)]",
         unit: "border-[color:var(--accent-light)] bg-[color:var(--accent-light)] text-[color:var(--accent-dark)]",

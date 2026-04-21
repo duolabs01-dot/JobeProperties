@@ -3,7 +3,7 @@ export type AdminMaintenanceStatus = "open" | "in_progress" | "resolved";
 export type AdminWaitingListStatus = "new" | "contacted" | "qualified" | "archived";
 export type AdminBadgeVariant =
   | "default"
-  | "phase"
+  | "highlight"
   | "available"
   | "waiting"
   | "unit"
@@ -121,7 +121,7 @@ export function getPaymentBadgeVariant(status: AdminPaymentStatus): AdminBadgeVa
     case "paid":
       return "available";
     case "pending":
-      return "phase";
+      return "highlight";
     case "overdue":
     case "failed":
       return "red";
@@ -133,7 +133,7 @@ export function getPaymentBadgeVariant(status: AdminPaymentStatus): AdminBadgeVa
 export function getMaintenanceStatusBadgeVariant(status: AdminMaintenanceStatus): AdminBadgeVariant {
   switch (status) {
     case "open":
-      return "phase";
+      return "highlight";
     case "in_progress":
       return "progress";
     case "resolved":
@@ -148,7 +148,7 @@ export function getPriorityBadgeVariant(priority: "low" | "medium" | "high"): Ad
     case "high":
       return "red";
     case "medium":
-      return "phase";
+      return "highlight";
     case "low":
       return "waiting";
     default:
@@ -159,7 +159,7 @@ export function getPriorityBadgeVariant(priority: "low" | "medium" | "high"): Ad
 export function getWaitingListBadgeVariant(status: AdminWaitingListStatus): AdminBadgeVariant {
   switch (status) {
     case "new":
-      return "phase";
+      return "highlight";
     case "contacted":
       return "open";
     case "qualified":

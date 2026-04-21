@@ -305,7 +305,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                           <td className="px-3 py-4 text-sm text-[color:var(--muted)]">{payment.unitNumber}</td>
                           <td className="px-3 py-4 text-sm text-[color:var(--ink)]">{formatCurrency(payment.amount)}</td>
                           <td className="px-3 py-4">
-                            <Badge variant={payment.status === "paid" ? "available" : payment.status === "pending" ? "phase" : "red"}>
+                            <Badge variant={payment.status === "paid" ? "available" : payment.status === "pending" ? "highlight" : "red"}>
                               {payment.status}
                             </Badge>
                           </td>
@@ -334,7 +334,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                         <div className="flex items-start justify-between gap-3">
                           <div className="space-y-2">
                             <p className="text-sm font-semibold text-[color:var(--ink)]">{request.unitNumber}</p>
-                            <Badge variant="phase">{request.phase}</Badge>
+                        <Badge variant="highlight">{request.phase}</Badge>
                           </div>
                           <Badge variant={getPriorityBadgeVariant(request.priority)}>{request.priority}</Badge>
                         </div>
@@ -374,7 +374,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                       <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent-dark)]">{item.label}</p>
                       <p className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink)]">{item.value}</p>
                     </div>
-                    <Badge variant={item.ok ? "available" : "phase"}>
+                    <Badge variant={item.ok ? "available" : "highlight"}>
                       {item.ok ? "Ready" : "Check"}
                     </Badge>
                   </div>

@@ -335,7 +335,7 @@ export default function ApartmentsPage() {
                 </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,25,23,0.85)] via-[rgba(28,25,23,0.2)] to-transparent" />
                 <div className="absolute right-4 top-4">
-                  <Badge variant="phase">{location.badge.split(" · ")[0]}</Badge>
+                  <Badge variant="highlight">{location.badge.split(" · ")[0]}</Badge>
                 </div>
                 <div className="absolute bottom-0 left-0 p-6">
                   <h3 className="font-display text-2xl leading-none text-white sm:text-3xl">{location.name}</h3>

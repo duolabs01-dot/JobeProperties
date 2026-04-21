@@ -67,7 +67,7 @@ export function PaymentsTable({ payments }: PaymentsTableProps) {
       {
         accessorKey: "phase",
         header: "Location",
-        cell: ({ row }) => <Badge variant="phase">{row.original.phase}</Badge>,
+        cell: ({ row }) => <Badge variant="highlight">{row.original.phase}</Badge>,
       },
       {
         accessorKey: "amount",

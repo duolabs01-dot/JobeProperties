@@ -146,7 +146,7 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
               {unit?.unit_number ?? "Not linked"}
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              {unit?.phase ? <Badge variant="phase">{formatLocationLabel(unit.phase)}</Badge> : null}
+              {unit?.phase ? <Badge variant="highlight">{formatLocationLabel(unit.phase)}</Badge> : null}
               {unit?.unit_type ? <Badge variant="unit">{formatUnitType(unit.unit_type)}</Badge> : null}
             </div>
           </article>

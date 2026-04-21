@@ -15,7 +15,7 @@ const plans = [
     id: "proposal-1" as const,
     title: "Pay upfront",
     badge: "Simplest option",
-    badgeVariant: "phase" as const,
+    badgeVariant: "highlight" as const,
     highlight: "R6,300 total to move in",
     firstMonthCost: "R6,300",
     summary: [
@@ -82,7 +82,7 @@ export default function FaqPage() {
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Badge variant="available">No lease required</Badge>
-              <Badge variant="phase">From R4,300 / month</Badge>
+              <Badge variant="highlight">From R4,300 / month</Badge>
             </div>
           </div>
         </div>

@@ -52,13 +52,33 @@ export default function AboutPage() {
           </RevealItem>
 
           <RevealItem className="lg:pt-4">
-            <div className="flex aspect-square flex-col items-center justify-center rounded-[2rem] border border-[color:var(--accent-light)] bg-[color:var(--ink)] px-8 text-center shadow-[0_28px_80px_rgba(28,25,23,0.2)]">
-              <p className="font-display text-[64px] leading-none tracking-[0.08em] text-[color:var(--accent)]">DS</p>
-              <div className="mt-8 h-[2px] w-10 bg-[color:var(--accent)]" />
-              <p className="mt-6 text-base font-semibold text-white">Dr Nhlanhla Sithole</p>
-              <p className="mt-2 text-xs uppercase tracking-[0.24em] text-white/50">
-                Founder, Jobe Propco · Est. 2016
-              </p>
+            <div className="lg:pt-4">
+              <div className="relative">
+                <p className="pointer-events-none absolute -left-4 -top-8 select-none font-display text-[5rem] leading-none text-[color:var(--accent-light)]">
+                  &quot;
+                </p>
+                <blockquote className="relative pl-4 pt-6">
+                  <p className="font-display text-2xl leading-tight italic text-[color:var(--ink)] sm:text-3xl">
+                    The housing close to the economic centre was either unaffordable or undignified. He
+                    decided to change that.
+                  </p>
+                  <cite className="mt-6 block text-xs not-italic uppercase tracking-[0.24em] text-[color:var(--muted)]">
+                    — About Dr Nhlanhla Sithole, Founder
+                  </cite>
+                </blockquote>
+              </div>
+              <div className="mt-10 rounded-2xl bg-[color:var(--accent-light)] p-6">
+                <p className="mb-3 text-xs uppercase tracking-[0.24em] text-[color:var(--accent-dark)]">
+                  Founder
+                </p>
+                <p className="font-display text-2xl text-[color:var(--ink)]">Dr Nhlanhla Sithole</p>
+                <p className="mt-2 text-sm text-[color:var(--muted)]">
+                  Medical doctor · Property developer · Community builder
+                </p>
+                <p className="mt-1 text-sm text-[color:var(--muted)]">
+                  Far East Bank, Alexandra · Est. 2016
+                </p>
+              </div>
             </div>
           </RevealItem>
         </div>
