@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
+const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? "/logo.png";
+
 const ecosystemPartners = [
   {
     initials: "JP",
@@ -141,7 +143,16 @@ export function SiteFooter() {
       <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.75fr_0.75fr_0.9fr]">
           <div className="space-y-3">
-            <p className="font-display text-2xl tracking-[0.18em] text-[color:var(--accent)]">JOBE</p>
+            <Link href="/" className="inline-flex items-center" transitionTypes={["nav-back"]}>
+              <Image
+                src={LOGO_URL}
+                alt="Jobe Propco"
+                width={180}
+                height={64}
+                className="h-12 w-auto object-contain"
+                priority
+              />
+            </Link>
             <p className="max-w-xl text-sm leading-7 text-white/66">
               Studio apartments in Alexandra. 9km from Sandton.
             </p>

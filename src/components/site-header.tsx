@@ -50,12 +50,9 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
     <Image
       src={currentLogo}
       alt="Jobe Propco"
-      width={120}
-      height={40}
-      className={cn(
-        "h-8 w-auto object-contain",
-        onLight ? "brightness-0" : "brightness-100",
-      )}
+      width={164}
+      height={58}
+      className="h-10 w-auto object-contain sm:h-11"
       priority
       onError={() => {
         if (logoIndex < logoCandidates.length - 1) {
@@ -118,7 +115,7 @@ export function SiteHeader() {
       )}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-        <Link href="/" className="group flex items-center" transitionTypes={["nav-back"]}>
+        <Link href="/" className="group flex shrink-0 items-center" transitionTypes={["nav-back"]}>
           <LogoMark onLight={useLightChrome} />
         </Link>
 
