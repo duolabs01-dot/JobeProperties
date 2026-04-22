@@ -156,7 +156,14 @@ export default function AboutPage() {
           </RevealItem>
 
           <div className="relative mt-10 space-y-0">
-            <div className="absolute bottom-0 left-[72px] top-0 w-px bg-[color:var(--line-strong)]" />
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+              style={{ transformOrigin: "top" }}
+              className="absolute bottom-0 left-[72px] top-0 w-px bg-[color:var(--line-strong)]"
+            />
 
             {timelineItems.map((item, index) => (
               <motion.div

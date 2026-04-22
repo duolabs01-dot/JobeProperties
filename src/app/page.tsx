@@ -222,14 +222,20 @@ export default function Home() {
           <div className="mx-auto flex w-full max-w-7xl items-stretch gap-8 px-5 sm:px-8 lg:px-12">
             {[
               { value: "6", label: "Locations" },
-              { value: "300+", label: "Residents" },
+              { label: "Residents", animated: true, from: 280, to: 300 },
               { value: "2016", label: "Est." },
             ].map((stat, index) => (
               <div
                 key={stat.label}
                 className={`flex items-center gap-4 ${index < 2 ? "border-r border-white/15 pr-8" : ""}`}
               >
-                <span className="text-xl font-semibold tracking-[-0.05em] text-white">{stat.value}</span>
+                <span className="text-xl font-semibold tracking-[-0.05em] text-white">
+                  {"animated" in stat && stat.animated ? (
+                    <AnimatedCounter from={stat.from} to={stat.to} suffix="+" duration={1.5} />
+                  ) : (
+                    stat.value
+                  )}
+                </span>
                 <span className="text-[11px] uppercase tracking-[0.28em] text-white/80">{stat.label}</span>
               </div>
             ))}
@@ -433,10 +439,28 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+            }}
+            className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
+          >
             {lifestyleAmenities.map((amenity) => (
               <motion.div
                 key={amenity.name}
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.97 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                  },
+                }}
                 whileHover={{ y: -4, boxShadow: "0 20px 50px rgba(28,25,23,0.10)" }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="cursor-default rounded-[1.5rem] border border-[color:var(--line-strong)] bg-white px-5 py-5 shadow-[0_16px_40px_rgba(28,25,23,0.05)]"
@@ -448,7 +472,7 @@ export default function Home() {
                 <p className="mt-2 text-[11px] leading-6 text-[color:var(--muted)]">{amenity.description}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <div className="mt-8">
             <ButtonLink

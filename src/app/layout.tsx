@@ -3,6 +3,7 @@ import { Bodoni_Moda, Manrope } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
 import { CursorGlow } from "@/components/ui/cursor-glow";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/toast";
 
 const display = Bodoni_Moda({
@@ -92,6 +93,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full bg-white font-sans text-[color:var(--ink)] antialiased">
+        <ScrollProgress />
         <CursorGlow />
         <AppShell>{children}</AppShell>
         <Toaster />

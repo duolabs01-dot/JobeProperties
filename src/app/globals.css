@@ -206,3 +206,11 @@ html:active-view-transition-type(nav-back) {
   z-index: 1;
   mix-blend-mode: overlay;
 }
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
