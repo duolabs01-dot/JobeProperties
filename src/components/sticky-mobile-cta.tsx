@@ -77,8 +77,6 @@ export function StickyMobileCta() {
                   </motion.span>
                 ) : null}
               </AnimatePresence>
-
-              <span className="absolute inset-0 rounded-full animate-ping bg-[#25D366] opacity-20" />
             </Link>
           </motion.div>
         </motion.div>

@@ -135,6 +135,17 @@ export default function PartnersPage() {
             <p className="mb-4 text-sm text-[color:var(--muted)] mt-2">
               We respond to all business enquiries within 24 hours.
             </p>
+            <p className="mt-2 text-sm text-[color:var(--muted)]">
+              For urgent or bulk enquiries:{" "}
+              <a
+                href="https://wa.me/27722293229?text=Hi%2C+I%27m+enquiring+about+a+corporate+partnership+with+Jobe+Propco."
+                target="_blank"
+                rel="noreferrer"
+                className="text-[color:var(--accent-dark)] hover:underline"
+              >
+                WhatsApp the Jobe Propco team directly
+              </a>
+            </p>
             <PartnersEnquiryForm />
           </div>
         </div>

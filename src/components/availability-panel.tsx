@@ -342,14 +342,32 @@ export function AvailabilityPanel() {
 
               <label className="block space-y-2 text-sm text-[color:var(--ink)]">
                 <span>Preferred location</span>
-                <select
-                  {...register("preferredPhase")}
-                  className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
-                >
-                  {phases.map((phase) => (
-                    <option key={phase}>{phase}</option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    {...register("preferredPhase")}
+                    className="w-full appearance-none rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] py-3 pl-4 pr-10 text-sm outline-none transition-colors focus:border-[color:var(--accent)]"
+                  >
+                    {phases.map((phase) => (
+                      <option key={phase}>{phase}</option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                    <svg
+                      className="h-4 w-4 text-[color:var(--muted)]"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M4 6l4 4 4-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
                 <AnimatePresence initial={false}>
                   {(touchedFields.preferredPhase || submitCount > 0) && errors.preferredPhase ? (
                     <motion.p

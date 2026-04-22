@@ -14,7 +14,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       {hideChrome ? null : <SiteHeader />}
-      <main className={hideChrome ? "min-h-screen" : "min-h-screen pt-18"}>{children}</main>
+      <main id="main-content" className={hideChrome ? "min-h-screen" : "min-h-screen pt-18"}>
+        {children}
+      </main>
       {hideChrome ? null : <SiteFooter />}
       {hideChrome ? null : <StickyMobileCta />}
     </>

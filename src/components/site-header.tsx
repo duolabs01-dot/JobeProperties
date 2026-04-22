@@ -52,7 +52,7 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
       alt="Jobe Propco"
       width={208}
       height={74}
-      className={cn("h-8 w-auto object-contain", !onLight && "brightness-0 invert")}
+      className={cn("h-8 w-auto max-w-[120px] object-contain", !onLight && "brightness-0 invert")}
       priority
       onError={() => {
         if (logoIndex < logoCandidates.length - 1) {
@@ -106,15 +106,22 @@ export function SiteHeader() {
   const useLightChrome = isLightPage || scrollY >= 20;
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        useLightChrome
-          ? "border-b border-[color:var(--nav-border)] bg-[color:var(--nav-bg)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent",
-      )}
-    >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:rounded-full focus:bg-[color:var(--accent)] focus:px-4 focus:py-2 focus:text-xs focus:font-semibold focus:uppercase focus:tracking-wide focus:text-white"
+      >
+        Skip to content
+      </a>
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          useLightChrome
+            ? "border-b border-[color:var(--nav-border)] bg-[color:var(--nav-bg)] backdrop-blur-xl"
+            : "border-b border-transparent bg-transparent",
+        )}
+      >
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
         <Link href="/" className="group flex shrink-0 items-center" transitionTypes={["nav-back"]}>
           <LogoMark onLight={useLightChrome} />
         </Link>
@@ -237,7 +244,8 @@ export function SiteHeader() {
             </ButtonLink>
           </SheetContent>
         </Sheet>
-      </div>
-    </header>
+        </div>
+      </header>
+    </>
   );
 }

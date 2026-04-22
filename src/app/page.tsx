@@ -4,7 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ViewTransition } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Banknote, Car, Flame, PartyPopper, Scissors, Shirt, Wifi, Wine } from "lucide-react";
+import { Banknote, Car, Flame, PartyPopper, Scissors, Shirt, SlidersHorizontal, Square, Wifi, Wind, Wine } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -37,6 +38,12 @@ const lifestyleAmenities = [
   { Icon: Shirt, name: "Fashion", description: "Local designer fashion and apparel." },
   { Icon: Banknote, name: "ATM", description: "Cash on-site. No trip to the mall." },
   { Icon: PartyPopper, name: "Events", description: "Private functions and 80-delegate conference venue." },
+] as const;
+
+const unitTypeHighlights = [
+  { Icon: Square, name: "Standard" },
+  { Icon: Wind, name: "Balcony" },
+  { Icon: SlidersHorizontal, name: "Sliding door" },
 ] as const;
 
 export default function Home() {
@@ -192,53 +199,41 @@ export default function Home() {
                 Est. <strong className="text-white">2016</strong>
               </span>
             </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.8 }}
-              className="flex items-center gap-2 text-[11px] text-white/50 lg:hidden"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
-              We typically reply within 2 hours on WhatsApp
-            </motion.p>
-          </div>
-        </div>
-
-        <div className="absolute bottom-28 left-0 right-0 z-10 hidden lg:block">
-          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.8 }}
-              className="flex items-center gap-2 text-[11px] text-white/50"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
-              We typically reply within 2 hours on WhatsApp
-            </motion.p>
           </div>
         </div>
 
         <div className="absolute bottom-10 left-0 right-0 z-10 hidden lg:block">
-          <div className="mx-auto flex w-full max-w-7xl items-stretch gap-8 px-5 sm:px-8 lg:px-12">
-            {[
-              { value: "6", label: "Locations" },
-              { label: "Residents", animated: true, from: 280, to: 300 },
-              { value: "2016", label: "Est." },
-            ].map((stat, index) => (
-              <div
-                key={stat.label}
-                className={`flex items-center gap-4 ${index < 2 ? "border-r border-white/15 pr-8" : ""}`}
-              >
-                <span className="text-xl font-semibold tracking-[-0.05em] text-white">
-                  {"animated" in stat && stat.animated ? (
-                    <AnimatedCounter from={stat.from} to={stat.to} suffix="+" duration={1.5} />
-                  ) : (
-                    stat.value
-                  )}
-                </span>
-                <span className="text-[11px] uppercase tracking-[0.28em] text-white/80">{stat.label}</span>
-              </div>
-            ))}
+          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
+            <div className="flex items-stretch gap-8">
+              {[
+                { value: "6", label: "Locations" },
+                { label: "Residents", animated: true, from: 280, to: 300 },
+                { value: "2016", label: "Est." },
+              ].map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`flex items-center gap-4 ${index < 2 ? "border-r border-white/15 pr-8" : ""}`}
+                >
+                  <span className="text-xl font-semibold tracking-[-0.05em] text-white">
+                    {"animated" in stat && stat.animated ? (
+                      <AnimatedCounter from={stat.from} to={stat.to} suffix="+" duration={1.5} />
+                    ) : (
+                      stat.value
+                    )}
+                  </span>
+                  <span className="text-[11px] uppercase tracking-[0.28em] text-white/80">{stat.label}</span>
+                </div>
+              ))}
+            </div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.8 }}
+              className="mt-4 flex items-center gap-2 text-[11px] text-white/50"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+              We typically reply within 2 hours on WhatsApp
+            </motion.p>
           </div>
         </div>
       </section>
@@ -354,6 +349,31 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-[color:var(--surface)] py-10">
+        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
+          <SectionLabel>Three ways to live here</SectionLabel>
+          <div className="mt-6 grid grid-cols-3 gap-4">
+            {unitTypeHighlights.map((unitType) => (
+              <div
+                key={unitType.name}
+                className="rounded-2xl border border-[color:var(--line-strong)] bg-white px-4 py-4 text-center"
+              >
+                <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[color:var(--accent-light)]">
+                  <unitType.Icon className="h-5 w-5 text-[color:var(--accent-dark)]" strokeWidth={1.8} />
+                </div>
+                <p className="mt-3 text-[13px] font-medium text-[color:var(--ink)]">{unitType.name}</p>
+                <Link
+                  href="/apartments"
+                  className="mt-2 inline-flex text-xs text-[color:var(--accent-dark)] hover:underline"
+                >
+                  See this type →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <RevealSection className="overflow-hidden border-y border-[color:var(--line)] bg-white">
         <div className="mx-auto grid max-w-7xl items-center px-5 py-16 sm:px-8 lg:grid-cols-2 lg:px-12 lg:py-0">
           <RevealItem className="lg:border-r lg:border-[color:var(--line)] lg:py-20 lg:pr-12">
@@ -426,7 +446,7 @@ export default function Home() {
 
       <Testimonials />
 
-      <RevealSection className="bg-[color:var(--surface)]">
+      <RevealSection className="bg-[color:var(--surface)]" stagger>
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <div className="max-w-3xl space-y-4">
             <SectionLabel>Life at Jobe Lifestyle Corner</SectionLabel>
@@ -439,16 +459,7 @@ export default function Home() {
             </p>
           </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
-            }}
-            className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
-          >
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {lifestyleAmenities.map((amenity) => (
               <motion.div
                 key={amenity.name}
@@ -472,7 +483,7 @@ export default function Home() {
                 <p className="mt-2 text-[11px] leading-6 text-[color:var(--muted)]">{amenity.description}</p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
           <div className="mt-8">
             <ButtonLink
