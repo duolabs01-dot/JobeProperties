@@ -73,6 +73,18 @@ export default function PartnersPage() {
                 Send a partnership enquiry
               </ButtonLink>
               <ButtonLink
+                href="/jobe-propco-corporate-brief.pdf"
+                target="_blank"
+                className="inline-flex items-center gap-2 rounded-full border border-[color:var(--line-strong)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-none stroke-current stroke-[1.8]">
+                  <path d="M12 4v10" strokeLinecap="round" />
+                  <path d="m8 10 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 18h14" strokeLinecap="round" />
+                </svg>
+                Download corporate brief
+              </ButtonLink>
+              <ButtonLink
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
