@@ -121,6 +121,21 @@ export default function Home() {
                 JOBE PROPCO
               </motion.p>
               <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex flex-wrap gap-2 pt-1"
+              >
+                {["No lease required", "24/7 biometric security", "From R4,300/month"].map((badge) => (
+                  <span
+                    key={badge}
+                    className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm"
+                  >
+                    {badge}
+                  </span>
+                ))}
+              </motion.div>
+              <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -177,6 +192,29 @@ export default function Home() {
                 Est. <strong className="text-white">2016</strong>
               </span>
             </motion.div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.8 }}
+              className="flex items-center gap-2 text-[11px] text-white/50 lg:hidden"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+              We typically reply within 2 hours on WhatsApp
+            </motion.p>
+          </div>
+        </div>
+
+        <div className="absolute bottom-28 left-0 right-0 z-10 hidden lg:block">
+          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.8 }}
+              className="flex items-center gap-2 text-[11px] text-white/50"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+              We typically reply within 2 hours on WhatsApp
+            </motion.p>
           </div>
         </div>
 

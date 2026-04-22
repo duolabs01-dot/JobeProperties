@@ -114,7 +114,7 @@ export default function FaqPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--surface)]" stagger>
+      <RevealSection id="pricing" className="border-t border-[color:var(--line)] bg-[color:var(--surface)]" stagger>
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <RevealItem className="max-w-3xl space-y-4">
             <SectionLabel>Payment options for 2026</SectionLabel>

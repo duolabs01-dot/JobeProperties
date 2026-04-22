@@ -225,7 +225,13 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-6 text-[11px] text-white/40 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
-          <p>© 2026 Jobe Propco</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p>© 2026 Jobe Propco</p>
+            <span className="hidden text-white/20 sm:inline">·</span>
+            <span className="hidden text-[11px] text-white/30 sm:inline">
+              Jobe Propco (PTY) Ltd · Property &amp; Rental Management
+            </span>
+          </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <p>Built to make dignified housing accessible in Alexandra.</p>
             <div className="flex items-center gap-2">

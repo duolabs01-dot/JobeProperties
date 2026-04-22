@@ -92,6 +92,18 @@ export function AvailabilityPanel() {
             <h3 className="mt-3 font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               When a studio opens here, it goes quickly.
             </h3>
+            <div className="mt-2 flex items-center gap-2">
+              <motion.span
+                animate={{ scale: [1, 1.3, 1], opacity: [1, 0.4, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="h-2 w-2 rounded-full bg-[color:var(--success)]"
+              />
+              <span className="text-xs font-medium text-[color:var(--success)]">
+                {filteredUnits.length > 0
+                  ? `${filteredUnits.length} ${filteredUnits.length === 1 ? "unit" : "units"} available right now`
+                  : "Join the list — next unit opening soon"}
+              </span>
+            </div>
           </div>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-end">
             <label className="flex min-w-[220px] flex-col gap-2 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">

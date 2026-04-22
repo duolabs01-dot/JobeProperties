@@ -110,11 +110,31 @@ export default function PartnersPage() {
             </RevealItem>
           ))}
         </div>
+
+        <div className="mb-12 mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {[
+            { value: "300+", label: "Active residents" },
+            { value: "6", label: "Locations" },
+            { value: "80", label: "Delegate event venue" },
+            { value: "2016", label: "Established" },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="rounded-2xl border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-4 text-center"
+            >
+              <p className="font-display text-3xl text-[color:var(--ink)]">{stat.value}</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-[color:var(--muted)]">{stat.label}</p>
+            </div>
+          ))}
+        </div>
       </RevealSection>
 
       <RevealSection id="enquiry" className="border-t border-[color:var(--line)] bg-white">
         <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
           <div className="max-w-3xl">
+            <p className="mb-4 text-sm text-[color:var(--muted)] mt-2">
+              We respond to all business enquiries within 24 hours.
+            </p>
             <PartnersEnquiryForm />
           </div>
         </div>
