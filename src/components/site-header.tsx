@@ -50,7 +50,7 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
       width={264}
       height={94}
       className={cn(
-        "h-12 w-auto max-w-[208px] object-contain sm:h-14 sm:max-w-[232px]",
+        "h-36 w-auto max-w-[18rem] object-contain sm:h-40 sm:max-w-[20rem]",
         !onLight && "drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]",
       )}
       priority
