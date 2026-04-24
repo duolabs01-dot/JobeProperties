@@ -152,7 +152,7 @@ export function SiteFooter() {
                 alt="Jobe Propco"
                 width={224}
                 height={80}
-                className="h-14 w-auto object-contain sm:h-16"
+                className="h-16 w-auto object-contain sm:h-20"
                 priority
               />
             </Link>
