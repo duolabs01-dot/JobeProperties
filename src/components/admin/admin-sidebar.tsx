@@ -9,7 +9,7 @@ import { LogoutButton } from "@/components/portal/logout-button";
 import { type AdminTab, getAdminTab } from "@/lib/admin";
 import { cn } from "@/lib/utils";
 
-const LOGO_URL = "/logo-20260424.png";
+const LOGO_URL = "/logo-cropped-20260424.png";
 
 const navItems: Array<{
   id: AdminTab;
@@ -75,7 +75,7 @@ export function AdminSidebar({
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 border-r border-[color:var(--line-strong)] bg-[color:#fbf8f2] lg:flex lg:flex-col">
         <div className="border-b border-[color:var(--line)] px-5 py-6">
           <Link href="/admin" className="inline-flex rounded-[1rem] bg-[color:var(--ink)] px-3 py-2">
-            <Image src={LOGO_URL} alt="Jobe Propco" width={148} height={53} className="h-10 w-auto object-contain" />
+            <Image src={LOGO_URL} alt="Jobe Propco" width={180} height={121} className="h-16 w-auto object-contain" />
           </Link>
           <p className="mt-4 text-xs uppercase tracking-[0.3em] text-[color:var(--accent-dark)]">Command centre</p>
           <p className="mt-2 text-sm text-[color:var(--muted)]">{adminEmail}</p>
@@ -98,7 +98,7 @@ export function AdminSidebar({
       <div className="border-b border-[color:var(--line)] bg-[color:#fbf8f2] px-5 py-4 lg:hidden">
         <div className="flex items-center justify-between gap-4">
           <Link href="/admin" className="inline-flex rounded-[1rem] bg-[color:var(--ink)] px-3 py-2">
-            <Image src={LOGO_URL} alt="Jobe Propco" width={140} height={50} className="h-9 w-auto object-contain" />
+            <Image src={LOGO_URL} alt="Jobe Propco" width={168} height={113} className="h-14 w-auto object-contain" />
           </Link>
           <LogoutButton
             redirectTo="/"

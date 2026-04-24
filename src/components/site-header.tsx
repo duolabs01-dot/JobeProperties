@@ -13,7 +13,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { navItems } from "@/lib/site-data";
 
-const LOGO_URL = "/logo-20260424.png";
+const LOGO_URL = "/logo-cropped-20260424.png";
 const lightNavPaths = new Set(["/", "/faq", "/partners", "/about", "/contact", "/apartments", "/guesthouse"]);
 
 function TextLogo({ onLight = false }: { onLight?: boolean }) {
@@ -47,10 +47,10 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
     <Image
       src={currentLogo}
       alt="Jobe Propco"
-      width={264}
-      height={94}
+      width={1180}
+      height={790}
       className={cn(
-        "h-36 w-auto max-w-[18rem] object-contain sm:h-40 sm:max-w-[20rem]",
+        "h-auto w-[calc(100vw-6rem)] max-w-[22rem] object-contain sm:max-w-[26rem] lg:w-[18rem] lg:max-w-[18rem] xl:w-[30rem] xl:max-w-[30rem]",
         !onLight && "drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]",
       )}
       priority

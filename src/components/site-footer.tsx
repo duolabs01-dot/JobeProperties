@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
-const LOGO_URL = "/logo-20260424.png";
+const LOGO_URL = "/logo-cropped-20260424.png";
 
 const ecosystemPartners: ReadonlyArray<{
   initials: string;
@@ -111,7 +111,7 @@ export function SiteFooter() {
                         alt={partner.name}
                         width={144}
                         height={64}
-                        className="h-11 w-auto max-w-full object-contain"
+                        className="h-14 w-auto max-w-full object-contain"
                       />
                     ) : (
                       <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[color:var(--accent-light)] text-sm font-semibold text-[color:var(--accent-dark)]">
@@ -150,9 +150,9 @@ export function SiteFooter() {
               <Image
                 src={LOGO_URL}
                 alt="Jobe Propco"
-                width={264}
-                height={94}
-                className="h-[4.5rem] w-auto object-contain sm:h-[5.5rem]"
+                width={1180}
+                height={790}
+                className="h-auto w-full max-w-[22rem] object-contain sm:max-w-[28rem]"
                 priority
               />
             </Link>
