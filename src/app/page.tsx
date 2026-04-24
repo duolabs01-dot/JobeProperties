@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Banknote, Car, Flame, PartyPopper, Scissors, Shirt, SlidersHorizontal, Square, Wifi, Wind, Wine } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { AvailabilityPanel } from "@/components/availability-panel";
@@ -50,7 +50,6 @@ export default function Home() {
   const marqueeGallery = [...gallery, ...gallery];
   const marqueeProof = [...socialProofPhrases, ...socialProofPhrases];
   const { ref: bleedRef, inView: bleedInView } = useInView<HTMLDivElement>({ threshold: 0.15 });
-  const [heroOffset, setHeroOffset] = useState(0);
   const [isCrecheComplete, setIsCrecheComplete] = useState(false);
   const { toast } = useToast();
   const {
@@ -65,175 +64,155 @@ export default function Home() {
     reValidateMode: "onChange",
   });
 
-  useEffect(() => {
-    let frameId = 0;
-
-    const updateParallax = () => {
-      window.cancelAnimationFrame(frameId);
-      frameId = window.requestAnimationFrame(() => {
-        if (window.innerWidth < 1024) {
-          setHeroOffset(0);
-          return;
-        }
-
-        setHeroOffset(window.scrollY * 0.4);
-      });
-    };
-
-    updateParallax();
-    window.addEventListener("scroll", updateParallax, { passive: true });
-    window.addEventListener("resize", updateParallax);
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", updateParallax);
-      window.removeEventListener("resize", updateParallax);
-    };
-  }, []);
-
   return (
-    <div className="bg-[color:var(--surface)]">
-      <section className="grain-overlay relative isolate -mt-18 flex min-h-screen items-center overflow-hidden bg-[color:var(--ink)] text-white">
-        <ViewTransition name="hero-image" share="morph">
-          <motion.div
-            initial={{ opacity: 0, scale: 1.12 }}
-            animate={{ opacity: 1, scale: 1.08 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 will-change-transform"
-            style={{ y: heroOffset }}
-          >
-            <Image
-              src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
-              alt="Jobe Propco apartments"
-              fill
-              priority
-              className="object-cover object-center"
-            />
-          </motion.div>
-        </ViewTransition>
-        <div className="absolute inset-0 bg-[rgba(0,0,0,0.32)]" />
+    <div data-nav-theme="light" className="bg-[color:var(--surface)]">
+      {/* ── HERO: light editorial split-screen ── */}
+      <section className="grain-overlay relative isolate -mt-18 overflow-hidden bg-[color:var(--surface)] lg:min-h-screen">
 
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-24 pt-40 sm:px-8 lg:px-12">
-          <div className="max-w-3xl space-y-7">
-            <p className="text-xs uppercase tracking-[0.42em] text-[color:var(--accent)]">
+        {/* Desktop image panel — right 44% */}
+        <div className="absolute inset-y-0 right-0 hidden w-[44%] overflow-hidden lg:block">
+          <ViewTransition name="hero-image" share="morph">
+            <div className="ken-burns absolute inset-0">
+              <Image
+                src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
+                alt="Jobe Propco apartments"
+                fill
+                priority
+                className="object-cover object-center"
+              />
+            </div>
+          </ViewTransition>
+          {/* Warm blend from left edge */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[color:var(--surface)] to-transparent" />
+          {/* Subtle warm tint */}
+          <div className="pointer-events-none absolute inset-0 bg-[color:var(--accent)]/5" />
+        </div>
+
+        {/* Mobile image strip — top portion */}
+        <div className="relative h-[48vw] max-h-[48vh] w-full overflow-hidden lg:hidden">
+          <Image
+            src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
+            alt="Jobe Propco apartments"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[color:var(--surface)]/30 to-[color:var(--surface)]" />
+        </div>
+
+        {/* Content — left column */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:flex lg:min-h-screen lg:w-[56%] lg:flex-col lg:justify-center lg:px-12 lg:pb-24 lg:pt-32">
+          <div className="space-y-7">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-xs uppercase tracking-[0.42em] text-[color:var(--accent)]"
+            >
               Alexandra · Johannesburg · Est. 2016
-            </p>
-            <div className="space-y-5">
+            </motion.p>
+
+            <div className="space-y-4">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-5xl leading-none tracking-[0.2em] text-[color:var(--accent)] sm:text-6xl lg:text-7xl"
+                transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-5xl leading-none tracking-[0.16em] text-[color:var(--accent)] sm:text-6xl lg:text-7xl"
               >
                 JOBE PROPCO
               </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-wrap gap-2 pt-1"
-              >
-                {["No lease required", "24/7 biometric security", "From R4,300/month"].map((badge) => (
-                  <span
-                    key={badge}
-                    className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm"
-                  >
-                    {badge}
-                  </span>
-                ))}
-              </motion.div>
+
               <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="h-[2px] w-[60px] origin-left bg-[color:var(--accent)]"
+                transition={{ duration: 0.5, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="h-[2px] w-14 origin-left bg-[color:var(--accent)]"
               />
-              <h1 className="max-w-4xl text-4xl font-semibold tracking-[-0.06em] text-white sm:text-5xl lg:text-7xl">
-                <WordReveal text="A home where the community is the amenity." delay={0.7} />
+
+              <h1 className="max-w-xl font-display text-3xl font-semibold leading-[1.1] tracking-[-0.03em] text-[color:var(--ink)] sm:text-4xl lg:text-5xl">
+                <WordReveal text="A home where the community is the amenity." delay={0.4} />
               </h1>
             </div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg"
-            >
-              Elegant studio apartments in Far East Bank. Secure, quiet, and walkable to everything you
-              need — with Sandton 9km away.
-            </motion.p>
+
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col gap-4 sm:flex-row"
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex flex-wrap gap-2"
+            >
+              {["No lease required", "24/7 biometric security", "From R4,300/month"].map((badge) => (
+                <span
+                  key={badge}
+                  className="inline-flex items-center rounded-full border border-[color:var(--line-strong)] bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-[color:var(--ink-soft)] shadow-sm"
+                >
+                  {badge}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="max-w-md text-base leading-8 text-[color:var(--muted)] sm:text-lg"
+            >
+              Elegant studio apartments in Far East Bank. Secure, quiet, walkable — with Sandton 9km away.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col gap-3 sm:flex-row"
             >
               <ButtonLink
                 href="/#availability"
-                className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:translate-y-[-1px] hover:bg-[color:var(--accent-dark)] sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)] sm:w-auto"
               >
                 See what&apos;s available
               </ButtonLink>
               <ButtonLink
                 href="/apartments"
                 transitionTypes={["nav-forward"]}
-                className="inline-flex w-full items-center justify-center rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:border-white hover:bg-white/10 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)] sm:w-auto"
               >
                 View locations
               </ButtonLink>
             </motion.div>
+
+            {/* Stats row */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.6 }}
-              className="flex items-center gap-5 pt-4 lg:hidden"
+              transition={{ duration: 0.6, delay: 1.1 }}
+              className="flex flex-wrap items-center gap-5 border-t border-[color:var(--line)] pt-6"
             >
-              <span className="text-xs uppercase tracking-[0.24em] text-white/70">
-                <strong className="text-white">6</strong> Locations
-              </span>
-              <span className="h-3 w-px bg-white/20" />
-              <span className="text-xs uppercase tracking-[0.24em] text-white/70">
-                <strong className="text-white">300+</strong> Residents
-              </span>
-              <span className="h-3 w-px bg-white/20" />
-              <span className="text-xs uppercase tracking-[0.24em] text-white/70">
-                Est. <strong className="text-white">2016</strong>
-              </span>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-10 left-0 right-0 z-10 hidden lg:block">
-          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-            <div className="flex items-stretch gap-8">
-              {[
-                { value: "6", label: "Locations" },
-                { label: "Residents", animated: true, from: 280, to: 300 },
-                { value: "2016", label: "Est." },
-              ].map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className={`flex items-center gap-4 ${index < 2 ? "border-r border-white/15 pr-8" : ""}`}
-                >
-                  <span className="text-xl font-semibold tracking-[-0.05em] text-white">
-                    {"animated" in stat && stat.animated ? (
-                      <AnimatedCounter from={stat.from} to={stat.to} suffix="+" duration={1.5} />
-                    ) : (
-                      stat.value
-                    )}
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.28em] text-white/80">{stat.label}</span>
+              {(
+                [
+                  { value: "6", label: "Locations" },
+                  { animated: true as const, from: 280, to: 300, suffix: "+", label: "Residents" },
+                  { value: "9km", label: "From Sandton" },
+                ] as const
+              ).map((stat, i) => (
+                <div key={stat.label} className="flex items-center gap-4">
+                  {i > 0 && <span className="h-5 w-px bg-[color:var(--line-strong)]" />}
+                  <div>
+                    <p className="font-mono text-xl font-bold leading-none text-[color:var(--ink)]">
+                      {"animated" in stat ? (
+                        <AnimatedCounter from={stat.from} to={stat.to} suffix="+" duration={1.5} />
+                      ) : (
+                        stat.value
+                      )}
+                    </p>
+                    <p className="mt-0.5 text-[10px] uppercase tracking-[0.26em] text-[color:var(--muted)]">{stat.label}</p>
+                  </div>
                 </div>
               ))}
-            </div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.8 }}
-              className="mt-4 flex items-center gap-2 text-[11px] text-white/50"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
-              We typically reply within 2 hours on WhatsApp
-            </motion.p>
+              <p className="flex items-center gap-2 text-[11px] text-[color:var(--muted)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+                Typically reply in 2hrs on WhatsApp
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>

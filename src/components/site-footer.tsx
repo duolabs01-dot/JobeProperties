@@ -93,8 +93,9 @@ function WhatsappIcon() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[color:var(--line)] bg-[color:var(--ink)] text-white">
-      <section className="border-b border-[color:var(--line)] bg-white text-[color:var(--ink)]">
+    <footer className="border-t border-[color:var(--line)] bg-[color:var(--surface)]">
+      {/* Ecosystem partners strip */}
+      <section className="border-b border-[color:var(--line)]">
         <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
           <p className="mb-8 text-[10px] uppercase tracking-[0.28em] text-[color:var(--muted)]">
             Part of the Jobe Enterprise ecosystem
@@ -102,8 +103,8 @@ export function SiteFooter() {
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {ecosystemPartners.map((partner) => {
               const content = (
-                <div className="rounded-2xl border border-transparent bg-[color:var(--surface)] px-4 py-5 text-center transition-all duration-200 hover:border-[color:var(--accent-light)]">
-                  <div className="mx-auto flex h-16 w-full max-w-[9rem] items-center justify-center overflow-hidden rounded-xl bg-white px-3 shadow-[inset_0_0_0_1px_rgba(28,25,23,0.05)]">
+                <div className="rounded-2xl border border-transparent bg-white px-4 py-5 text-center shadow-[0_4px_20px_rgba(28,25,23,0.05)] transition-all duration-200 hover:border-[color:var(--accent-light)] hover:shadow-[0_8px_30px_rgba(28,25,23,0.09)]">
+                  <div className="mx-auto flex h-16 w-full max-w-[9rem] items-center justify-center overflow-hidden rounded-xl bg-[color:var(--surface)] px-3">
                     {partner.logoSrc ? (
                       <Image
                         src={partner.logoSrc}
@@ -125,13 +126,7 @@ export function SiteFooter() {
 
               if (partner.external) {
                 return (
-                  <Link
-                    key={partner.name}
-                    href={partner.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block"
-                  >
+                  <Link key={partner.name} href={partner.href} target="_blank" rel="noreferrer" className="block">
                     {content}
                   </Link>
                 );
@@ -147,9 +142,10 @@ export function SiteFooter() {
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 lg:px-12">
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.75fr_0.75fr_0.9fr]">
-          <div className="space-y-3">
+      {/* Main footer body */}
+      <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 lg:px-12">
+        <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr_0.7fr_0.9fr]">
+          <div className="space-y-4">
             <Link href="/" className="inline-flex items-center" transitionTypes={["nav-back"]}>
               <Image
                 src={LOGO_URL}
@@ -160,77 +156,83 @@ export function SiteFooter() {
                 priority
               />
             </Link>
-            <p className="max-w-xl text-sm leading-7 text-white/66">
-              Studio apartments in Alexandra. 9km from Sandton.
+            <p className="max-w-xs text-sm leading-7 text-[color:var(--muted)]">
+              Studio apartments in Alexandra. 9km from Sandton. Built from the community, built for it.
             </p>
             <Link
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex text-sm text-white/76 transition-colors duration-300 hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-[color:var(--line-strong)] bg-white px-4 py-2 text-sm font-medium text-[color:var(--ink)] transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
             >
+              <span className="h-2 w-2 rounded-full bg-[#25D366]" />
               WhatsApp {whatsappNumber}
             </Link>
           </div>
 
-          <div className="flex flex-col gap-2 text-sm text-white/70">
-            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Explore</p>
-            <Link href="/apartments" transitionTypes={["nav-forward"]}>
-              Apartments
-            </Link>
-            <Link href="/guesthouse" transitionTypes={["nav-forward"]}>
-              Guesthouse
-            </Link>
-            <Link href="/about" transitionTypes={["nav-forward"]}>
-              About
-            </Link>
-            <Link href="/faq" transitionTypes={["nav-forward"]}>
-              FAQ
-            </Link>
+          <div className="flex flex-col gap-2.5 text-sm">
+            <p className="mb-1 text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Explore</p>
+            {[
+              { label: "Apartments", href: "/apartments" },
+              { label: "Guesthouse", href: "/guesthouse" },
+              { label: "About", href: "/about" },
+              { label: "FAQ", href: "/faq" },
+            ].map((link) => (
+              <Link key={link.href} href={link.href} transitionTypes={["nav-forward"]} className="text-[color:var(--muted)] transition-colors duration-200 hover:text-[color:var(--ink)]">
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          <div className="flex flex-col gap-2 text-sm text-white/70">
-            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Tenants</p>
-            <Link href="/portal/login" transitionTypes={["nav-forward"]}>
-              Tenant login
-            </Link>
-            <Link href="/#availability">
-              See availability
-            </Link>
-            <Link href="/#availability">
-              Waiting list
-            </Link>
-            <Link href="/contact" transitionTypes={["nav-forward"]}>
-              Contact
-            </Link>
+          <div className="flex flex-col gap-2.5 text-sm">
+            <p className="mb-1 text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Tenants</p>
+            {[
+              { label: "Tenant login", href: "/portal/login", transition: true },
+              { label: "See availability", href: "/#availability", transition: false },
+              { label: "Waiting list", href: "/#availability", transition: false },
+              { label: "Contact", href: "/contact", transition: true },
+            ].map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                transitionTypes={link.transition ? ["nav-forward"] : undefined}
+                className="text-[color:var(--muted)] transition-colors duration-200 hover:text-[color:var(--ink)]"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
-          <div className="flex flex-col gap-2 text-sm text-white/70">
-            <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Community</p>
-            <Link href={foundationUrl} target="_blank" rel="noreferrer">
-              Dr Sithole Foundation
-            </Link>
-            <Link href="https://centerconnect.co.za" target="_blank" rel="noreferrer">
-              CentreConnect
-            </Link>
-            <Link href="https://jobelifestyle.co.za" target="_blank" rel="noreferrer">
-              Jobe Lifestyle Corner
-            </Link>
-            <Link href="/partners" transitionTypes={["nav-forward"]}>
-              Partner with us
-            </Link>
+          <div className="flex flex-col gap-2.5 text-sm">
+            <p className="mb-1 text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Community</p>
+            {[
+              { label: "Dr Sithole Foundation", href: foundationUrl, external: true },
+              { label: "CentreConnect", href: "https://centerconnect.co.za", external: true },
+              { label: "Jobe Lifestyle Corner", href: "https://jobelifestyle.co.za", external: true },
+              { label: "Partner with us", href: "/partners", external: false },
+            ].map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+                transitionTypes={!link.external ? ["nav-forward"] : undefined}
+                className="text-[color:var(--muted)] transition-colors duration-200 hover:text-[color:var(--ink)]"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-6 text-[11px] text-white/40 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+      {/* Legal bar */}
+      <div className="border-t border-[color:var(--line)]">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 text-[11px] text-[color:var(--muted)] sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <div className="flex flex-wrap items-center gap-2">
             <p>© 2026 Jobe Propco</p>
-            <span className="hidden text-white/20 sm:inline">·</span>
-            <span className="hidden text-[11px] text-white/30 sm:inline">
-              Jobe Propco (PTY) Ltd · Property &amp; Rental Management
-            </span>
+            <span className="hidden text-[color:var(--line-strong)] sm:inline">·</span>
+            <span className="hidden sm:inline">Jobe Propco (PTY) Ltd · Property &amp; Rental Management</span>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <p>Built to make dignified housing accessible in Alexandra.</p>
@@ -238,21 +240,21 @@ export function SiteFooter() {
               <Link
                 href="#"
                 title="Follow us on Instagram (coming soon)"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--accent)]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
               >
                 <InstagramIcon />
               </Link>
               <Link
                 href="#"
                 title="Follow us on Facebook (coming soon)"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--accent)]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
               >
                 <FacebookIcon />
               </Link>
               <Link
                 href="#"
                 title="Follow us on TikTok (coming soon)"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--accent)]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--line-strong)] text-[color:var(--muted)] transition-colors duration-300 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
               >
                 <TiktokIcon />
               </Link>
@@ -261,7 +263,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 title="Chat with us on WhatsApp"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#25D366] bg-[#25D366] text-white transition-transform duration-300 hover:scale-[1.03]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#25D366] bg-[#25D366] text-white transition-transform duration-300 hover:scale-[1.05]"
               >
                 <WhatsappIcon />
               </Link>

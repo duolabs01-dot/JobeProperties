@@ -1,8 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { RevealItem, RevealSection } from "@/components/reveal-section";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { RevealSection } from "@/components/reveal-section";
+import { ButtonLink } from "@/components/ui/button-link";
+import { whatsappUrl } from "@/lib/property-data";
 
 // HOW TO ADD REAL TESTIMONIALS:
 // 1. Ask Jobe to share WhatsApp messages from happy tenants (screenshot or transcript)
@@ -13,6 +16,7 @@ import { RevealItem, RevealSection } from "@/components/reveal-section";
 type Testimonial = {
   quote: string;
   attribution: string;
+  since: string;
   photoUrl?: string;
 };
 
@@ -21,66 +25,140 @@ const testimonials: Testimonial[] = [
   {
     quote:
       "Moving into Jobe was the best decision I made when I started working in Sandton. Close enough that the commute is manageable, affordable enough that I could actually save.",
-    attribution: "Jobe Towers resident since 2022",
+    attribution: "Jobe Towers",
+    since: "Resident since 2022",
     photoUrl: undefined,
   },
   {
     quote:
       "The security here is real. Biometric access and someone always around. I sleep better here than I did in the flat I had before.",
-    attribution: "Jobe Bel Air resident since 2023",
+    attribution: "Jobe Bel Air",
+    since: "Resident since 2023",
     photoUrl: undefined,
   },
   {
     quote:
       "The lifestyle corner downstairs changes everything. I don't need to go far for anything. Food, barber, internet — it's all right there.",
-    attribution: "Jobe Mews resident since 2021",
+    attribution: "Jobe Mews",
+    since: "Resident since 2021",
     photoUrl: undefined,
   },
 ];
 
 export function Testimonials() {
+  const [active, setActive] = useState(0);
+  const current = testimonials[active];
+
   return (
-    <RevealSection className="bg-white" stagger>
-      <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
-        <RevealItem className="max-w-3xl space-y-4">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">What residents say</p>
-          <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
-            In their own words.
-          </h2>
-        </RevealItem>
+    <RevealSection className="overflow-hidden bg-[color:var(--surface)]">
+      <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <RevealItem key={testimonial.attribution}>
-              <motion.article
-                whileHover={{ y: -4, boxShadow: "0 24px 60px rgba(17,24,15,0.1)" }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="relative flex h-full flex-col justify-between rounded-[2rem] border border-[color:var(--line)] border-l-[3px] border-l-[color:var(--accent)] bg-white p-6 shadow-[0_18px_48px_rgba(17,24,15,0.06)]"
-              >
-                <div className="space-y-5">
-                  <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-[color:var(--accent-light)] text-sm font-semibold uppercase text-[color:var(--accent-dark)]">
-                    {testimonial.photoUrl ? (
-                      <Image
-                        src={testimonial.photoUrl}
-                        alt={testimonial.attribution}
-                        width={48}
-                        height={48}
-                        className="h-12 w-12 rounded-full object-cover"
-                      />
-                    ) : (
-                      testimonial.attribution.trim().charAt(0)
-                    )}
-                  </div>
-                  <p className="font-display text-[1.1rem] leading-8 italic text-[color:var(--ink)]">
-                    {testimonial.quote}
-                  </p>
+        {/* Header row */}
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">What residents say</p>
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
+              In their own words.
+            </h2>
+          </div>
+          <ButtonLink
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex shrink-0 items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--accent)] hover:border-[color:var(--accent)] hover:text-white"
+          >
+            WhatsApp us →
+          </ButtonLink>
+        </div>
+
+        {/* Featured quote */}
+        <div className="relative mt-14 rounded-[2rem] border border-[color:var(--line-strong)] bg-white p-8 shadow-[0_24px_70px_rgba(28,25,23,0.07)] sm:p-10 lg:p-14">
+          {/* Decorative quotation mark */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -top-8 left-10 select-none font-display text-[9rem] leading-none text-[color:var(--accent-light)] lg:text-[12rem]"
+          >
+            &ldquo;
+          </span>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="relative"
+            >
+              <p className="font-display text-2xl italic leading-relaxed text-[color:var(--ink)] sm:text-3xl lg:text-4xl">
+                {current.quote}
+              </p>
+
+              <div className="mt-8 flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[color:var(--accent-light)] text-sm font-bold uppercase text-[color:var(--accent-dark)]">
+                  {current.photoUrl ? (
+                    <Image
+                      src={current.photoUrl}
+                      alt={current.attribution}
+                      width={48}
+                      height={48}
+                      className="h-12 w-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    current.attribution.trim().charAt(0)
+                  )}
                 </div>
+                <div>
+                  <p className="text-sm font-semibold text-[color:var(--ink)]">{current.attribution}</p>
+                  <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--muted)]">{current.since}</p>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-                <p className="mt-8 text-xs uppercase tracking-[0.24em] text-[color:var(--muted)]">
-                  {testimonial.attribution}
-                </p>
-              </motion.article>
-            </RevealItem>
+        {/* Navigation dots */}
+        <div className="mt-6 flex items-center gap-3">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`Go to testimonial ${i + 1}`}
+              onClick={() => setActive(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                i === active
+                  ? "w-8 bg-[color:var(--accent)]"
+                  : "w-2 bg-[color:var(--stone)] hover:bg-[color:var(--muted)]"
+              }`}
+            />
+          ))}
+          <p className="ml-2 text-[11px] uppercase tracking-[0.24em] text-[color:var(--muted)]">
+            {active + 1} / {testimonials.length}
+          </p>
+        </div>
+
+        {/* Mini grid — other testimonials */}
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <motion.button
+              key={t.attribution}
+              type="button"
+              onClick={() => setActive(i)}
+              whileHover={{ y: -2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              className={`cursor-pointer rounded-[1.5rem] border p-5 text-left transition-all duration-200 ${
+                i === active
+                  ? "border-[color:var(--accent)] bg-[color:var(--accent-light)]"
+                  : "border-[color:var(--line-strong)] bg-white hover:border-[color:var(--accent-light)]"
+              }`}
+            >
+              <p className="line-clamp-3 font-display text-sm italic leading-7 text-[color:var(--ink)]">
+                &ldquo;{t.quote}&rdquo;
+              </p>
+              <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-[color:var(--muted)]">
+                {t.attribution} · {t.since}
+              </p>
+            </motion.button>
           ))}
         </div>
       </div>

@@ -95,17 +95,36 @@ export default function ApartmentsPage() {
 
   return (
     <div className="bg-white">
-      <section className="relative isolate overflow-hidden bg-[color:var(--ink)] text-white">
-        <Image
-          src={apartmentHeroImage}
-          alt="Jobe Propco apartments exterior"
-          fill
-          priority
-          className="object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(28,25,23,0.92)_0%,rgba(28,25,23,0.74)_48%,rgba(28,25,23,0.38)_100%)]" />
+      <section className="grain-overlay relative isolate overflow-hidden bg-[color:var(--surface)]">
+        {/* Image panel — right side desktop */}
+        <div className="absolute inset-y-0 right-0 hidden w-[42%] overflow-hidden lg:block">
+          <div className="ken-burns absolute inset-0">
+            <Image
+              src={apartmentHeroImage}
+              alt="Jobe Propco apartments exterior"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+          </div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[color:var(--surface)] to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-[color:var(--accent)]/5" />
+        </div>
 
-        <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-32 sm:px-8 lg:px-12 lg:pb-24">
+        {/* Mobile image strip */}
+        <div className="relative h-[40vw] max-h-[40vh] w-full overflow-hidden lg:hidden">
+          <Image
+            src={apartmentHeroImage}
+            alt="Jobe Propco apartments exterior"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[color:var(--surface)]" />
+        </div>
+
+        {/* Content */}
+        <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 pb-20 pt-10 sm:px-8 lg:w-[58%] lg:px-12 lg:py-24 lg:pt-32">
           <motion.div
             ref={heroRef}
             initial="hidden"
@@ -116,17 +135,27 @@ export default function ApartmentsPage() {
             <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent)]">Apartments</p>
             <motion.h1
               variants={revealItemVariants}
-              className="font-display text-4xl leading-none text-white sm:text-5xl lg:text-6xl"
+              className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl"
             >
               <WordReveal text="Studio apartments built for real life." />
             </motion.h1>
             <motion.p
               variants={revealItemVariants}
-              className="max-w-2xl text-base leading-8 text-white/74 sm:text-lg"
+              className="max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg"
             >
               15–20sqm. Private kitchenette. Private bathroom. Built-in cupboards. Biometric entry.
               From R4,300/month.
             </motion.p>
+            <motion.div variants={revealItemVariants} className="flex flex-wrap gap-2">
+              {["Biometric security", "No lease", "Fibre-ready"].map((badge) => (
+                <span
+                  key={badge}
+                  className="inline-flex items-center rounded-full border border-[color:var(--line-strong)] bg-white px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-[color:var(--ink-soft)]"
+                >
+                  {badge}
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -488,10 +517,10 @@ export default function ApartmentsPage() {
         </div>
       </RevealSection>
 
-      <RevealSection className="bg-[color:var(--ink)] text-white" stagger>
+      <RevealSection className="border-t border-[color:var(--line)] bg-[color:var(--accent-light)]" stagger>
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-16 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <RevealItem>
-            <h2 className="font-display text-4xl leading-none text-white sm:text-5xl">
+            <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">
               Ready to view a unit?
             </h2>
           </RevealItem>
@@ -507,7 +536,7 @@ export default function ApartmentsPage() {
             </ButtonLink>
             <ButtonLink
               href="/#availability"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)]/20 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)]"
             >
               See what&apos;s available
             </ButtonLink>

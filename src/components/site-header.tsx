@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { navItems } from "@/lib/site-data";
 
 const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? null;
-const lightNavPaths = new Set(["/faq", "/partners", "/about", "/contact"]);
+const lightNavPaths = new Set(["/", "/faq", "/partners", "/about", "/contact", "/apartments", "/guesthouse"]);
 
 function TextLogo({ onLight = false }: { onLight?: boolean }) {
   return (

@@ -163,21 +163,21 @@ export default function PartnersPage() {
         </div>
       </RevealSection>
 
-      <section className="bg-[color:var(--ink)] text-white">
+      <section className="border-t border-[color:var(--line)] bg-[color:var(--surface-strong)]">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-14 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
-          <p className="font-display text-3xl leading-none text-white sm:text-4xl">
+          <p className="font-display text-3xl leading-none text-[color:var(--ink)] sm:text-4xl">
             Part of the Jobe Enterprise ecosystem
           </p>
 
           <div className="flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
-            <Link href="/" className="text-white/76 transition-colors duration-300 hover:text-white">
+            <Link href="/" className="text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--ink)]">
               Jobe Propco apartments →
             </Link>
             <Link
               href="https://jobelifestyle.co.za"
               target="_blank"
               rel="noreferrer"
-              className="text-white/76 transition-colors duration-300 hover:text-white"
+              className="text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--ink)]"
             >
               Jobe Lifestyle Corner →
             </Link>
@@ -185,7 +185,7 @@ export default function PartnersPage() {
               href={foundationUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-white/76 transition-colors duration-300 hover:text-white"
+              className="text-[color:var(--muted)] transition-colors duration-300 hover:text-[color:var(--ink)]"
             >
               Dr Sithole Foundation →
             </Link>
