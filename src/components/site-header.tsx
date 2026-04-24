@@ -13,7 +13,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { navItems } from "@/lib/site-data";
 
-const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? null;
+const LOGO_URL = "/logo-20260424.png";
 const lightNavPaths = new Set(["/", "/faq", "/partners", "/about", "/contact", "/apartments", "/guesthouse"]);
 
 function TextLogo({ onLight = false }: { onLight?: boolean }) {
@@ -35,10 +35,7 @@ function TextLogo({ onLight = false }: { onLight?: boolean }) {
 }
 
 function LogoMark({ onLight = false }: { onLight?: boolean }) {
-  const logoCandidates = useMemo(
-    () => [LOGO_URL, "/logo.png"].filter((value): value is string => Boolean(value)),
-    [],
-  );
+  const logoCandidates = useMemo(() => [LOGO_URL], []);
   const [logoIndex, setLogoIndex] = useState(0);
   const currentLogo = logoCandidates[logoIndex] ?? null;
 
@@ -50,10 +47,10 @@ function LogoMark({ onLight = false }: { onLight?: boolean }) {
     <Image
       src={currentLogo}
       alt="Jobe Propco"
-      width={208}
-      height={74}
+      width={264}
+      height={94}
       className={cn(
-        "h-10 w-auto max-w-[168px] object-contain sm:h-11 sm:max-w-[184px]",
+        "h-12 w-auto max-w-[208px] object-contain sm:h-14 sm:max-w-[232px]",
         !onLight && "drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)]",
       )}
       priority

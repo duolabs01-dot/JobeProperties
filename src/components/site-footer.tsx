@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { foundationUrl, whatsappNumber, whatsappUrl } from "@/lib/property-data";
 
-const LOGO_URL = process.env.NEXT_PUBLIC_LOGO_URL ?? "/logo.png";
+const LOGO_URL = "/logo-20260424.png";
 
 const ecosystemPartners: ReadonlyArray<{
   initials: string;
@@ -19,7 +19,7 @@ const ecosystemPartners: ReadonlyArray<{
     name: "Jobe Propco",
     description: "Studio apartments & guesthouse",
     href: "/",
-    logoSrc: "/logo.png",
+    logoSrc: LOGO_URL,
     external: false,
   },
   {
@@ -150,9 +150,9 @@ export function SiteFooter() {
               <Image
                 src={LOGO_URL}
                 alt="Jobe Propco"
-                width={224}
-                height={80}
-                className="h-16 w-auto object-contain sm:h-20"
+                width={264}
+                height={94}
+                className="h-[4.5rem] w-auto object-contain sm:h-[5.5rem]"
                 priority
               />
             </Link>
