@@ -138,7 +138,7 @@ export function Testimonials() {
         </div>
 
         {/* Mini grid — other testimonials */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <div className="mt-8 flex gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0">
           {testimonials.map((t, i) => (
             <motion.button
               key={t.attribution}
@@ -146,7 +146,7 @@ export function Testimonials() {
               onClick={() => setActive(i)}
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
-              className={`cursor-pointer rounded-[1.5rem] border p-5 text-left transition-all duration-200 ${
+              className={`w-[78vw] shrink-0 cursor-pointer rounded-[1.5rem] border p-5 text-left transition-all duration-200 sm:w-auto ${
                 i === active
                   ? "border-[color:var(--accent)] bg-[color:var(--accent-light)]"
                   : "border-[color:var(--line-strong)] bg-white hover:border-[color:var(--accent-light)]"

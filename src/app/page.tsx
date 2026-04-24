@@ -66,8 +66,8 @@ export default function Home() {
 
   return (
     <div data-nav-theme="light" className="bg-[color:var(--surface)]">
-      {/* ── HERO: light editorial split-screen ── */}
-      <section className="grain-overlay relative isolate -mt-18 overflow-hidden bg-[color:var(--surface)] lg:min-h-screen">
+      {/* ── HERO: magazine cover on mobile, editorial split-screen on desktop ── */}
+      <section className="grain-overlay relative isolate -mt-18 min-h-[100svh] overflow-hidden bg-[color:var(--surface)] lg:min-h-screen">
 
         {/* Desktop image panel — right 44% */}
         <div className="absolute inset-y-0 right-0 hidden w-[44%] overflow-hidden lg:block">
@@ -88,20 +88,25 @@ export default function Home() {
           <div className="pointer-events-none absolute inset-0 bg-[color:var(--accent)]/5" />
         </div>
 
-        {/* Mobile image strip — top portion */}
-        <div className="relative h-[48vw] max-h-[48vh] w-full overflow-hidden lg:hidden">
-          <Image
-            src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
-            alt="Jobe Propco apartments"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[color:var(--surface)]/30 to-[color:var(--surface)]" />
+        {/* Mobile full-viewport image — magazine cover */}
+        <div className="absolute inset-0 lg:hidden">
+          <div className="ken-burns absolute inset-0">
+            <Image
+              src="https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg"
+              alt="Jobe Propco apartments"
+              fill
+              priority
+              className="object-cover object-top"
+            />
+          </div>
+          {/* Warm surface gradient rising from bottom — text reads against cream */}
+          <div className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-[color:var(--surface)] via-[color:var(--surface)]/95 to-transparent" />
+          {/* Subtle top fade so nav floats cleanly */}
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[color:var(--surface)]/50 to-transparent" />
         </div>
 
-        {/* Content — left column */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-20 pt-10 sm:px-8 lg:flex lg:min-h-screen lg:w-[56%] lg:flex-col lg:justify-center lg:px-12 lg:pb-24 lg:pt-32">
+        {/* Content — left column (mobile: anchored to lower viewport; desktop: flex-centered) */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-12 pt-[52svh] sm:pt-[48svh] sm:px-8 lg:flex lg:min-h-screen lg:w-[56%] lg:flex-col lg:justify-center lg:px-12 lg:pb-24 lg:pt-32">
           <div className="space-y-7">
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -308,7 +313,10 @@ export default function Home() {
             className="object-cover object-center"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(28,25,23,0.75)] via-[rgba(28,25,23,0.3)] to-transparent" />
+        {/* Mobile: gradient rises from bottom behind the text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,25,23,0.85)] via-[rgba(28,25,23,0.35)] to-transparent sm:hidden" />
+        {/* Desktop: gradient flows left to right */}
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-[rgba(28,25,23,0.75)] via-[rgba(28,25,23,0.3)] to-transparent sm:block" />
         <div className="absolute inset-0 z-10 flex items-end">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -331,11 +339,11 @@ export default function Home() {
       <section className="bg-[color:var(--surface)] py-10">
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
           <SectionLabel>Three ways to live here</SectionLabel>
-          <div className="mt-6 grid grid-cols-3 gap-4">
+          <div className="mt-6 flex gap-3 overflow-x-auto pb-1 sm:grid sm:grid-cols-3 sm:gap-4 sm:overflow-visible sm:pb-0">
             {unitTypeHighlights.map((unitType) => (
               <div
                 key={unitType.name}
-                className="rounded-2xl border border-[color:var(--line-strong)] bg-white px-4 py-4 text-center"
+                className="w-[44vw] shrink-0 rounded-2xl border border-[color:var(--line-strong)] bg-white px-4 py-4 text-center sm:w-auto"
               >
                 <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-[color:var(--accent-light)]">
                   <unitType.Icon className="h-5 w-5 text-[color:var(--accent-dark)]" strokeWidth={1.8} />
@@ -356,7 +364,7 @@ export default function Home() {
       <RevealSection className="overflow-hidden border-y border-[color:var(--line)] bg-white">
         <div className="mx-auto grid max-w-7xl items-center px-5 py-16 sm:px-8 lg:grid-cols-2 lg:px-12 lg:py-0">
           <RevealItem className="lg:border-r lg:border-[color:var(--line)] lg:py-20 lg:pr-12">
-            <div className="font-display text-[8rem] leading-none tracking-[-0.06em] text-[color:var(--accent)] sm:text-[10rem] lg:text-[14rem]">
+            <div className="font-display text-[5rem] leading-none tracking-[-0.06em] text-[color:var(--accent)] sm:text-[8rem] lg:text-[14rem]">
               <AnimatedCounter from={270} to={300} suffix="+" />
             </div>
             <p className="mt-2 text-sm uppercase tracking-[0.28em] text-[color:var(--muted)]">
