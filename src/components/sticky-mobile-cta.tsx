@@ -1,12 +1,14 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const WA_URL =
   "https://wa.me/27722293229?text=Hi%2C+I%27m+interested+in+a+Jobe+studio+apartment.+Can+you+help%3F";
+
+const TOOLTIP_FULL = "Reply in 2hrs ↓";
 
 function WhatsappIcon() {
   return (
@@ -20,22 +22,57 @@ export function StickyMobileCta() {
   const pathname = usePathname();
   const [show, setShow] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [typed, setTyped] = useState("");
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Magnetic pull on the button
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { damping: 18, stiffness: 220, mass: 0.5 });
+  const springY = useSpring(y, { damping: 18, stiffness: 220, mass: 0.5 });
 
   useEffect(() => {
     let frame = 0;
-
     const update = () => {
       frame = requestAnimationFrame(() => setShow(window.scrollY > 120));
     };
-
     update();
     window.addEventListener("scroll", update, { passive: true });
-
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", update);
     };
   }, []);
+
+  // Typewriter effect on hover
+  useEffect(() => {
+    if (!hovered) {
+      setTyped("");
+      return;
+    }
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setTyped(TOOLTIP_FULL.slice(0, i));
+      if (i >= TOOLTIP_FULL.length) clearInterval(id);
+    }, 35);
+    return () => clearInterval(id);
+  }, [hovered]);
+
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
+    const node = ref.current;
+    if (!node) return;
+    const rect = node.getBoundingClientRect();
+    x.set((event.clientX - (rect.left + rect.width / 2)) * 0.25);
+    y.set((event.clientY - (rect.top + rect.height / 2)) * 0.25);
+  }
+
+  function handleMouseLeave() {
+    setHovered(false);
+    x.set(0);
+    y.set(0);
+  }
 
   if (pathname.startsWith("/portal") || pathname.startsWith("/admin") || pathname === "/studio") {
     return null;
@@ -45,6 +82,10 @@ export function StickyMobileCta() {
     <AnimatePresence>
       {show ? (
         <motion.div
+          ref={ref}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={handleMouseLeave}
           initial={{ scale: 0.6, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.6, opacity: 0, y: 20 }}
@@ -52,32 +93,40 @@ export function StickyMobileCta() {
           className="fixed bottom-5 right-5 z-[70]"
           style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
         >
-          <motion.div animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}>
-            <Link
-              href={WA_URL}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Chat on WhatsApp"
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-              className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-[0_8px_30px_rgba(37,211,102,0.45)] transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(37,211,102,0.6)]"
-            >
-              <WhatsappIcon />
+          <motion.div style={{ x: springX, y: springY }}>
+            <motion.div animate={{ scale: [1, 1.06, 1] }} transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}>
+              <Link
+                href={WA_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Chat with Jobe Propco on WhatsApp — typically replies within 2 hours"
+                className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-[0_8px_30px_rgba(37,211,102,0.45)] transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(37,211,102,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+              >
+                <WhatsappIcon />
 
-              <AnimatePresence>
-                {hovered ? (
-                  <motion.span
-                    initial={{ opacity: 0, x: 8, scale: 0.95 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 8, scale: 0.95 }}
-                    transition={{ duration: 0.18 }}
-                    className="pointer-events-none absolute right-[calc(100%+10px)] top-1/2 hidden -translate-y-1/2 whitespace-nowrap rounded-full bg-[color:var(--ink)] px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white shadow-lg lg:block"
-                  >
-                    Chat with us
-                  </motion.span>
-                ) : null}
-              </AnimatePresence>
-            </Link>
+                <AnimatePresence>
+                  {hovered ? (
+                    <motion.span
+                      initial={{ opacity: 0, x: 8, scale: 0.95 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: 8, scale: 0.95 }}
+                      transition={{ duration: 0.18 }}
+                      className="pointer-events-none absolute right-[calc(100%+10px)] top-1/2 hidden -translate-y-1/2 whitespace-nowrap rounded-full bg-[color:var(--ink)] px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white shadow-lg lg:block"
+                    >
+                      {typed}
+                      <motion.span
+                        aria-hidden="true"
+                        animate={{ opacity: [1, 0, 1] }}
+                        transition={{ duration: 0.7, repeat: Infinity }}
+                        className="ml-0.5 inline-block w-[1px] bg-white"
+                      >
+                        |
+                      </motion.span>
+                    </motion.span>
+                  ) : null}
+                </AnimatePresence>
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
       ) : null}

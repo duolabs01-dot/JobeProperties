@@ -4,6 +4,7 @@ import "./globals.css";
 import { AppShell } from "@/components/app-shell";
 import { PageTransition } from "@/components/page-transition";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { Splash } from "@/components/splash";
 import { CursorGlow } from "@/components/ui/cursor-glow";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/toast";
@@ -106,6 +107,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full bg-white font-sans text-[color:var(--ink)] antialiased">
         <SmoothScroll />
+        <Splash />
         <ScrollProgress />
         <CursorGlow />
         <PageTransition />

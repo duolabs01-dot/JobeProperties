@@ -35,6 +35,7 @@ export function PageTransition() {
           animate={{ scaleX: 1, originX: 0 }}
           exit={{ scaleX: 0, originX: 1 }}
           transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+          aria-hidden="true"
           className="pointer-events-none fixed inset-0 z-[100] bg-[color:var(--surface)]"
           style={{
             backgroundImage:

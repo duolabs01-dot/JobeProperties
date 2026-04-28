@@ -12,6 +12,8 @@ import { z } from "zod";
 import { AvailabilityPanel } from "@/components/availability-panel";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { DigitFlip } from "@/components/ui/digit-flip";
+import { LivePulse } from "@/components/ui/live-pulse";
+import { ShimmerText } from "@/components/ui/shimmer-text";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { Testimonials } from "@/components/testimonials";
 import { MotionButton } from "@/components/ui/button";
@@ -138,7 +140,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                 className="font-display text-5xl leading-none tracking-[0.16em] text-[color:var(--accent)] sm:text-6xl lg:text-7xl"
               >
-                JOBE PROPCO
+                <ShimmerText interval={9}>JOBE PROPCO</ShimmerText>
               </motion.p>
 
               <motion.div
@@ -232,7 +234,7 @@ export default function Home() {
                 </div>
               ))}
               <p className="flex items-center gap-2 text-[11px] text-[color:var(--muted)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
+                <LivePulse />
                 Typically reply in 2hrs on WhatsApp
               </p>
             </motion.div>

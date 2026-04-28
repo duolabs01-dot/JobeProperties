@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "remotion:studio": "remotion studio remotion/index.ts",
-    "render:hero": "remotion render remotion/index.ts HeroIntro public/hero-intro.mp4 --codec=h264"
+    "render:hero": "remotion render remotion/index.ts HeroIntro public/hero-intro.mp4 --codec=h264",
+    "render:socials": "remotion render remotion/index.ts SocialsHero public/socials-availability.mp4 --codec=h264"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
