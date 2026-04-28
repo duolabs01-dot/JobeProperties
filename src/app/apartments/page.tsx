@@ -367,24 +367,26 @@ export default function ApartmentsPage() {
           </div>
 
           <motion.div
-            variants={{ visible: { transition: { delayChildren: 0.12, staggerChildren: 0.08 } } }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={{ visible: { transition: { delayChildren: 0.05, staggerChildren: 0.09 } } }}
             className="hidden gap-6 mt-0 lg:grid lg:grid-cols-2 xl:grid-cols-3"
           >
             {apartmentLocations.map((location) => (
               <motion.article
                 key={location.badge}
                 variants={{
-                  hidden: { opacity: 0, y: 28, boxShadow: "0 22px 70px rgba(28,25,23,0.08)" },
+                  hidden: { opacity: 0, y: 36, scale: 0.96, skewY: 1.5 },
                   visible: {
                     opacity: 1,
                     y: 0,
-                    boxShadow: "0 22px 70px rgba(28,25,23,0.08)",
-                    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+                    scale: 1,
+                    skewY: 0,
+                    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
                   },
                 }}
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="group overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)]"
+                className="group"
               >
                 <LocationCard location={location} />
               </motion.article>

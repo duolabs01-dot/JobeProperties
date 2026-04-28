@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bodoni_Moda, Manrope, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
+import { PageTransition } from "@/components/page-transition";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { CursorGlow } from "@/components/ui/cursor-glow";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
@@ -107,6 +108,7 @@ export default function RootLayout({
         <SmoothScroll />
         <ScrollProgress />
         <CursorGlow />
+        <PageTransition />
         <AppShell>{children}</AppShell>
         <Toaster />
       </body>

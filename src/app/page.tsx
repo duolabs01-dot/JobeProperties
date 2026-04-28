@@ -90,6 +90,18 @@ export default function Home() {
           <div className="pointer-events-none absolute inset-0 bg-[color:var(--accent)]/5" />
         </div>
 
+        {/* Branded title-card video — fades in over the hero copy on desktop only.
+            Pure decoration: pointer-events-none so it never blocks clicks. */}
+        <video
+          src="/hero-intro.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 hidden w-[56%] object-cover opacity-[0.18] mix-blend-multiply lg:block"
+        />
+
         {/* Mobile full-viewport image — magazine cover */}
         <div className="absolute inset-0 lg:hidden">
           <div className="ken-burns absolute inset-0">
