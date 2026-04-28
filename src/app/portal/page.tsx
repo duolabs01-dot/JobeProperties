@@ -151,7 +151,15 @@ export default async function PortalPage({ searchParams }: PortalPageProps) {
             </h1>
           </div>
 
-          <LogoutButton />
+          <div className="flex items-center gap-3">
+            <Link
+              href="/portal/profile"
+              className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-5 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] transition hover:bg-[color:var(--ink)] hover:text-white"
+            >
+              Profile
+            </Link>
+            <LogoutButton />
+          </div>
         </div>
 
         {params.paid === "true" ? (
