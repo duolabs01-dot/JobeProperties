@@ -54,7 +54,7 @@ export function EnquiryForm({
           } catch (error) {
             setStatus({
               tone: "error",
-              message: error instanceof Error ? error.message : "Something went wrong while submitting your enquiry.",
+              message: error instanceof Error ? error.message : "Couldn't send that. Try again.",
             });
           } finally {
             setIsPending(false);
@@ -63,7 +63,7 @@ export function EnquiryForm({
       }}
     >
       <div className="space-y-3">
-        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--olive)]">{eyebrow}</p>
+        <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent-dark)]">{eyebrow}</p>
         <h2 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl">{title}</h2>
         <p className="max-w-xl text-sm leading-7 text-[color:var(--muted)]">{description}</p>
       </div>
@@ -77,7 +77,7 @@ export function EnquiryForm({
               type={field.type ?? "text"}
               value={values[field.name]}
               onChange={(event) => setValues({ ...values, [field.name]: event.target.value })}
-              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--paper)] px-4 py-3 outline-none"
+              className="w-full rounded-full border border-[color:var(--line-strong)] bg-[color:var(--surface)] px-4 py-3 outline-none"
               placeholder={field.placeholder}
             />
           </label>
@@ -87,13 +87,13 @@ export function EnquiryForm({
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--olive)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-5 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-white transition duration-300 hover:bg-[color:var(--accent-dark)] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isPending ? "Submitting" : submitLabel}
+        {isPending ? "Sending..." : submitLabel}
       </button>
 
       {status ? (
-        <p className={`text-sm leading-7 ${status.tone === "success" ? "text-[color:var(--olive)]" : "text-red-600"}`}>
+        <p className={`text-sm leading-7 ${status.tone === "success" ? "text-[color:var(--accent-dark)]" : "text-red-600"}`}>
           {status.message}
         </p>
       ) : null}

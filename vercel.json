@@ -1,4 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "ignoreCommand": "node -e \"process.exit(process.env.VERCEL_PROJECT_PRODUCTION_URL === 'jobepropco.vercel.app' ? 1 : 0)\"",
   "github": {
     "silent": true
   }

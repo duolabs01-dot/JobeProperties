@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "jobepropco.co.za",
       },
+      {
+        protocol: "https",
+        hostname: "jobelifestyle.co.za",
+      },
+      {
+        protocol: "https",
+        hostname: "drsitholefoundation.org",
+      },
+      {
+        protocol: "https",
+        hostname: "centerconnect.co.za",
+      },
     ],
   },
 };

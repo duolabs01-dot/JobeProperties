@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Jobe Propco favicon">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161616" />
+      <stop offset="100%" stop-color="#4f4c46" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe591" />
+      <stop offset="100%" stop-color="#d89a1f" />
+    </linearGradient>
+    <linearGradient id="roof" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#babcc1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="url(#bg)" />
+
+  <g filter="url(#glow)">
+    <path d="M17 30V18.5L25 12.5V31.5L17 37.5Z" fill="url(#gold)" />
+    <path d="M28 25.5V9.5L39 2V31L28 38.5Z" fill="url(#gold)" />
+    <path d="M42 20.5V11.5L52 18.5V38.5L42 31.5Z" fill="url(#gold)" />
+  </g>
+
+  <path d="M9 43 32 25l23 18H9Z" fill="#0d0d0f" />
+  <path d="M9 43 32 25l23 18h-4.2L32 28.6 13.2 43H9Z" fill="url(#roof)" />
+  <path d="M14.2 41.5 32 27.8l17.8 13.7H14.2Z" fill="#141414" />
+
+  <g fill="url(#gold)">
+    <rect x="29.2" y="34" width="2.8" height="2.8" rx=".2" />
+    <rect x="33.7" y="34" width="2.8" height="2.8" rx=".2" />
+    <rect x="29.2" y="38.4" width="2.8" height="2.8" rx=".2" />
+    <rect x="33.7" y="38.4" width="2.8" height="2.8" rx=".2" />
+  </g>
+</svg>

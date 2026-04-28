@@ -1,0 +1,1 @@
+Place the Jobe Propco corporate brief PDF here as 'jobe-propco-corporate-brief.pdf'. This is the document shown to corporate partners. Include: company overview, all 6 locations, pricing, facilities, and contact details.

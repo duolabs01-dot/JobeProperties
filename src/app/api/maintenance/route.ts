@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
     await notifyOwner({
       subject: `Maintenance request · ${payload.unit}`,
-      headline: `New maintenance issue from ${payload.name}`,
+      headline: `New maintenance request from ${payload.name}`,
       lines: [
         `Unit: ${payload.unit}`,
         `Phone: ${payload.phone}`,
@@ -24,12 +24,12 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      message: "Maintenance request submitted — the owner has a structured issue summary to action.",
+      message: "Thanks. We've got your maintenance request.",
     });
   } catch (error) {
     return NextResponse.json(
       {
-        message: error instanceof Error ? error.message : "Could not submit the maintenance request.",
+        message: error instanceof Error ? error.message : "Couldn't send your maintenance request. Try again.",
       },
       { status: 400 },
     );

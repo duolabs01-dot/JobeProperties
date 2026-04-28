@@ -1,0 +1,64 @@
+"use client";
+
+import { ContactForm } from "@/components/contact-form";
+import { RevealItem, RevealSection } from "@/components/reveal-section";
+import { ButtonLink } from "@/components/ui/button-link";
+import { SectionLabel } from "@/components/ui/section-label";
+import { whatsappNumber, whatsappUrl } from "@/lib/property-data";
+
+export default function ContactPage() {
+  return (
+    <div data-nav-theme="light" className="bg-white">
+      <RevealSection className="mx-auto w-full max-w-7xl px-5 py-20 pt-28 sm:px-8 lg:px-12 lg:py-24" stagger>
+        <RevealItem className="max-w-3xl space-y-5">
+          <SectionLabel>Contact</SectionLabel>
+          <h1 className="font-display text-5xl leading-none text-[color:var(--ink)] sm:text-6xl">
+            Get in touch.
+          </h1>
+          <p className="max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+            WhatsApp is the fastest way to reach us. We typically respond within a few hours.
+          </p>
+          <div>
+            <ButtonLink
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--ink)] px-6 py-4 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
+            >
+              WhatsApp {whatsappNumber}
+            </ButtonLink>
+          </div>
+        </RevealItem>
+
+        <RevealItem className="mt-10">
+          <ContactForm />
+        </RevealItem>
+      </RevealSection>
+
+      <RevealSection className="border-y border-[color:var(--line)] bg-[color:var(--surface)]">
+        <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12">
+          <div className="overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_24px_70px_rgba(17,24,15,0.08)]">
+            <iframe
+              title="Jobe Propco map"
+              src="https://www.google.com/maps?q=503%20S%20Africa%20Blvd%2C%20Far%20East%20Bank%2C%20Sandton%2C%202014&output=embed"
+              className="h-[400px] w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </RevealSection>
+
+      <RevealSection className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
+        <div className="max-w-xl rounded-[2rem] border border-[color:var(--line-strong)] bg-[color:var(--surface)] p-6">
+          <SectionLabel>Address</SectionLabel>
+          <p className="mt-4 text-lg leading-8 text-[color:var(--ink)]">
+            1191 S Africa Loop, Far East Bank, Alexandra, 2014
+          </p>
+          <p className="mt-2 text-base text-[color:var(--muted)]">WhatsApp: {whatsappNumber}</p>
+        </div>
+      </RevealSection>
+    </div>
+  );
+}
