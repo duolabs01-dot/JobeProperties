@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { isAdminEmail } from "@/lib/admin";
 import { createProxyClient } from "@/lib/supabase";
 
 function isPortalPath(pathname: string) {
@@ -31,6 +32,11 @@ export async function proxy(request: NextRequest) {
     if (redirectTo?.startsWith("/admin")) {
       // Admin gate is enforced server-side in /admin/layout.tsx (env + DB).
       return NextResponse.redirect(new URL(redirectTo, request.url));
+    }
+    // Auto-route the env super-admin to /admin even without an explicit
+    // redirectTo. DB-promoted admins still land on /portal and click through.
+    if (isAdminEmail(user.email)) {
+      return NextResponse.redirect(new URL("/admin", request.url));
     }
     return NextResponse.redirect(new URL("/portal", request.url));
   }

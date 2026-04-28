@@ -188,6 +188,7 @@ export function SiteFooter() {
             <p className="mb-1 text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">Tenants</p>
             {[
               { label: "Tenant login", href: "/portal/login", transition: true },
+              { label: "Staff sign-in", href: "/admin/login", transition: true },
               { label: "See availability", href: "/#availability", transition: false },
               { label: "Waiting list", href: "/#availability", transition: false },
               { label: "Contact", href: "/contact", transition: true },

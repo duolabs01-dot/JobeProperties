@@ -15,6 +15,7 @@ import { RevealItem, RevealSection, revealItemVariants } from "@/components/reve
 import { Testimonials } from "@/components/testimonials";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
+import { Magnetic } from "@/components/ui/magnetic";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import { useToast } from "@/components/ui/toast";
@@ -170,19 +171,23 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col gap-3 sm:flex-row"
             >
-              <ButtonLink
-                href="/#availability"
-                className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)] sm:w-auto"
-              >
-                See what&apos;s available
-              </ButtonLink>
-              <ButtonLink
-                href="/apartments"
-                transitionTypes={["nav-forward"]}
-                className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)] sm:w-auto"
-              >
-                View locations
-              </ButtonLink>
+              <Magnetic strength={0.22} className="w-full sm:w-auto">
+                <ButtonLink
+                  href="/#availability"
+                  className="inline-flex w-full items-center justify-center rounded-full bg-[color:var(--accent)] px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-white hover:bg-[color:var(--accent-dark)] sm:w-auto"
+                >
+                  See what&apos;s available
+                </ButtonLink>
+              </Magnetic>
+              <Magnetic strength={0.18} className="w-full sm:w-auto">
+                <ButtonLink
+                  href="/apartments"
+                  transitionTypes={["nav-forward"]}
+                  className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)] sm:w-auto"
+                >
+                  View locations
+                </ButtonLink>
+              </Magnetic>
             </motion.div>
 
             {/* Stats row */}

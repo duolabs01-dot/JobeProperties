@@ -8,23 +8,41 @@ export const metadata: Metadata = {
 type PortalLoginPageProps = {
   searchParams: Promise<{
     redirectTo?: string;
+    as?: string;
   }>;
 };
 
 export default async function PortalLoginPage({ searchParams }: PortalLoginPageProps) {
   const params = await searchParams;
+  const isStaffLogin = params.as === "admin" || params.redirectTo?.startsWith("/admin");
 
   return (
     <div className="bg-[color:var(--surface)]">
       <section className="mx-auto grid min-h-screen w-full max-w-7xl items-center gap-12 px-5 pb-20 pt-28 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-12">
         <div className="max-w-2xl space-y-5">
-          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">Tenant portal</p>
+          <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent-dark)]">
+            {isStaffLogin ? "Staff sign-in" : "Tenant portal"}
+          </p>
           <h1 className="font-display text-4xl leading-none text-[color:var(--ink)] sm:text-5xl lg:text-6xl">
-            Tenant login
+            {isStaffLogin ? "Admin & staff" : "Tenant login"}
           </h1>
           <p className="max-w-xl text-base leading-8 text-[color:var(--muted)]">
-            Enter your phone number or email. We&apos;ll send you a link — no password needed.
+            {isStaffLogin
+              ? "Same magic link as residents. Once signed in, admins land on the management dashboard automatically."
+              : "Enter your phone number or email. We'll send you a link — no password needed."}
           </p>
+          {!isStaffLogin && (
+            <p className="text-xs text-[color:var(--muted)]">
+              Staff?{" "}
+              <a
+                href="/admin/login"
+                className="font-medium text-[color:var(--accent-dark)] underline-offset-4 hover:underline"
+              >
+                Sign in to the admin
+              </a>
+              .
+            </p>
+          )}
           <div className="space-y-3 pt-3">
             <blockquote className="border-l-2 border-[color:var(--accent)] pl-4 italic text-[color:var(--muted)]">
               &quot;I log maintenance from my phone. It gets sorted. That&apos;s all I needed.&quot;
