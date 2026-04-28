@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
 import { RevealItem, RevealSection } from "@/components/reveal-section";
+import { BookViewingButton } from "@/components/book-viewing-button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Magnetic } from "@/components/ui/magnetic";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -164,16 +165,24 @@ export default function GuesthousePage() {
             Book your stay.
           </h2>
 
-          <Magnetic strength={0.22}>
-            <ButtonLink
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
+          <div className="flex flex-wrap gap-3">
+            <BookViewingButton
+              source="venue"
+              label="Book your stay"
+              fallbackWhatsappText="Hi, I'd like to book the guesthouse. Can you share availability?"
               className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
-            >
-              WhatsApp to book → {whatsappNumber}
-            </ButtonLink>
-          </Magnetic>
+            />
+            <Magnetic strength={0.18}>
+              <ButtonLink
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)]"
+              >
+                WhatsApp {whatsappNumber}
+              </ButtonLink>
+            </Magnetic>
+          </div>
         </div>
       </RevealSection>
     </div>

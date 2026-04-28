@@ -13,17 +13,27 @@
  * has a 5-minute setup vs. days of OAuth dance.
  */
 
+/**
+ * Booking URL (Cal.com / Google Appointments). Public, so we expose it via
+ * NEXT_PUBLIC_GOOGLE_CALENDAR_BOOKING_URL; the unprefixed
+ * GOOGLE_CALENDAR_BOOKING_URL still works as a fallback for server-only code.
+ */
 export function getBookingUrl(
   source: "viewing" | "consultation" | "venue" = "viewing",
 ): string | null {
-  const url = process.env.GOOGLE_CALENDAR_BOOKING_URL;
+  const url =
+    process.env.NEXT_PUBLIC_GOOGLE_CALENDAR_BOOKING_URL ??
+    process.env.GOOGLE_CALENDAR_BOOKING_URL;
   if (!url) return null;
-  // Append a UTM tag so we can attribute traffic.
-  const u = new URL(url);
-  u.searchParams.set("utm_source", "jobepropco");
-  u.searchParams.set("utm_medium", "site");
-  u.searchParams.set("utm_campaign", source);
-  return u.toString();
+  try {
+    const u = new URL(url);
+    u.searchParams.set("utm_source", "jobepropco");
+    u.searchParams.set("utm_medium", "site");
+    u.searchParams.set("utm_campaign", source);
+    return u.toString();
+  } catch {
+    return url;
+  }
 }
 
 export type BookingSlot = {

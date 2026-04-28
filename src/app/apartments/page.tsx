@@ -10,6 +10,7 @@ import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { Badge } from "@/components/ui/badge";
 import { MotionButton } from "@/components/ui/button";
+import { BookViewingButton } from "@/components/book-viewing-button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Magnetic } from "@/components/ui/magnetic";
 import { TiltCard } from "@/components/ui/tilt-card";
@@ -530,12 +531,16 @@ export default function ApartmentsPage() {
           </RevealItem>
 
           <RevealItem className="flex flex-wrap gap-4">
+            <BookViewingButton
+              source="viewing"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
+            />
             <Magnetic strength={0.22}>
               <ButtonLink
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)]/20 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)]"
               >
                 WhatsApp {whatsappNumber}
               </ButtonLink>

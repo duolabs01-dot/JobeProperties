@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { AvailabilityPanel } from "@/components/availability-panel";
 import { AnimatedCounter } from "@/components/animated-counter";
+import { BookViewingButton } from "@/components/book-viewing-button";
 import { DigitFlip } from "@/components/ui/digit-flip";
 import { LivePulse } from "@/components/ui/live-pulse";
 import { ShimmerText } from "@/components/ui/shimmer-text";
@@ -194,15 +195,11 @@ export default function Home() {
                   See what&apos;s available
                 </ButtonLink>
               </Magnetic>
-              <Magnetic strength={0.18} className="w-full sm:w-auto">
-                <ButtonLink
-                  href="/apartments"
-                  transitionTypes={["nav-forward"]}
-                  className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)] sm:w-auto"
-                >
-                  View locations
-                </ButtonLink>
-              </Magnetic>
+              <BookViewingButton
+                source="viewing"
+                strength={0.2}
+                className="inline-flex w-full items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-white px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.28em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)] sm:w-auto"
+              />
             </motion.div>
 
             {/* Stats row */}
