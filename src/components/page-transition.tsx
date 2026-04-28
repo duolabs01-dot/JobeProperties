@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,20 +11,25 @@ import { motion, AnimatePresence } from "framer-motion";
  */
 export function PageTransition() {
   const pathname = usePathname();
+  const prevPath = useRef(pathname);
   const [animating, setAnimating] = useState(false);
-  const [maskKey, setMaskKey] = useState(pathname);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (pathname === prevPath.current) return;
 
-    if (pathname !== maskKey) {
-      setAnimating(true);
-      setMaskKey(pathname);
-      const t = setTimeout(() => setAnimating(false), 750);
-      return () => clearTimeout(t);
-    }
-  }, [pathname, maskKey]);
+    prevPath.current = pathname;
+    // Defer to next frame so React doesn't see a synchronous setState as a
+    // pure-effect violation; the animation needs to fire as a side effect of
+    // the path actually changing, not be derivable from render.
+    const raf = requestAnimationFrame(() => setAnimating(true));
+    const timeout = setTimeout(() => setAnimating(false), 750);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timeout);
+    };
+  }, [pathname]);
 
   return (
     <AnimatePresence>

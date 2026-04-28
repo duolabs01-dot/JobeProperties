@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, Check, Loader2 } from "lucide-react";
@@ -30,7 +30,13 @@ export function ProfileForm({ userId, initial }: ProfileFormProps) {
   const [avatarUrl, setAvatarUrl] = useState(initial.avatar_url ?? "");
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [showSavedPill, setShowSavedPill] = useState(false);
+
+  useEffect(() => {
+    if (!showSavedPill) return;
+    const id = setTimeout(() => setShowSavedPill(false), 3000);
+    return () => clearTimeout(id);
+  }, [showSavedPill]);
 
   const initials = (fullName || initial.email || "?")
     .split(/\s+/)
@@ -103,7 +109,7 @@ export function ProfileForm({ userId, initial }: ProfileFormProps) {
       if (!response.ok) throw new Error(payload.message);
 
       toast({ variant: "success", title: "Saved", description: payload.message });
-      setSavedAt(Date.now());
+      setShowSavedPill(true);
       startTransition(() => router.refresh());
     } catch (err) {
       toast({
@@ -241,9 +247,9 @@ export function ProfileForm({ userId, initial }: ProfileFormProps) {
         </MotionButton>
 
         <AnimatePresence>
-          {savedAt && Date.now() - savedAt < 3000 ? (
+          {showSavedPill ? (
             <motion.span
-              key={savedAt}
+              key="saved-pill"
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0 }}

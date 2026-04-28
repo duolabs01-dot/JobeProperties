@@ -11,27 +11,22 @@ const STORAGE_KEY = "jobe-splash-seen";
  * prefers-reduced-motion is set.
  */
 export function Splash() {
-  const [show, setShow] = useState<boolean | null>(null);
+  // Compute initial visibility synchronously during the first render so we
+  // don't violate set-state-in-effect rules. SSR returns false (no flash);
+  // the client recomputes on hydrate via useState lazy init.
+  const [show, setShow] = useState(() => {
+    if (typeof window === "undefined") return false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+    if (sessionStorage.getItem(STORAGE_KEY) === "1") return false;
+    return true;
+  });
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      setShow(false);
-      return;
-    }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setShow(false);
-      return;
-    }
-    if (sessionStorage.getItem(STORAGE_KEY) === "1") {
-      setShow(false);
-      return;
-    }
-    setShow(true);
+    if (!show) return;
     sessionStorage.setItem(STORAGE_KEY, "1");
-
     const t = setTimeout(() => setShow(false), 1400);
     return () => clearTimeout(t);
-  }, []);
+  }, [show]);
 
   return (
     <AnimatePresence>

@@ -44,19 +44,21 @@ export function StickyMobileCta() {
     };
   }, []);
 
-  // Typewriter effect on hover
+  // Typewriter effect on hover. We avoid an unconditional setState by
+  // resetting via the same interval loop; the cleanup handles the unhovered
+  // case so React's set-state-in-effect rule is satisfied.
   useEffect(() => {
-    if (!hovered) {
-      setTyped("");
-      return;
-    }
+    if (!hovered) return;
     let i = 0;
     const id = setInterval(() => {
       i += 1;
       setTyped(TOOLTIP_FULL.slice(0, i));
       if (i >= TOOLTIP_FULL.length) clearInterval(id);
     }, 35);
-    return () => clearInterval(id);
+    return () => {
+      clearInterval(id);
+      setTyped("");
+    };
   }, [hovered]);
 
   function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {

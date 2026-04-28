@@ -28,7 +28,10 @@ const mono = Space_Mono({
   weight: ["400", "700"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_URL?.replace(/\/$/, "") || "https://jobepropco.co.za";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Jobe Propco | Studio apartments near Sandton",
   description:
     "Studio apartments in Alexandra. 9km from Sandton. From R4,300/month. No lease required. 24/7 security.",
@@ -41,16 +44,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jobe Propco | Studio apartments near Sandton",
     description: "Studio apartments in Alexandra. 9km from Sandton. From R4,300/month. No lease required. 24/7 security.",
-    url: "https://jobepropco.vercel.app",
+    url: SITE_URL,
     siteName: "Jobe Propco",
-    images: [
-      {
-        url: "https://jobepropco.co.za/wp-content/uploads/2025/05/Home-Page-1-2-scaled-e1748765134734-1024x657.jpg",
-        width: 1024,
-        height: 657,
-        alt: "Jobe Propco studio apartments in Alexandra",
-      },
-    ],
     locale: "en_ZA",
     type: "website",
   },
@@ -61,7 +56,7 @@ const realEstateSchema = {
   "@type": "RealEstateAgent",
   name: "Jobe Propco",
   description: "Studio apartments in Alexandra, 9km from Sandton. From R4,300/month.",
-  url: "https://jobepropco.vercel.app",
+  url: SITE_URL,
   telephone: "+27722293229",
   address: {
     "@type": "PostalAddress",
