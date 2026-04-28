@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { isAdminEmail, normaliseSouthAfricanPhone } from "@/lib/admin";
+import { isAdmin, normaliseSouthAfricanPhone } from "@/lib/admin";
 import { formatCurrency, formatDate } from "@/lib/admin-dashboard";
 import { createServerClient, createServiceRoleClient, type PaymentRow, type TenantRow, type UnitRow } from "@/lib/supabase";
 
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       data: { user },
     } = await authClient.auth.getUser();
 
-    if (!user || !isAdminEmail(user.email)) {
+    if (!user || !(await isAdmin(user))) {
       return NextResponse.json({ success: false, message: "Not authorised." }, { status: 403 });
     }
 

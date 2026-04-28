@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { isAdminEmail } from "@/lib/admin";
+import { isAdmin } from "@/lib/admin";
 import { createServerClient, createServiceRoleClient, type WaitingListRow } from "@/lib/supabase";
 
 const waitingListUpdateSchema = z.object({
@@ -16,7 +16,7 @@ export async function PATCH(request: Request) {
       data: { user },
     } = await authClient.auth.getUser();
 
-    if (!user || !isAdminEmail(user.email)) {
+    if (!user || !(await isAdmin(user))) {
       return NextResponse.json({ success: false, message: "Not authorised." }, { status: 403 });
     }
 

@@ -80,6 +80,28 @@ export type WaitingListRow = {
   created_at: string;
 };
 
+export type ProfileRow = {
+  id: string;
+  full_name: string | null;
+  phone: string | null;
+  email: string | null;
+  role: "tenant" | "admin" | "partner" | "lead";
+  avatar_url: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type AdminAuditLogRow = {
+  id: string;
+  actor_id: string | null;
+  actor_email: string | null;
+  action: string;
+  target_user_id: string | null;
+  target_email: string | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+};
+
 export type AppDatabase = {
   public: {
     Tables: {
@@ -130,6 +152,22 @@ export type AppDatabase = {
           created_at?: string;
         };
         Update: Partial<WaitingListRow>;
+      };
+      profiles: {
+        Row: ProfileRow;
+        Insert: Omit<ProfileRow, "created_at" | "updated_at"> & {
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<ProfileRow>;
+      };
+      admin_audit_log: {
+        Row: AdminAuditLogRow;
+        Insert: Omit<AdminAuditLogRow, "id" | "created_at"> & {
+          id?: string;
+          created_at?: string;
+        };
+        Update: Partial<AdminAuditLogRow>;
       };
     };
     Views: Record<string, never>;

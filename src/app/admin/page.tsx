@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { apartmentLocations, formatLocationLabel } from "@/lib/property-data";
-import { getAdminTab } from "@/lib/admin";
+import { getAdminTab, isSuperAdmin } from "@/lib/admin";
 import {
   formatCurrency,
   formatDate,
@@ -14,6 +14,7 @@ import {
   type AdminWaitingListRecord,
 } from "@/lib/admin-dashboard";
 import {
+  createServerClient,
   createServiceRoleClient,
   type LeaseRow,
   type MaintenanceRequestRow,
@@ -28,6 +29,7 @@ import { MaintenanceKanban } from "@/components/admin/maintenance-kanban";
 import { PaymentsTable } from "@/components/admin/payments-table";
 import { UnitsGrid } from "@/components/admin/units-grid";
 import { WaitingListTable } from "@/components/admin/waiting-list-table";
+import { TeamPanel, type AuditEntry, type TeamMember } from "@/components/admin/team-panel";
 
 export const metadata: Metadata = {
   title: "Management | Jobe Propco",
@@ -67,6 +69,13 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const params = await searchParams;
   const activeTab = getAdminTab(params.tab);
   const supabase = createServiceRoleClient();
+
+  const authClient = await createServerClient();
+  const {
+    data: { user: currentUser },
+  } = await authClient.auth.getUser();
+  const currentUserIsSuperAdmin = isSuperAdmin(currentUser);
+  const superAdminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase() ?? null;
 
   const [
     { data: unitsData },
@@ -216,6 +225,42 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
     })
     .slice(0, 10);
 
+  // Team panel data — only fetched when the team tab is active and the
+  // current user is the super-admin (the only one with manage-roles permission).
+  let teamMembers: TeamMember[] = [];
+  let teamAudit: AuditEntry[] = [];
+  if (activeTab === "team" && currentUserIsSuperAdmin) {
+    const [{ data: profilesData }, { data: auditData }] = await Promise.all([
+      supabase.from("profiles").select("*").order("created_at", { ascending: false }),
+      supabase
+        .from("admin_audit_log")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(20),
+    ]);
+    type RawProfile = {
+      id: string;
+      email: string | null;
+      full_name: string | null;
+      phone: string | null;
+      role: TeamMember["role"];
+      created_at: string;
+    };
+    teamMembers = ((profilesData ?? []) as RawProfile[]).map((p) => ({
+      id: p.id,
+      email: p.email,
+      full_name: p.full_name,
+      phone: p.phone,
+      role: p.role,
+      created_at: p.created_at,
+      is_super_admin: Boolean(
+        superAdminEmail && p.email && p.email.trim().toLowerCase() === superAdminEmail,
+      ),
+      is_self: p.id === currentUser?.id,
+    }));
+    teamAudit = ((auditData ?? []) as AuditEntry[]) ?? [];
+  }
+
   const envChecks = [
     { label: "Admin email", value: process.env.ADMIN_EMAIL ? "Configured" : "Missing", ok: Boolean(process.env.ADMIN_EMAIL) },
     { label: "Supabase URL", value: process.env.NEXT_PUBLIC_SUPABASE_URL ? "Configured" : "Missing", ok: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) },
@@ -358,6 +403,20 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         {activeTab === "maintenance" ? <MaintenanceKanban requests={maintenanceRecords} /> : null}
         {activeTab === "waiting-list" ? <WaitingListTable entries={waitingListRecords} /> : null}
         {activeTab === "units" ? <UnitsGrid phases={unitSections} /> : null}
+
+        {activeTab === "team" ? (
+          currentUserIsSuperAdmin ? (
+            <TeamPanel
+              members={teamMembers}
+              audit={teamAudit}
+              canManageRoles={currentUserIsSuperAdmin}
+            />
+          ) : (
+            <div className="rounded-[1.5rem] border border-[color:var(--line-strong)] bg-white p-6 text-sm text-[color:var(--muted)]">
+              Only the super-admin (set via ADMIN_EMAIL) can manage the team.
+            </div>
+          )
+        ) : null}
 
         {activeTab === "settings" ? (
           <div className="space-y-6">

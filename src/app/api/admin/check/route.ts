@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isAdminEmail } from "@/lib/admin";
+import { isAdmin } from "@/lib/admin";
 import { createServerClient } from "@/lib/supabase";
 
 export async function GET() {
@@ -9,6 +9,6 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   return NextResponse.json({
-    isAdmin: isAdminEmail(user?.email),
+    isAdmin: await isAdmin(user),
   });
 }

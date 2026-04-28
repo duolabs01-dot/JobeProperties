@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
-import { isAdminEmail } from "@/lib/admin";
+import { isAdmin, isSuperAdmin } from "@/lib/admin";
 import { createServerClient, createServiceRoleClient } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +20,7 @@ export default async function AdminLayout({
     redirect("/portal/login?redirectTo=/admin");
   }
 
-  if (!isAdminEmail(user.email)) {
+  if (!(await isAdmin(user))) {
     redirect("/");
   }
 
@@ -31,7 +31,11 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[color:#f6f2ea] text-[color:var(--ink)] lg:pl-60">
-      <AdminSidebar tenantCount={tenantCount ?? 0} adminEmail={user.email ?? "Admin"} />
+      <AdminSidebar
+        tenantCount={tenantCount ?? 0}
+        adminEmail={user.email ?? "Admin"}
+        isSuperAdmin={isSuperAdmin(user)}
+      />
       <div className="min-h-screen">{children}</div>
     </div>
   );

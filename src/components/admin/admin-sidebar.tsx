@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Building, CreditCard, LayoutDashboard, Settings, Users, Wrench } from "lucide-react";
+import { Building, CreditCard, LayoutDashboard, Settings, ShieldCheck, Users, Wrench } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import type { ComponentType } from "react";
 import { LogoutButton } from "@/components/portal/logout-button";
@@ -15,12 +15,14 @@ const navItems: Array<{
   id: AdminTab;
   label: string;
   icon: ComponentType<{ className?: string }>;
+  superAdminOnly?: boolean;
 }> = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "payments", label: "Payments", icon: CreditCard },
   { id: "maintenance", label: "Maintenance", icon: Wrench },
   { id: "waiting-list", label: "Waiting list", icon: Users },
   { id: "units", label: "Units", icon: Building },
+  { id: "team", label: "Team", icon: ShieldCheck, superAdminOnly: true },
   { id: "settings", label: "Settings", icon: Settings },
 ];
 
@@ -28,14 +30,17 @@ function SidebarNav({
   activeTab,
   onNavigate,
   className,
+  isSuperAdmin,
 }: {
   activeTab: AdminTab;
   onNavigate?: () => void;
   className?: string;
+  isSuperAdmin: boolean;
 }) {
   return (
     <nav className={cn("space-y-2", className)}>
       {navItems.map((item) => {
+        if (item.superAdminOnly && !isSuperAdmin) return null;
         const Icon = item.icon;
         const isActive = item.id === activeTab;
 
@@ -63,9 +68,11 @@ function SidebarNav({
 export function AdminSidebar({
   tenantCount,
   adminEmail,
+  isSuperAdmin = false,
 }: {
   tenantCount: number;
   adminEmail: string;
+  isSuperAdmin?: boolean;
 }) {
   const searchParams = useSearchParams();
   const activeTab = getAdminTab(searchParams.get("tab") ?? undefined);
@@ -82,7 +89,7 @@ export function AdminSidebar({
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 py-6">
-          <SidebarNav activeTab={activeTab} />
+          <SidebarNav activeTab={activeTab} isSuperAdmin={isSuperAdmin} />
         </div>
 
         <div className="border-t border-[color:var(--line)] px-5 py-5">
@@ -107,7 +114,7 @@ export function AdminSidebar({
         </div>
 
         <div className="mt-5 overflow-x-auto pb-1">
-          <SidebarNav activeTab={activeTab} className="flex min-w-max gap-2 space-y-0" />
+          <SidebarNav activeTab={activeTab} isSuperAdmin={isSuperAdmin} className="flex min-w-max gap-2 space-y-0" />
         </div>
       </div>
     </>

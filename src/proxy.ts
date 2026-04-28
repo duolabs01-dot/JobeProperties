@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { isAdminEmail } from "@/lib/admin";
 import { createProxyClient } from "@/lib/supabase";
 
 function isPortalPath(pathname: string) {
@@ -29,10 +28,10 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (isPortalLogin && user) {
-    if (redirectTo?.startsWith("/admin") && isAdminEmail(user.email)) {
+    if (redirectTo?.startsWith("/admin")) {
+      // Admin gate is enforced server-side in /admin/layout.tsx (env + DB).
       return NextResponse.redirect(new URL(redirectTo, request.url));
     }
-
     return NextResponse.redirect(new URL("/portal", request.url));
   }
 
@@ -46,9 +45,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (isAdminPath(pathname) && user && !isAdminEmail(user.email)) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
+  // Admin role check is performed in /admin/layout.tsx so the DB-promoted role
+  // is honoured. Middleware only ensures authentication for /admin paths.
 
   return response;
 }
