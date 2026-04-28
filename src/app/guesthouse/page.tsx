@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ImageLightboxGallery } from "@/components/image-lightbox-gallery";
 import { RevealItem, RevealSection } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { Magnetic } from "@/components/ui/magnetic";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import {
@@ -163,14 +164,16 @@ export default function GuesthousePage() {
             Book your stay.
           </h2>
 
-          <ButtonLink
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
-          >
-            WhatsApp to book → {whatsappNumber}
-          </ButtonLink>
+          <Magnetic strength={0.22}>
+            <ButtonLink
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
+            >
+              WhatsApp to book → {whatsappNumber}
+            </ButtonLink>
+          </Magnetic>
         </div>
       </RevealSection>
     </div>

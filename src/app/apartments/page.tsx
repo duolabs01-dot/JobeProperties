@@ -11,6 +11,8 @@ import { RevealItem, RevealSection, revealItemVariants } from "@/components/reve
 import { Badge } from "@/components/ui/badge";
 import { MotionButton } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
+import { Magnetic } from "@/components/ui/magnetic";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { SectionLabel } from "@/components/ui/section-label";
 import { ShimmerImage } from "@/components/ui/shimmer-image";
 import { useToast } from "@/components/ui/toast";
@@ -36,7 +38,7 @@ type FutureLocationValues = z.infer<typeof futureLocationSchema>;
 
 function LocationCard({ location }: { location: (typeof apartmentLocations)[number] }) {
   return (
-    <div className="relative flex flex-col overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)]">
+    <TiltCard className="group relative flex flex-col overflow-hidden rounded-[2rem] border border-[color:var(--line-strong)] bg-white shadow-[0_22px_70px_rgba(28,25,23,0.08)]">
       <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--stone)]">
         <ShimmerImage
           src={location.image}
@@ -73,7 +75,7 @@ function LocationCard({ location }: { location: (typeof apartmentLocations)[numb
           Enquire
         </ButtonLink>
       </div>
-    </div>
+    </TiltCard>
   );
 }
 
@@ -526,20 +528,24 @@ export default function ApartmentsPage() {
           </RevealItem>
 
           <RevealItem className="flex flex-wrap gap-4">
-            <ButtonLink
-              href={whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
-            >
-              WhatsApp {whatsappNumber}
-            </ButtonLink>
-            <ButtonLink
-              href="/#availability"
-              className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)]/20 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)]"
-            >
-              See what&apos;s available
-            </ButtonLink>
+            <Magnetic strength={0.22}>
+              <ButtonLink
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[color:var(--accent)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-white hover:bg-[color:var(--accent-dark)]"
+              >
+                WhatsApp {whatsappNumber}
+              </ButtonLink>
+            </Magnetic>
+            <Magnetic strength={0.18}>
+              <ButtonLink
+                href="/#availability"
+                className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)]/20 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--surface-strong)]"
+              >
+                See what&apos;s available
+              </ButtonLink>
+            </Magnetic>
           </RevealItem>
         </div>
       </RevealSection>

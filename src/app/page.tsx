@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { AvailabilityPanel } from "@/components/availability-panel";
 import { AnimatedCounter } from "@/components/animated-counter";
+import { DigitFlip } from "@/components/ui/digit-flip";
 import { RevealItem, RevealSection, revealItemVariants } from "@/components/reveal-section";
 import { Testimonials } from "@/components/testimonials";
 import { MotionButton } from "@/components/ui/button";
@@ -370,7 +371,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center px-5 py-16 sm:px-8 lg:grid-cols-2 lg:px-12 lg:py-0">
           <RevealItem className="lg:border-r lg:border-[color:var(--line)] lg:py-20 lg:pr-12">
             <div className="font-display text-[5rem] leading-none tracking-[-0.06em] text-[color:var(--accent)] sm:text-[8rem] lg:text-[14rem]">
-              <AnimatedCounter from={270} to={300} suffix="+" />
+              <DigitFlip from={270} to={300} suffix="+" duration={1600} />
             </div>
             <p className="mt-2 text-sm uppercase tracking-[0.28em] text-[color:var(--muted)]">
               Residents across Far East Bank

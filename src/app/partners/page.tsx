@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PartnersEnquiryForm } from "@/components/partners-enquiry-form";
 import { RevealItem, RevealSection } from "@/components/reveal-section";
 import { ButtonLink } from "@/components/ui/button-link";
+import { Magnetic } from "@/components/ui/magnetic";
 import { SectionLabel } from "@/components/ui/section-label";
 import { foundationUrl, whatsappUrl } from "@/lib/property-data";
 
@@ -66,12 +67,14 @@ export default function PartnersPage() {
               Jobe Propco and Jobe Lifestyle Corner give your business direct access to hundreds of residents, tenants, and daily visitors across Far East Bank.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row">
-              <ButtonLink
-                href="/contact?type=business"
-                className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
-              >
-                Send a partnership enquiry
-              </ButtonLink>
+              <Magnetic strength={0.2}>
+                <ButtonLink
+                  href="/contact?type=business"
+                  className="inline-flex items-center justify-center rounded-full border border-[color:var(--ink)] px-6 py-3 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--ink)] hover:bg-[color:var(--ink)] hover:text-white"
+                >
+                  Send a partnership enquiry
+                </ButtonLink>
+              </Magnetic>
               <ButtonLink
                 href="/jobe-propco-corporate-brief.pdf"
                 target="_blank"
